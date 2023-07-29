@@ -1,0 +1,311 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Api/Api.csproj": {}
+  },
+  "projects": {
+    "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Api/Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Api/Api.csproj",
+        "projectName": "Api",
+        "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Api/Api.csproj",
+        "packagesPath": "/Users/hanghuynh/.nuget/packages/",
+        "outputPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Api/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/hanghuynh/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/sdk/7.0.302/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Application/Application.csproj": {
+                "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Application/Application.csproj"
+              },
+              "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/Contracts.csproj": {
+                "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/Contracts.csproj"
+              },
+              "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Infrastructure/Infrastructure.csproj": {
+                "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Infrastructure/Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.302/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Application/Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Application/Application.csproj",
+        "projectName": "Application",
+        "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Application/Application.csproj",
+        "packagesPath": "/Users/hanghuynh/.nuget/packages/",
+        "outputPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/hanghuynh/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Domain/Domain.csproj": {
+                "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Domain/Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.302/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/Contracts.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/Contracts.csproj",
+        "projectName": "Contracts",
+        "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/Contracts.csproj",
+        "packagesPath": "/Users/hanghuynh/.nuget/packages/",
+        "outputPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/hanghuynh/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.302/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Domain/Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Domain/Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Domain/Domain.csproj",
+        "packagesPath": "/Users/hanghuynh/.nuget/packages/",
+        "outputPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/hanghuynh/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Ardalis.SmartEnum": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.302/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Infrastructure/Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Infrastructure/Infrastructure.csproj",
+        "projectName": "Infrastructure",
+        "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Infrastructure/Infrastructure.csproj",
+        "packagesPath": "/Users/hanghuynh/.nuget/packages/",
+        "outputPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/hanghuynh/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Application/Application.csproj": {
+                "projectPath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Application/Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.302/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

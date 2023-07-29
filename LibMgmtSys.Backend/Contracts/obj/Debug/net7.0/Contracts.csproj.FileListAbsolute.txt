@@ -1,0 +1,12 @@
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/bin/Debug/net7.0/Contracts.deps.json
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/bin/Debug/net7.0/Contracts.dll
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/bin/Debug/net7.0/Contracts.pdb
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/Debug/net7.0/Contracts.csproj.AssemblyReference.cache
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/Debug/net7.0/Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/Debug/net7.0/Contracts.AssemblyInfoInputs.cache
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/Debug/net7.0/Contracts.AssemblyInfo.cs
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/Debug/net7.0/Contracts.csproj.CoreCompileInputs.cache
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/Debug/net7.0/Contracts.dll
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/Debug/net7.0/refint/Contracts.dll
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/Debug/net7.0/Contracts.pdb
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Contracts/obj/Debug/net7.0/ref/Contracts.dll

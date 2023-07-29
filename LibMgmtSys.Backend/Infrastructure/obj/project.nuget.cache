@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "CBTiiLfSzzm/3kzUhcN+Jp2fbmFCUghCSFht3dKpM7qgdIvCZlnvqs+CL12fbV9cDjAkPFbqR/+gFvIVGzZLrA==",
+  "success": true,
+  "projectFilePath": "/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Infrastructure/Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "/Users/hanghuynh/.nuget/packages/ardalis.smartenum/7.0.0/ardalis.smartenum.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
