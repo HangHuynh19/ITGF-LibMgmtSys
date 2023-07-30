@@ -39,3 +39,4 @@
 /Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Api/obj/Debug/net7.0/Api.pdb
 /Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Api/obj/Debug/net7.0/Api.genruntimeconfig.cache
 /Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Api/obj/Debug/net7.0/ref/Api.dll
+/Users/hanghuynh/Desktop/integrify/ITGF-fs15_Fullstack/LibMgmtSys.Backend/Api/bin/Debug/net7.0/Ardalis.SmartEnum.dll

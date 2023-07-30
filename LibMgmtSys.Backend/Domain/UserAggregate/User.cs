@@ -15,13 +15,13 @@ namespace LibMgmtSys.Backend.Domain.UserAggregate
         public DateTime UpdatedAt { get; private set; }
 
         private User(
-          UserId userId,
           string firstName,
           string lastName,
           string email,
           string password,
-          Role role
-          ) : base(userId)
+          Role role, 
+          UserId? userId = null
+          ) : base(userId ?? UserId.CreateUnique())
         {
             FirstName = firstName;
             LastName = lastName;
@@ -38,7 +38,6 @@ namespace LibMgmtSys.Backend.Domain.UserAggregate
           )
         {
             return new User(
-              UserId.CreateUnique(),
               firstName,
               lastName,
               email,
@@ -55,7 +54,6 @@ namespace LibMgmtSys.Backend.Domain.UserAggregate
           )
         {
             return new User(
-              UserId.CreateUnique(),
               firstName,
               lastName,
               email,
