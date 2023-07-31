@@ -1,0 +1,156 @@
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using Microsoft.Extensions.Configuration;
+
+using LibMgmtSys.Backend.Domain.AuthorAggregate;
+using LibMgmtSys.Backend.Domain.BillAggregate;
+using LibMgmtSys.Backend.Domain.BookAggregate;
+using LibMgmtSys.Backend.Domain.BookReviewAggregate;
+using LibMgmtSys.Backend.Domain.CustomerAggregate;
+using LibMgmtSys.Backend.Domain.GenreAggregate;
+using LibMgmtSys.Backend.Domain.LoanAggregate;
+using LibMgmtSys.Backend.Domain.UserAggregate;
+
+using LibMgmtSys.Backend.Domain.AuthorAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.BillAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.BookReviewAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.CustomerAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.GenreAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.LoanAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.Common.Models;
+using LibMgmtSys.Backend.Domain.Common.ValueObjects;
+using LibMgmtSys.Backend.Domain.UserAggregate.Enum;
+
+using LibMgmtSys.Backend.Domain;
+
+namespace LibMgmtSys.Backend.Infrastructure.Persistence
+{
+    public class LibMgmtSysDbContext : DbContext
+    {
+        private readonly IConfiguration _configuration;
+
+        public LibMgmtSysDbContext(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public DbSet<Book> Books { get; set; } = null!;
+        public DbSet<Author> Authors { get; set; } = null!;
+        public DbSet<Genre> Genres { get; set; } = null!;
+        public DbSet<BookReview> BookReviews { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Customer> Customers { get; set; } = null!;
+        public DbSet<Loan> Loans { get; set; } = null!;
+        public DbSet<Bill> Bills { get; set; } = null!;
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=Meovacarot8.");
+            var builder = new NpgsqlDataSourceBuilder(_configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Book>(entity =>
+            {
+                entity.ToTable("books");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => BookId.Create(e));
+                entity.Property(e => e.Title).IsRequired();
+                entity.Property(e => e.Isbn).IsRequired();
+                entity.Property(e => e.Publisher).IsRequired();
+                entity.Property(e => e.Year).IsRequired();
+                entity.Property(e => e.Description).IsRequired();
+                entity.Property(e => e.Image).IsRequired();
+                entity.Property(e => e.BorrowingPeriod).IsRequired();
+                entity.Property(e => e.Quantity).IsRequired();
+                entity.Property(e => e.CreatedAt).IsRequired();
+                entity.Property(e => e.UpdatedAt).IsRequired();
+                entity.HasMany(e => e.Authors).WithMany(e => e.Books);
+                entity.HasMany(e => e.Genres).WithMany(e => e.Books);
+                entity.HasMany(e => e.BookReviews).WithOne(e => e.Book);
+            });
+
+            modelBuilder.Entity<Author>(entity =>
+            {
+                entity.ToTable("authors");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => AuthorId.Create(e));
+                entity.Property(e => e.Name).IsRequired();
+                entity.Property(e => e.Biography).IsRequired();
+                entity.HasMany(e => e.Books).WithMany(e => e.Authors);
+            });
+
+            modelBuilder.Entity<Genre>(entity =>
+            {
+                entity.ToTable("genres");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => GenreId.Create(e));
+                entity.Property(e => e.Name).IsRequired();
+                entity.HasMany(e => e.Books).WithMany(e => e.Genres);
+            });
+
+            modelBuilder.Entity<BookReview>(entity =>
+            {
+                entity.ToTable("book_reviews");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => BookReviewId.Create(e));
+                entity.Property(e => e.Comment).IsRequired();
+                entity.Property(e => e.Rating).HasConversion(e => e.Value, e => Rating.Create(e));
+                entity.Property(e => e.BookId).HasConversion(e => e.Value, e => BookId.Create(e));
+                entity.Property(e => e.UserId).HasConversion(e => e.Value, e => UserId.Create(e));
+                entity.HasOne(e => e.Book).WithMany(e => e.BookReviews);
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.ToTable("users");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => UserId.Create(e));
+                entity.Property(e => e.FirstName).IsRequired();
+                entity.Property(e => e.LastName).IsRequired();
+                entity.Property(e => e.Email).IsRequired();
+                entity.Property(e => e.Password).IsRequired();
+                entity.Property(e => e.Role).HasConversion(
+                    e => e.ToString(),
+                    e => (Role)Enum.Parse(typeof(Role), e));
+            });
+
+            modelBuilder.Entity<Customer>(entity =>
+            {
+                entity.ToTable("customers");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => CustomerId.Create(e));
+                entity.Property(e => e.FirstName).IsRequired();
+                entity.Property(e => e.LastName).IsRequired();
+                entity.Property(e => e.ProfileImage).IsRequired();
+                entity.Property(e => e.UserId).HasConversion(e => e.Value, e => UserId.Create(e));
+                entity.HasMany(e => e.Loans).WithOne(e => e.Customer);
+                entity.HasMany(e => e.Bills).WithOne(e => e.Customer);
+            });
+
+            modelBuilder.Entity<Loan>(entity =>
+            {
+                entity.ToTable("loans");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => LoanId.Create(e));
+                entity.Property(e => e.BookId).HasConversion(e => e.Value, e => BookId.Create(e));
+                entity.Property(e => e.CustomerId);
+                entity.HasOne(e => e.Customer).WithMany(e => e.Loans);
+            });
+
+            modelBuilder.Entity<Bill>(entity =>
+            {
+                entity.ToTable("bills");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => BillId.Create(e));
+                entity.Property(e => e.LoanId).ValueGeneratedNever().HasConversion(e => e.Value, e => LoanId.Create(e));
+                entity.Property(e => e.Amount).IsRequired();
+                entity.HasOne(e => e.Customer).WithMany(e => e.Bills);
+            });
+        }
+    }
+}

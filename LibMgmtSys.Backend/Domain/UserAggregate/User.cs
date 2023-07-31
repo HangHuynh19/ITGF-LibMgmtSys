@@ -14,6 +14,10 @@ namespace LibMgmtSys.Backend.Domain.UserAggregate
         public DateTime CreatedAt { get; private set; }
         public DateTime UpdatedAt { get; private set; }
 
+        private User() : base(UserId.CreateUnique())
+        {
+        }
+
         private User(
           string firstName,
           string lastName,

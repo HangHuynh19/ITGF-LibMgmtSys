@@ -1,5 +1,6 @@
 using LibMgmtSys.Backend.Domain.BillAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.Common.Models;
+using LibMgmtSys.Backend.Domain.CustomerAggregate;
 using LibMgmtSys.Backend.Domain.LoanAggregate.ValueObjects;
 
 namespace LibMgmtSys.Backend.Domain.BillAggregate
@@ -11,7 +12,11 @@ namespace LibMgmtSys.Backend.Domain.BillAggregate
     public DateTime CreatedAt { get; private set; }
     public DateTime DueDate { get; private set; }
     public DateTime? PaidAt { get; private set; }
-
+    public Customer Customer { get; private set; }
+    private Bill() : base(BillId.CreateUnique())
+    {
+    }
+    
     private Bill(
       BillId billId,
       LoanId loanId,
@@ -27,12 +32,11 @@ namespace LibMgmtSys.Backend.Domain.BillAggregate
     public static Bill Create(
       LoanId loanId,
       decimal amount,
-      DateTime dueDate,
-      BillId? billId = null
+      DateTime dueDate
       )
     {
       return new Bill(
-        billId ?? BillId.CreateUnique(),
+        BillId.CreateUnique(),
         loanId,
         amount,
         dueDate

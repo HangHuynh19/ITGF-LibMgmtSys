@@ -4,7 +4,7 @@ namespace LibMgmtSys.Backend.Domain.BillAggregate.ValueObjects
 {
     public class BillId : ValueObject
     {
-        public Guid Value { get; }
+        public Guid Value { get; private set; }
 
         private BillId(Guid value)
         {

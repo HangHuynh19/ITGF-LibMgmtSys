@@ -1,4 +1,6 @@
-namespace LibMgmtSys.Backend.Domain.Common.Models.Identities
+using LibMgmtSys.Backend.Domain.Common.Models;
+
+namespace LibMgmtSys.Backend.Domain.Common.ValueObjects
 {
     public sealed class Rating : ValueObject
     {
@@ -7,7 +9,7 @@ namespace LibMgmtSys.Backend.Domain.Common.Models.Identities
             Value = value;
         }
 
-        public int Value { get; }
+        public int Value { get; private set; }
 
         public static Rating Create(int value)
         {

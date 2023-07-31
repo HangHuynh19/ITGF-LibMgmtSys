@@ -4,7 +4,7 @@ namespace LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects
 {
     public class UserId : ValueObject
     {
-        public Guid Value { get; }
+        public Guid Value { get; private set; }
 
         private UserId(Guid value)
         {

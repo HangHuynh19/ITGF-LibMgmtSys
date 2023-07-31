@@ -4,7 +4,7 @@ namespace LibMgmtSys.Backend.Domain.LoanAggregate.ValueObjects
 {
     public class LoanId : ValueObject
     {
-        public Guid Value { get; }
+        public Guid Value { get; private set; }
 
         private LoanId(Guid value)
         {

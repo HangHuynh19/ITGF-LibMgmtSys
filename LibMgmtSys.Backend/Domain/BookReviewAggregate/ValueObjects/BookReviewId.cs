@@ -4,7 +4,7 @@ namespace LibMgmtSys.Backend.Domain.BookReviewAggregate.ValueObjects
 {
     public class BookReviewId : ValueObject
     {
-        public Guid Value { get; }
+        public Guid Value { get; private set; }
 
         private BookReviewId(Guid value)
         {

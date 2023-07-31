@@ -19,6 +19,10 @@ namespace LibMgmtSys.Backend.Domain.CustomerAggregate
     public DateTime CreatedAt { get; }
     public DateTime UpdatedAt { get; }
 
+    private Customer() : base(CustomerId.CreateUnique())
+    {
+    }
+    
     private Customer(
       string firstName,
       string lastName,

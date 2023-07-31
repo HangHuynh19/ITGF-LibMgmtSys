@@ -1,15 +1,20 @@
 using LibMgmtSys.Backend.Domain.Common.Models;
-using LibMgmtSys.Backend.Domain.Common.Models.Identities;
 
 namespace LibMgmtSys.Backend.Domain.Common.ValueObjects
 {
     public sealed class AverageRating : ValueObject
     {
+        private double _value;
         private AverageRating(double value, int numberOfRatings)
         {
             Value = value;
             NumberOfRatings = numberOfRatings;
         }
+
+        private AverageRating() : this(0, 0)
+        {
+        }
+        
         public double Value { get; private set; }
         public int NumberOfRatings { get; private set; }
 
