@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace LibMgmtSys.Backend.Domain.Common.Models
 {
     public abstract class Entity<TId> : IEquatable<Entity<TId>> where TId : notnull

@@ -1,32 +1,30 @@
+using LibMgmtSys.Backend.Api;
 using LibMgmtSys.Backend.Infrastructure;
 using LibMgmtSys.Backend.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddJsonFile("appsettings.Development.json");
-
-//builder.Services.AddDbContext<LibMgmtSysDbContext>();
-/* ( options =>
-    {
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-    }); */
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddInfrastructure(builder.Configuration);
-
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+
+    builder.Configuration.AddJsonFile("appsettings.Development.json");
+    builder.Services
+        .AddEndpointsApiExplorer()
+        .AddSwaggerGen()
+        .AddPresentation()
+        .AddInfrastructure(builder.Configuration);
 }
 
-app.UseHttpsRedirection();
+var app = builder.Build();
+{
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
-app.UseAuthorization();
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+    app.Run();
+}
 
-app.MapControllers();
-
-app.Run();

@@ -26,5 +26,10 @@ namespace LibMgmtSys.Backend.Domain.AuthorAggregate
         {
             return new Author(AuthorId.CreateUnique(), name, biography);
         }
+
+        public void AddBook(Book book)
+        {
+            _books.Add(book);
+        }
     }
 }

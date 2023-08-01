@@ -50,7 +50,7 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
       Publisher = publisher;
       Year = year;
       Description = description;
-      //AverageRating = averageRating;
+      AverageRating = averageRating;
       Image = image;
       BorrowingPeriod = borrowingPeriod;
       Quantity = quantity;
@@ -77,6 +77,11 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
         image,
         borrowingPeriod,
         quantity);
+    }
+
+    public void AddAuthor(Author author)
+    {
+      _authors.Add(author);
     }
   }
 }
