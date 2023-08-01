@@ -20,7 +20,7 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
     public int Year { get; private set; }
     public IReadOnlyList<Genre> Genres => _genres.AsReadOnly();
     public string Description { get; private set; }
-   //public AverageRating AverageRating { get; private set; }
+    public AverageRating AverageRating { get; private set; }
     public Uri Image { get; private set; }
     public int BorrowingPeriod { get; private set; }
     public int Quantity { get; private set; }
@@ -39,7 +39,7 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
       string publisher,
       int year,
       string description,
-      //AverageRating averageRating,
+      AverageRating averageRating,
       Uri image,
       int borrowingPeriod,
       int quantity
@@ -73,7 +73,7 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
         publisher,
         year,
         description,
-        //AverageRating.CreateNew(),
+        AverageRating.CreateNew(),
         image,
         borrowingPeriod,
         quantity);

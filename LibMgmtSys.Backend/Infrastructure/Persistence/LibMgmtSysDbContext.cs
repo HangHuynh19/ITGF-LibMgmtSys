@@ -64,6 +64,11 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Publisher).IsRequired();
                 entity.Property(e => e.Year).IsRequired();
                 entity.Property(e => e.Description).IsRequired();
+                entity.OwnsOne(e => e.AverageRating, ab =>
+                {
+                    ab.Property(e => e.Value).HasColumnName("average_rating");
+                    ab.Property(e => e.NumberOfRatings).HasColumnName("number_of_ratings");
+                });
                 entity.Property(e => e.Image).IsRequired();
                 entity.Property(e => e.BorrowingPeriod).IsRequired();
                 entity.Property(e => e.Quantity).IsRequired();
