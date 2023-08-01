@@ -107,7 +107,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Rating).HasConversion(e => e.Value, e => Rating.Create(e));
                 entity.Property(e => e.BookId).HasConversion(e => e.Value, e => BookId.Create(e));
                 entity.Property(e => e.UserId).HasConversion(e => e.Value, e => UserId.Create(e));
-                entity.HasOne(e => e.Book).WithMany(e => e.BookReviews);
+                entity.HasOne(e => e.Book).WithMany(e => e.BookReviews).OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -133,8 +133,8 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.LastName).IsRequired();
                 entity.Property(e => e.ProfileImage).IsRequired();
                 entity.Property(e => e.UserId).HasConversion(e => e.Value, e => UserId.Create(e));
-                entity.HasMany(e => e.Loans).WithOne(e => e.Customer);
-                entity.HasMany(e => e.Bills).WithOne(e => e.Customer);
+                entity.HasMany(e => e.Loans).WithOne(e => e.Customer).OnDelete(DeleteBehavior.Cascade);
+                entity.HasMany(e => e.Bills).WithOne(e => e.Customer).OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Loan>(entity =>
@@ -144,7 +144,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => LoanId.Create(e));
                 entity.Property(e => e.BookId).HasConversion(e => e.Value, e => BookId.Create(e));
                 entity.Property(e => e.CustomerId);
-                entity.HasOne(e => e.Customer).WithMany(e => e.Loans);
+                entity.HasOne(e => e.Customer).WithMany(e => e.Loans).OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Bill>(entity =>
@@ -154,7 +154,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => BillId.Create(e));
                 entity.Property(e => e.LoanId).ValueGeneratedNever().HasConversion(e => e.Value, e => LoanId.Create(e));
                 entity.Property(e => e.Amount).IsRequired();
-                entity.HasOne(e => e.Customer).WithMany(e => e.Bills);
+                entity.HasOne(e => e.Customer).WithMany(e => e.Bills).OnDelete(DeleteBehavior.Cascade);
             });
         }
     }
