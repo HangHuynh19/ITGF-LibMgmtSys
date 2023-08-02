@@ -10,10 +10,9 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
     {
       var config = new TypeAdapterConfig();
       config.Scan(Assembly.GetExecutingAssembly());
-      
+      config.Apply(new AuthorMappingConfig());
       services.AddSingleton(config);
       services.AddScoped<IMapper, ServiceMapper>();
-
       return services;
     }
   }

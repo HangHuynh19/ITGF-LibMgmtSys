@@ -1,4 +1,7 @@
 using LibMgmtSys.Backend.Api.Common.Mapping;
+using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
+using LibMgmtSys.Backend.Infrastructure.Persistence;
+using LibMgmtSys.Backend.Infrastructure.Persistence.Repositories;
 
 namespace LibMgmtSys.Backend.Api
 {
@@ -8,7 +11,6 @@ namespace LibMgmtSys.Backend.Api
     {
       services.AddControllers();
       services.AddMapping();
-
       return services;
     }
   }

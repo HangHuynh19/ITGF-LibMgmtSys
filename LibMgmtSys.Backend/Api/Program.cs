@@ -2,6 +2,7 @@ using LibMgmtSys.Backend.Api;
 using LibMgmtSys.Backend.Infrastructure;
 using LibMgmtSys.Backend.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using LibMgmtSys.Backend.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -10,7 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services
         .AddEndpointsApiExplorer()
         .AddSwaggerGen()
+        //.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly))
         .AddPresentation()
+        .AddApplication()
         .AddInfrastructure(builder.Configuration);
 }
 
@@ -23,7 +26,7 @@ var app = builder.Build();
     }
 
     app.UseHttpsRedirection();
-    app.UseAuthorization();
+    //app.UseAuthorization();
     app.MapControllers();
     app.Run();
 }

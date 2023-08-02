@@ -1,4 +1,5 @@
 using LibMgmtSys.Backend.Domain.AuthorAggregate;
+using LibMgmtSys.Backend.Domain.AuthorAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.BookReviewAggregate;
 using LibMgmtSys.Backend.Domain.Common.Models;

@@ -40,7 +40,7 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
         request.Quantity
       );
 
-      foreach (var authorId in request.AuthorIds)
+      /* foreach (var authorId in request.AuthorIds)
       {
         var author = await _authorRepository.GetAuthorByIdAsync(authorId);
 
@@ -50,7 +50,7 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
         }
 
         book.AddAuthor(author);
-      }
+      } */
 
       await _bookRepository.AddBookAsync(book);
       return book;

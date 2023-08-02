@@ -4,6 +4,8 @@ using MediatR;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Domain.AuthorAggregate;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
+using LibMgmtSys.Backend.Domain.BookAggregate;
+using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 
 namespace LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand
 {
@@ -21,16 +23,15 @@ namespace LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand
     public async Task<ErrorOr<Author>> Handle(CreateAuthorCommand request, CancellationToken cancellationToken)
     {
       var author = Author.Create(request.Name, request.Biography);
-      
-      foreach (var bookId in request.BookIds)
+      var books = await _bookRepository.GetBooksByIdsAsync(request.BookIds);
+     
+      if (books.Count != request.BookIds.Count)
       {
-        var book = await _bookRepository.GetBookByIdAsync(bookId);
+        return Errors.Author.BookNotFound;
+      }
 
-        if (book is null)
-        {
-          return Errors.Author.BookNotFound;
-        }
-
+      foreach (var book in books)
+      {
         author.AddBook(book);
       }
 

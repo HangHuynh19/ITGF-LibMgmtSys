@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
+using LibMgmtSys.Backend.Infrastructure.Persistence.Repositories;
 using LibMgmtSys.Backend.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,8 @@ public static class DependencyInjection
         {
             options.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=Meovacarot8.");
         }); */
+        services.AddScoped<IBookRepository, BookRepository>();
+        services.AddScoped<IAuthorRepository, AuthorRepository>();
         return services;
     }
 }

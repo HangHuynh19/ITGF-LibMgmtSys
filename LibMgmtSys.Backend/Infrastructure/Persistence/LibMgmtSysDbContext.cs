@@ -86,7 +86,16 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => AuthorId.Create(e));
                 entity.Property(e => e.Name).IsRequired();
                 entity.Property(e => e.Biography).IsRequired();
-                entity.HasMany(e => e.Books).WithMany(e => e.Authors);
+                entity.HasMany(e => e.Books).WithMany(e => e.Authors).UsingEntity<Dictionary<string, object>>(
+                    "book_author",
+                    e => e.HasOne<Book>().WithMany().HasForeignKey("bookId").OnDelete(DeleteBehavior.Cascade),
+                    e => e.HasOne<Author>().WithMany().HasForeignKey("authorId").OnDelete(DeleteBehavior.Cascade),
+                    e =>
+                    {
+                        e.HasKey("bookId", "authorId");
+                        e.HasIndex("authorId");
+                    }
+                );
             });
 
             modelBuilder.Entity<Genre>(entity =>

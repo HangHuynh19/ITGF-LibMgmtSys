@@ -5,16 +5,19 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using System.Linq;
+using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 
 namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
 {
   public class AuthorRepository : IAuthorRepository
   {
     private readonly LibMgmtSysDbContext _dbContext;
+    private readonly IBookRepository _bookRepository;
 
-    public AuthorRepository(LibMgmtSysDbContext dbContext)
+    public AuthorRepository(LibMgmtSysDbContext dbContext, IBookRepository bookRepository)
     {
       _dbContext = dbContext;
+      _bookRepository = bookRepository;
     }
 
     public async Task<List<Author>> GetAllAuthorsAsync()

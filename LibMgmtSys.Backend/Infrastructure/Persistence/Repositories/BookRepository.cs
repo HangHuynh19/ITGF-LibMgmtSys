@@ -24,6 +24,12 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
       return await _dbContext.Books.FirstOrDefaultAsync(book => book.Id == id);
     }
 
+    public async Task<List<Book>> GetBooksByIdsAsync(List<BookId> ids)
+    {
+      //Console.WriteLine("GetBooksByIdsAsync " + ids[0].Value);
+      return await _dbContext.Books.Where(book => ids.Contains(book.Id)).ToListAsync();
+    }
+
     public async Task AddBookAsync(Book book)
     {
       _dbContext.Add(book);
