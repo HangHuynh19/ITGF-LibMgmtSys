@@ -26,8 +26,6 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
     public int BorrowingPeriod { get; private set; }
     public int Quantity { get; private set; }
     public IReadOnlyList<BookReview> BookReviews => _bookReviews.AsReadOnly();
-    public DateTime CreatedAt { get; private set; }
-    public DateTime UpdatedAt { get; private set; }
 
     private Book() : base(BookId.CreateUnique())
     {

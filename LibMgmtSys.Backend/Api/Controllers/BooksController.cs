@@ -24,8 +24,6 @@ namespace LibMmgtSys.Backend.Api.Controllers
         {
             var createBookCommand = _mapper.Map<CreateBookCommand>(request);
             var createBookResult = await _mediator.Send(createBookCommand);
-            //var response = _mapper.Map<BookResponse>(createBookResult);
-            //return Ok(response);
             
             return createBookResult.Match(
                 book => Ok(_mapper.Map<BookResponse>(book)),

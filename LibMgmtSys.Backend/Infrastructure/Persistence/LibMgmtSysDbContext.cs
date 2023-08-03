@@ -72,8 +72,6 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Image).IsRequired();
                 entity.Property(e => e.BorrowingPeriod).IsRequired();
                 entity.Property(e => e.Quantity).IsRequired();
-                entity.Property(e => e.CreatedAt).IsRequired();
-                entity.Property(e => e.UpdatedAt).IsRequired();
                 entity.HasMany(e => e.Authors).WithMany(e => e.Books);
                 entity.HasMany(e => e.Genres).WithMany(e => e.Books);
                 entity.HasMany(e => e.BookReviews).WithOne(e => e.Book);

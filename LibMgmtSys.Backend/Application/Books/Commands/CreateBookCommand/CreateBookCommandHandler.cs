@@ -43,7 +43,7 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
       
       if (authors.Count != request.AuthorIds.Count)
       {
-        return Errors.Book.AuthorNotFound;
+        return Errors.Author.AuthorNotFound;
       }
 
       foreach (var author in authors)

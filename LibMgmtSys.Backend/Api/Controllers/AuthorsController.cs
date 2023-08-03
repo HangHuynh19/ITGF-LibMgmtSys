@@ -29,9 +29,7 @@ namespace LibMgmtSys.Backend.Api.Controllers
             
             var createAuthorCommand = _mapper.Map<CreateAuthorCommand>(request);
             var createAuthorResult = await _mediator.Send(createAuthorCommand);
-            //var response = _mapper.Map<AuthorResponse>(createAuthorResult);
-            //return Ok(response);
-           
+            
             return createAuthorResult.Match(
                 author => Ok(_mapper.Map<AuthorResponse>(author)),
                 errors => Problem(errors));

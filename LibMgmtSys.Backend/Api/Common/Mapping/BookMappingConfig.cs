@@ -32,9 +32,7 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
         .Map(dest => dest.AverageRating, src => src.AverageRating.Value)
         .Map(dest => dest.Image, src => src.Image)
         .Map(dest => dest.BorrowingPeriod, src => src.BorrowingPeriod)
-        .Map(dest => dest.Quantity, src => src.Quantity)
-        .Map(dest => dest.CreatedAt, src => src.CreatedAt)
-        .Map(dest => dest.UpdatedAt, src => src.UpdatedAt);
+        .Map(dest => dest.Quantity, src => src.Quantity);
       
       config.NewConfig<Guid, AuthorId>()
         .Map(dest => dest.Value, src => src);

@@ -24,17 +24,17 @@ namespace LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand
     {
       var author = Author.Create(request.Name, request.Biography);
       var books = await _bookRepository.GetBooksByIdsAsync(request.BookIds);
-     
+      List<Error> errors = new();
       if (books.Count != request.BookIds.Count)
       {
-        return Errors.Author.BookNotFound;
+        return Errors.Book.BookNotFound;
       }
-
+      
       foreach (var book in books)
       {
         author.AddBook(book);
       }
-
+      
       await _authorRepository.AddAuthorAsync(author);
       return author;
     }
