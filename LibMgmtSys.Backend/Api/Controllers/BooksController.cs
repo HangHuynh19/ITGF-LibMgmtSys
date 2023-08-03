@@ -8,7 +8,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class BooksController : ControllerBase
+    public class BooksController : ApiController
     {
         private readonly IMapper _mapper;
         private readonly ISender _mediator;
@@ -24,8 +24,12 @@ namespace LibMmgtSys.Backend.Api.Controllers
         {
             var createBookCommand = _mapper.Map<CreateBookCommand>(request);
             var createBookResult = await _mediator.Send(createBookCommand);
-            var response = _mapper.Map<BookResponse>(createBookResult);
-            return Ok(response);
+            //var response = _mapper.Map<BookResponse>(createBookResult);
+            //return Ok(response);
+            
+            return createBookResult.Match(
+                book => Ok(_mapper.Map<BookResponse>(book)),
+                errors => Problem(errors));
         }
     }
 }

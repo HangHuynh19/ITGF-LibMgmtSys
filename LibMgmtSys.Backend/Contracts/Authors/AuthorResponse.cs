@@ -1,4 +1,5 @@
 using LibMgmtSys.Backend.Contracts.Books;
+using LibMgmtSys.Backend.Domain.BookAggregate;
 
 namespace LibMgmtSys.Backend.Contracts.Authors
 {
@@ -6,6 +7,6 @@ namespace LibMgmtSys.Backend.Contracts.Authors
     string Id,
     string Name,
     string Biography,
-    List<BookResponse> Books
+    List<string> BookNames
   );
 }

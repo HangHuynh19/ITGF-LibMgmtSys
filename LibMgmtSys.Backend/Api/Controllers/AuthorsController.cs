@@ -1,15 +1,18 @@
+using ErrorOr;
 using LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand;
 using LibMgmtSys.Backend.Contracts.Authors;
 using LibMgmtSys.Backend.Contracts.Books;
+using LibMgmtSys.Backend.Domain.AuthorAggregate;
+using LibMmgtSys.Backend.Api.Controllers;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LibMgmtSys.Backend.Api.Controlers
+namespace LibMgmtSys.Backend.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    public class AuthorsController : ControllerBase
+    public class AuthorsController : ApiController
     {
         private readonly IMapper _mapper;
         private readonly ISender _mediator;
@@ -23,17 +26,15 @@ namespace LibMgmtSys.Backend.Api.Controlers
         [HttpPost]
         public async Task<IActionResult> CreateAuthor([FromBody] CreateAuthorRequest request)
         {
-            Console.WriteLine(request.BookIds[0]);
+            
             var createAuthorCommand = _mapper.Map<CreateAuthorCommand>(request);
-
-            Console.WriteLine(createAuthorCommand.BookIds[0].Value);
-            /*foreach (var bookId in createAuthorCommand.BookIds)
-            {
-                Console.WriteLine(bookId);
-            }  */
             var createAuthorResult = await _mediator.Send(createAuthorCommand);
-            var response = _mapper.Map<AuthorResponse>(createAuthorResult);
-            return Ok(response);
+            //var response = _mapper.Map<AuthorResponse>(createAuthorResult);
+            //return Ok(response);
+           
+            return createAuthorResult.Match(
+                author => Ok(_mapper.Map<AuthorResponse>(author)),
+                errors => Problem(errors));
         }
     }
 }

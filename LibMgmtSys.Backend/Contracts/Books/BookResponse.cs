@@ -1,11 +1,12 @@
 using LibMgmtSys.Backend.Contracts.Authors;
+using LibMgmtSys.Backend.Domain.AuthorAggregate;
 
 namespace LibMgmtSys.Backend.Contracts.Books
 {
   public record BookResponse(
     string Id,
     string Title,
-    List<AuthorResponse> Authors,
+    List<string> AuthorNames,
     string Isbn,
     string Publisher,
     int Year,

@@ -8,7 +8,7 @@ namespace LibMgmtSys.Backend.Application.Common.Interfaces.Persistence
         Task<List<Book>> GetAllBooksAsync();
         Task<Book?> GetBookByIdAsync(BookId id);
         Task<List<Book>> GetBooksByIdsAsync(List<BookId> ids);
-        Task AddBookAsync(Book book);
+        Task<Book> AddBookAsync(Book book);
         Task UpdateBookAsync(Book book);
         Task DeleteBookAsync(Book book);
     }

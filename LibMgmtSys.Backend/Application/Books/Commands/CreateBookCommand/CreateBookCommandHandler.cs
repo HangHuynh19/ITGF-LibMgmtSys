@@ -39,19 +39,18 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
         request.BorrowingPeriod,
         request.Quantity
       );
-
-      /* foreach (var authorId in request.AuthorIds)
+      var authors = await _authorRepository.GetAuthorsByIdsAsync(request.AuthorIds);
+      
+      if (authors.Count != request.AuthorIds.Count)
       {
-        var author = await _authorRepository.GetAuthorByIdAsync(authorId);
+        return Errors.Book.AuthorNotFound;
+      }
 
-        if (author is null)
-        {
-          return Errors.Book.AuthorNotFound;
-        }
-
+      foreach (var author in authors)
+      {
         book.AddAuthor(author);
-      } */
-
+      }
+      
       await _bookRepository.AddBookAsync(book);
       return book;
     }
