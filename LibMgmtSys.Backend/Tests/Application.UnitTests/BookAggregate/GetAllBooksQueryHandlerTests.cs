@@ -12,7 +12,6 @@ namespace Tests.Application.UnitTests.BookAggregate
         {
             // Arrange
             var bookRepositoryMock = new Mock<IBookRepository>();
-            var authorRepositoryMock = new Mock<IAuthorRepository>();
             var book1 = Book.Create(
                 "Title1",
                 "Isbn1",
@@ -45,22 +44,26 @@ namespace Tests.Application.UnitTests.BookAggregate
             );
             var books = new List<Book> { book1, book2, book3 };
             
-            bookRepositoryMock.Setup(bookRepository => bookRepository.GetAllBooksAsync())
+            bookRepositoryMock.Setup(bookRepository => bookRepository.GetAllBooksWithPaginationAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(books);
             
-            var getAllBooksQueryHandler = new GetAllBooksQueryHandler(
+            var getAllBooksQuery = new GetAllBooksWithPaginationQuery
+            {
+                PageNumber = 1,
+                PageSize = 3
+            };
+            var getAllBooksQueryHandler = new GetAllBooksWithPaginationQueryHandler(
                 bookRepositoryMock.Object
             );
-            var getAllBooksQuery = new GetAllBooksQuery();
 
             // Act
             var result = await getAllBooksQueryHandler.Handle(getAllBooksQuery, CancellationToken.None);
 
             // Assert
-            Assert.Equal(books.Count, result.Value.Count);
-            Assert.Equal(books[0].Title, result.Value[0].Title);
-            Assert.Equal(books[1].Title, result.Value[1].Title);
-            Assert.Equal(books[2].Title, result.Value[2].Title);
+            Assert.Equal(3, result.Value.Count);
+            Assert.Equal(book1.Title, result.Value[0].Title);
+            Assert.Equal(book2.Title, result.Value[1].Title);
+            Assert.Equal(book3.Title, result.Value[2].Title);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace LibMgmtSys.Backend.Application.Common.Interfaces.Persistence
 {
     public interface IBookRepository
     {
-        Task<List<Book>> GetAllBooksAsync();
+        Task<List<Book>> GetAllBooksWithPaginationAsync(int pageNumber, int pageSize);
         Task<Book?> GetBookByIdAsync(BookId id);
         Task<List<Book>> GetBooksByIdsAsync(List<BookId> ids);
         Task<Book> AddBookAsync(Book book);
