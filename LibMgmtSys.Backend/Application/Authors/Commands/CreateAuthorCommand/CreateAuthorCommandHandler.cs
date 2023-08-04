@@ -24,7 +24,7 @@ namespace LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand
     {
       var author = Author.Create(request.Name, request.Biography);
       var books = await _bookRepository.GetBooksByIdsAsync(request.BookIds);
-      List<Error> errors = new();
+      
       if (books.Count != request.BookIds.Count)
       {
         return Errors.Book.BookNotFound;

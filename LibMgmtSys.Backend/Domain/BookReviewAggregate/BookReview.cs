@@ -3,6 +3,8 @@ using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.BookReviewAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.Common.Models;
 using LibMgmtSys.Backend.Domain.Common.ValueObjects;
+using LibMgmtSys.Backend.Domain.CustomerAggregate;
+using LibMgmtSys.Backend.Domain.CustomerAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
 
 namespace LibMgmtSys.Backend.Domain.BookReviewAggregate
@@ -12,10 +14,11 @@ namespace LibMgmtSys.Backend.Domain.BookReviewAggregate
         public string Comment { get; private set; }
         public Rating Rating { get; private set; }
         public BookId BookId { get; private set; }
-        public UserId UserId { get; private set; }
+        public CustomerId CustomerId { get; private set; }
         public DateTime CreatedAt { get; private set; }
-        public DateTime UpdatedAt { get; private set; }
+        public DateTime? UpdatedAt { get; private set; }
         public Book Book { get; private set; }
+        public Customer Customer { get; private set; }
         private BookReview() : base(BookReviewId.CreateUnique())
         {
         }
@@ -25,20 +28,20 @@ namespace LibMgmtSys.Backend.Domain.BookReviewAggregate
           string comment,
           Rating rating,
           BookId bookId,
-          UserId userId
+          CustomerId customerId
           ) : base(bookReviewId)
         {
             Comment = comment;
             Rating = rating;
             BookId = bookId;
-            UserId = userId;
+            CustomerId = customerId;
         }
 
         public static BookReview Create(
           string comment,
           int rating,
           BookId bookId,
-          UserId userId,
+          CustomerId customerId,
           BookReviewId? bookReviewId = null
           )
         {
@@ -49,7 +52,7 @@ namespace LibMgmtSys.Backend.Domain.BookReviewAggregate
               comment,
               ratingValueObject,
               bookId,
-              userId
+              customerId
               );
         }
     }

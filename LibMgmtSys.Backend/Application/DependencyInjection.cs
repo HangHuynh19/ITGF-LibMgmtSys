@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
 using LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand;
 using LibMgmtSys.Backend.Application.Common.Behaviors;
+using LibMgmtSys.Backend.Application.Common.Interfaces.Services;
 using MediatR;
 
 namespace LibMgmtSys.Backend.Application

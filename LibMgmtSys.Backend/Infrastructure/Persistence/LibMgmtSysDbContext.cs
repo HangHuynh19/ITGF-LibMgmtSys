@@ -113,7 +113,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Comment).IsRequired();
                 entity.Property(e => e.Rating).HasConversion(e => e.Value, e => Rating.Create(e));
                 entity.Property(e => e.BookId).HasConversion(e => e.Value, e => BookId.Create(e));
-                entity.Property(e => e.UserId).HasConversion(e => e.Value, e => UserId.Create(e));
+                entity.Property(e => e.CustomerId).HasConversion(e => e.Value, e => CustomerId.Create(e));
                 entity.HasOne(e => e.Book).WithMany(e => e.BookReviews).OnDelete(DeleteBehavior.Cascade);
             });
 

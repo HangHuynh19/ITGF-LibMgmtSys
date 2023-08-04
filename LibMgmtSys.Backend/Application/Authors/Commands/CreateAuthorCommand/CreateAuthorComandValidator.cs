@@ -11,8 +11,8 @@ namespace LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand
         .MaximumLength(100);
       RuleFor(createAuthorCommand => createAuthorCommand.Biography)
         .NotEmpty();
-      RuleFor(createAuthorCommand => createAuthorCommand.BookIds)
-        .NotEmpty();
+      /*RuleFor(createAuthorCommand => createAuthorCommand.BookIds)
+        .NotEmpty();*/
     }
   }
 }
