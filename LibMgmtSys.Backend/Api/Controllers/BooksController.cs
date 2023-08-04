@@ -1,4 +1,5 @@
 using LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand;
+using LibMgmtSys.Backend.Application.Books.Queries.GetAllBooksQuery;
 using LibMgmtSys.Backend.Contracts.Books;
 using MapsterMapper;
 using MediatR;
@@ -27,6 +28,17 @@ namespace LibMmgtSys.Backend.Api.Controllers
             
             return createBookResult.Match(
                 book => Ok(_mapper.Map<BookResponse>(book)),
+                errors => Problem(errors));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllBooks()
+        {
+            var getAllBooksQuery = new GetAllBooksQuery();
+            var getAllBooksResult = await _mediator.Send(getAllBooksQuery);
+
+            return getAllBooksResult.Match(
+                books => Ok(books.Select(result => _mapper.Map<BookResponse>(result))),
                 errors => Problem(errors));
         }
     }
