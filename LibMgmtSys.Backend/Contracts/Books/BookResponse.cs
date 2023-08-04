@@ -15,9 +15,7 @@ namespace LibMgmtSys.Backend.Contracts.Books
     float? AverageRating,
     Uri Image,
     int BorrowingPeriod,
-    int Quantity,
+    int Quantity
     //List<BookReviewResponse> BookReviews,
-    DateTime CreatedAt,
-    DateTime UpdatedAt
   );
 }

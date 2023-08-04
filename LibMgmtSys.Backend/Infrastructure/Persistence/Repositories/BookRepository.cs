@@ -16,7 +16,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
 
     public async Task<List<Book>> GetAllBooksAsync()
     {
-      return await _dbContext.Books.ToListAsync();
+      return await _dbContext.Books.Include(book => book.Authors).ToListAsync();
     }
 
     public async Task<Book?> GetBookByIdAsync(BookId id)
