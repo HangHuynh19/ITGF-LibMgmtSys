@@ -6,7 +6,7 @@ namespace LibMgmtSys.Backend.Domain.Common.DomainErrors
   {
     public static class Book 
     {
-      public static Error BookNotFound => Error.Validation(
+      public static Error BookNotFound = Error.Validation(
         code: "Book.InvalidBookId", 
         description: "Book with given ID does not exist"
       );
