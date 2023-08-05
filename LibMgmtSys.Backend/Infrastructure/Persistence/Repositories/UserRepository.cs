@@ -15,7 +15,8 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
         
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(user => user.Email == email);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Email.Equals(email));
+            return user;
         }
         
         public async Task<List<User>> GetAllUsersAsync()
@@ -23,10 +24,11 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
             return await _dbContext.Users.ToListAsync();
         }
         
-        public async Task AddUserAsync(User user)
+        public async Task<User> AddUserAsync(User user)
         {
-            await _dbContext.Users.AddAsync(user);
+            _dbContext.Users.Add(user);
             await _dbContext.SaveChangesAsync();
+            return user;
         }
         
         public async Task UpdateUserAsync(User user)

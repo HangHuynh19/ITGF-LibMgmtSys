@@ -12,49 +12,52 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace LibMgmtSys.Backend.Infrastructure;
-
-public static class DependencyInjection
+namespace LibMgmtSys.Backend.Infrastructure
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
+    public static class DependencyInjection
     {
-        services
-            .AddAuth(configuration)
-            .AddPersistence();
-        services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
+        {
+            services
+                .AddAuth(configuration)
+                .AddPersistence();
+            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         
-        return services;
-    }
+            return services;
+        }
     
-    public static IServiceCollection AddPersistence(this IServiceCollection services)
-    {
-        services.AddDbContext<LibMgmtSysDbContext>();
-        services.AddScoped<IBookRepository, BookRepository>();
-        services.AddScoped<IAuthorRepository, AuthorRepository>();
-        services.AddScoped<IGenreRepository, GenreRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
+        private static IServiceCollection AddPersistence(this IServiceCollection services)
+        {
+            services.AddDbContext<LibMgmtSysDbContext>();
+            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IGenreRepository, GenreRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         
-        return services;
-    }
+            return services;
+        }
     
-    public static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
-    {
-        var jwtSettings = new JwtSettings();
+        private static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
+        {
+            var jwtSettings = new JwtSettings();
+            configuration.Bind(JwtSettings.SectionName, jwtSettings);
         
-        configuration.Bind(nameof(JwtSettings.SectionName), jwtSettings);
-        services.AddSingleton(Options.Create(jwtSettings));
-        services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
-        services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidIssuer = jwtSettings.Issuer,
-                ValidAudience = jwtSettings.Audience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
-            });
+            services.AddSingleton(Options.Create(jwtSettings));
+            services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+            services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
+                });
         
-        return services;
+            return services;
+        }
     }
 }
+

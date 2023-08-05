@@ -6,7 +6,7 @@ namespace LibMgmtSys.Backend.Application.Common.Interfaces.Persistence
     {
         Task<User?> GetUserByEmailAsync(string email);
         Task<List<User>> GetAllUsersAsync();
-        Task AddUserAsync(User user);
+        Task<User> AddUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(User user);
     }

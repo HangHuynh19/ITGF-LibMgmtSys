@@ -24,6 +24,7 @@ using LibMgmtSys.Backend.Domain.Common.ValueObjects;
 using LibMgmtSys.Backend.Domain.UserAggregate.Enum;
 
 using LibMgmtSys.Backend.Domain;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibMgmtSys.Backend.Infrastructure.Persistence
 {
@@ -49,6 +50,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
         {
             //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=Meovacarot8.");
             var builder = new NpgsqlDataSourceBuilder(_configuration.GetConnectionString("DefaultConnection"));
+            //builder.MapEnum<Role>("role");
             optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
         }
 
@@ -117,6 +119,8 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.HasOne(e => e.Book).WithMany(e => e.BookReviews).OnDelete(DeleteBehavior.Cascade);
             });
 
+            //modelBuilder.HasPostgresEnum<Role>();
+            
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("users");
@@ -127,8 +131,8 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Email).IsRequired();
                 entity.Property(e => e.Password).IsRequired();
                 entity.Property(e => e.Role).HasConversion(
-                    e => e.ToString(),
-                    e => (Role)Enum.Parse(typeof(Role), e));
+                    e => e.Value.ToString(),
+                    value => Role.FromValue(int.Parse(value)));
             });
 
             modelBuilder.Entity<Customer>(entity =>
@@ -163,6 +167,17 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Amount).IsRequired();
                 entity.HasOne(e => e.Customer).WithMany(e => e.Bills).OnDelete(DeleteBehavior.Cascade);
             });
+        }
+    }
+
+    public class RoleValueConverter : ValueConverter<Role, int>
+    {
+        public RoleValueConverter(ConverterMappingHints mappingHints = null)
+            : base(
+                r => r.Value,
+                v => Role.FromValue(v),
+                mappingHints)
+        {
         }
     }
 }
