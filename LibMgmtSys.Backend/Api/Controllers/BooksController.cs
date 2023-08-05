@@ -3,6 +3,7 @@ using LibMgmtSys.Backend.Application.Books.Queries.GetAllBooksQuery;
 using LibMgmtSys.Backend.Contracts.Books;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibMmgtSys.Backend.Api.Controllers
@@ -32,6 +33,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllBooks([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var getAllBooksQuery = new GetAllBooksWithPaginationQuery

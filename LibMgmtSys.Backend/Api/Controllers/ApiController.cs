@@ -1,11 +1,13 @@
 using ErrorOr;
 using LibMgmtSys.Backend.Api.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace LibMmgtSys.Backend.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     public class ApiController : ControllerBase
     {
         protected IActionResult Problem(List<Error> errors)
