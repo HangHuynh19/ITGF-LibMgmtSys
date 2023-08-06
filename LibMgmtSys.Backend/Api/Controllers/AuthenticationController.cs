@@ -1,5 +1,7 @@
 using Contracts.Authentication;
 using LibMgmtSys.Backend.Application.Authentication.Commands.Register;
+using LibMgmtSys.Backend.Application.Authentication.Queries.Login;
+using LibMgmtSys.Backend.Domain.Common.DomainErrors;
 using LibMmgtSys.Backend.Api.Controllers;
 using MapsterMapper;
 using MediatR;
@@ -28,6 +30,24 @@ namespace Api.Controllers
             var command = _mapper.Map<RegisterCommand>(request);
             var authResult = await _mediator.Send(command);
             
+            return authResult.Match(
+                result => Ok(_mapper.Map<AuthenticationResponse>(result)),
+                errors => Problem(errors));
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            var query = _mapper.Map<LoginQuery>(request);
+            var authResult = await _mediator.Send(query);
+
+            if (authResult.IsError && authResult.FirstError == Errors.Authentication.InvalidCredentials)
+            {
+                return Problem(
+                    statusCode: StatusCodes.Status401Unauthorized,
+                    title: Errors.Authentication.InvalidCredentials.Description);
+            }
+
             return authResult.Match(
                 result => Ok(_mapper.Map<AuthenticationResponse>(result)),
                 errors => Problem(errors));

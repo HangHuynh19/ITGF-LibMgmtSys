@@ -3,7 +3,6 @@ using MediatR;
 using ErrorOr;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Authentication;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
-using LibMgmtSys.Backend.Domain.BookAggregate;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
 using LibMgmtSys.Backend.Domain.UserAggregate;
 
