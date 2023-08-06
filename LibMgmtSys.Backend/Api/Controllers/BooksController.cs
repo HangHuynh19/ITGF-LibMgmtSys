@@ -1,6 +1,9 @@
 using LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand;
 using LibMgmtSys.Backend.Application.Books.Queries.GetAllBooksQuery;
+using LibMgmtSys.Backend.Application.Books.Queries.GetBookByIdQuery;
 using LibMgmtSys.Backend.Contracts.Books;
+using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.Common.DomainErrors;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -45,6 +48,20 @@ namespace LibMmgtSys.Backend.Api.Controllers
 
             return getAllBooksResult.Match(
                 books => Ok(books.Select(result => _mapper.Map<BookResponse>(result))),
+                errors => Problem(errors));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBookById([FromRoute] string id)
+        {
+            var getBookByIdQuery = new GetBookByIdQuery
+            {
+                Id = BookId.Create(Guid.Parse(id))
+            };
+            var getBookByIdResult = await _mediator.Send(getBookByIdQuery);
+            
+            return getBookByIdResult.Match(
+                book => Ok(_mapper.Map<BookResponse>(book)),
                 errors => Problem(errors));
         }
     }

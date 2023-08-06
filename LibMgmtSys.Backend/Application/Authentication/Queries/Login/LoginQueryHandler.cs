@@ -21,6 +21,7 @@ namespace LibMgmtSys.Backend.Application.Authentication.Queries.Login
         public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetUserByEmailAsync(query.Email);
+            
             if (user is null)
             {
                 return Errors.User.UserNotFound;
