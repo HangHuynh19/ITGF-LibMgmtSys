@@ -2,6 +2,7 @@ using LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand;
 using LibMgmtSys.Backend.Contracts.Books;
 using LibMgmtSys.Backend.Domain.AuthorAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.BookAggregate;
+using LibMgmtSys.Backend.Domain.GenreAggregate.ValueObjects;
 using Mapster;
 
 namespace LibMgmtSys.Backend.Api.Common.Mapping
@@ -29,6 +30,7 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
         .Map(dest => dest.Publisher, src => src.Publisher)
         .Map(dest => dest.Year, src => src.Year)
         .Map(dest => dest.Description, src => src.Description)
+        .Map(dest => dest.GenreNames, src => src.Genres.Select(genre => genre.Name))
         .Map(dest => dest.AverageRating, src => src.AverageRating.Value)
         .Map(dest => dest.Image, src => src.Image)
         .Map(dest => dest.BorrowingPeriod, src => src.BorrowingPeriod)
@@ -40,6 +42,12 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
       config.NewConfig<AuthorId, Guid>()
         .Map(dest => dest, src => src.Value);
       
+      config.NewConfig<Guid, GenreId>()
+        .Map(dest => dest.Value, src => src);
+      
+      config.NewConfig<GenreId, Guid>()
+        .Map(dest => dest, src => src.Value);
+
       // TODO: Add mapping for Genre and BookReview
     }
   }
