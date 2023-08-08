@@ -33,10 +33,7 @@ namespace Tests.Application.UnitTests.BookAggregate
                 1,
                 1
             );
-            var getBookByIdQuery = new GetBookByIdQuery
-            {
-                Id = expectedBookId
-            };
+            var getBookByIdQuery = new GetBookByIdQuery(expectedBookId);
             
             _mockBookRepository.Setup(bookRepository => bookRepository.GetBookByIdAsync(expectedBookId))
                 .ReturnsAsync(expectedBook);
@@ -54,10 +51,7 @@ namespace Tests.Application.UnitTests.BookAggregate
         {
             // Arrange
             var invalidBookId = Guid.Parse("00000000-0000-0000-0000-000000000000");
-            var getBookByIdQuery = new GetBookByIdQuery
-            {
-                Id = BookId.Create(invalidBookId)
-            };
+            var getBookByIdQuery = new GetBookByIdQuery(BookId.Create(invalidBookId));
             
             _mockBookRepository.Setup(bookRepository => bookRepository.GetBookByIdAsync(getBookByIdQuery.Id))
                 .ReturnsAsync((Book)null);

@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace LibMgmtSys.Backend.Application.Authentication.Commands.Register
 {
-    public class RegisterCommandValidation : AbstractValidator<RegisterCommand>
+    public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {
-        public RegisterCommandValidation()
+        public RegisterCommandValidator()
         {
             RuleFor(x => x.FirstName)
                 .NotEmpty()
