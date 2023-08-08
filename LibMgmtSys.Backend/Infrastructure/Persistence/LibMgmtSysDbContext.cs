@@ -35,6 +35,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
         public LibMgmtSysDbContext(IConfiguration configuration)
         {
             _configuration = configuration;
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
         }
 
         public DbSet<Book> Books { get; set; } = null!;
@@ -167,17 +168,6 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Amount).IsRequired();
                 entity.HasOne(e => e.Customer).WithMany(e => e.Bills).OnDelete(DeleteBehavior.Cascade);
             });
-        }
-    }
-
-    public class RoleValueConverter : ValueConverter<Role, int>
-    {
-        public RoleValueConverter(ConverterMappingHints mappingHints = null)
-            : base(
-                r => r.Value,
-                v => Role.FromValue(v),
-                mappingHints)
-        {
         }
     }
 }

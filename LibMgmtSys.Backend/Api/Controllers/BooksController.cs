@@ -1,4 +1,5 @@
 using LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand;
+using LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand;
 using LibMgmtSys.Backend.Application.Books.Queries.GetAllBooksQuery;
 using LibMgmtSys.Backend.Application.Books.Queries.GetBookByIdQuery;
 using LibMgmtSys.Backend.Contracts.Books;
@@ -61,6 +62,18 @@ namespace LibMmgtSys.Backend.Api.Controllers
             var getBookByIdResult = await _mediator.Send(getBookByIdQuery);
             
             return getBookByIdResult.Match(
+                book => Ok(_mapper.Map<BookResponse>(book)),
+                errors => Problem(errors));
+        }
+        
+        [HttpPut("{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> UpdateBook([FromRoute] string id, [FromBody] UpdateBookRequest request)
+        {
+            var updateBookCommand = _mapper.Map<UpdateBookCommand>((request, id));
+            var updateBookResult = await _mediator.Send(updateBookCommand);
+            
+            return updateBookResult.Match(
                 book => Ok(_mapper.Map<BookResponse>(book)),
                 errors => Problem(errors));
         }

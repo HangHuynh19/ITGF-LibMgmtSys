@@ -10,7 +10,7 @@ namespace LibMgmtSys.Backend.Contracts.Books
     string Isbn,
     string Publisher,
     int Year,
-    //List<GenreResponse> Genres,
+    List<string> GenreNames,
     string Description,
     float? AverageRating,
     Uri Image,

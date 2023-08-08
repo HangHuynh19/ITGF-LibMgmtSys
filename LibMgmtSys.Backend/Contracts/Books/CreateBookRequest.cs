@@ -6,7 +6,7 @@ namespace LibMgmtSys.Backend.Contracts.Books
     string Publisher,
     List<Guid> AuthorIds,
     int Year,
-    //List<GenreId> GenreIds,
+    List<Guid> GenreIds,
     string Description,
     Uri Image,
     int BorrowingPeriod,

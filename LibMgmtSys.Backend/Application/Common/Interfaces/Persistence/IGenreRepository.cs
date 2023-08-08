@@ -7,7 +7,7 @@ namespace LibMgmtSys.Backend.Application.Common.Interfaces.Persistence
   {
     Task<List<Genre>> GetAllGenresAsync();
     Task<Genre?> GetGenreByIdAsync(GenreId id);
-    //Task<List<Genre>> GetGenresByIdsAsync(List<GenreId> ids);
+    Task<List<Genre>> GetGenresByIdsAsync(List<GenreId> ids);
     Task AddGenreAsync(Genre genre);
     //Task UpdateGenreAsync(Genre genre);
     //Task DeleteGenreAsync(Genre genre);

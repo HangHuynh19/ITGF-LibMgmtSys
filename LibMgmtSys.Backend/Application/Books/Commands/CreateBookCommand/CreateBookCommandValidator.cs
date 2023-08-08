@@ -20,8 +20,8 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
       RuleFor(createBookCommand => createBookCommand.Year)
         .NotEmpty()
         .InclusiveBetween(0, 9999);
-      /* RuleFor(createBookCommand => createBookCommand.GenreIds)
-        .NotEmpty(); */
+      RuleFor(createBookCommand => createBookCommand.GenreIds)
+        .NotEmpty();
       RuleFor(createBookCommand => createBookCommand.Description)
         .NotEmpty()
         .MaximumLength(1000);

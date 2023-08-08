@@ -82,5 +82,50 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
     {
       _authors.Add(author);
     }
+    
+    public void RemoveAuthor(Author author)
+    {
+      _authors.Remove(author);
+    }
+    
+    public void AddGenre(Genre genre)
+    {
+      _genres.Add(genre);
+    }
+    
+    public void RemoveGenre(Genre genre)
+    {
+      _genres.Remove(genre);
+    }
+
+    public void UpdateBookProperties(
+      string title,
+      string isbn,
+      string publisher,
+      int year,
+      string description,
+      Uri image,
+      int borrowingPeriod,
+      int quantity)
+    {
+      Title = title;
+      Isbn = isbn;
+      Publisher = publisher;
+      Year = year;
+      Description = description;
+      Image = image;
+      BorrowingPeriod = borrowingPeriod;
+      Quantity = quantity;
+    }
+    
+    public void ClearAuthors()
+    {
+      _authors.Clear();
+    }
+    
+    public void ClearGenres()
+    {
+      _genres.Clear();
+    }
   }
 }

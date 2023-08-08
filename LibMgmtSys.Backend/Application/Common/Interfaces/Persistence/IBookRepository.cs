@@ -9,7 +9,7 @@ namespace LibMgmtSys.Backend.Application.Common.Interfaces.Persistence
         Task<Book?> GetBookByIdAsync(BookId id);
         Task<List<Book>> GetBooksByIdsAsync(List<BookId> ids);
         Task<Book> AddBookAsync(Book book);
-        Task UpdateBookAsync(Book book);
+        Task<Book> UpdateBookAsync(Book book);
         Task DeleteBookAsync(Book book);
     }
 }

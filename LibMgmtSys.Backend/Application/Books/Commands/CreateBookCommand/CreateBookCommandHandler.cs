@@ -11,19 +11,19 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
   {
     private readonly IBookRepository _bookRepository;
     private readonly IAuthorRepository _authorRepository;
-    //private readonly IGenreRepository _genreRepository;
+    private readonly IGenreRepository _genreRepository;
     //private readonly IBookReviewRepository _bookReviewRepository;
 
     public CreateBookCommandHandler(
       IBookRepository bookRepository,
-      IAuthorRepository authorRepository
-      //IGenreRepository genreRepository,
+      IAuthorRepository authorRepository,
+      IGenreRepository genreRepository
       //IBookReviewRepository bookReviewRepository
     )
     {
       _bookRepository = bookRepository;
       _authorRepository = authorRepository;
-      //_genreRepository = genreRepository;
+      _genreRepository = genreRepository;
       //_bookReviewRepository = bookReviewRepository;
     }
 
@@ -49,6 +49,18 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
       foreach (var author in authors)
       {
         book.AddAuthor(author);
+      }
+      
+      var genres = await _genreRepository.GetGenresByIdsAsync(request.GenreIds);
+        
+      if (genres.Count != request.GenreIds.Count)
+      {
+        return Errors.Genre.GenreNotFound;
+      }
+
+      foreach (var genre in genres)
+      {
+        book.AddGenre(genre);
       }
       
       await _bookRepository.AddBookAsync(book);

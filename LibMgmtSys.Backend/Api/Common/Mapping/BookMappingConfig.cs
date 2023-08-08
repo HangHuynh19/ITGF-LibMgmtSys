@@ -1,7 +1,9 @@
 using LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand;
+using LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand;
 using LibMgmtSys.Backend.Contracts.Books;
 using LibMgmtSys.Backend.Domain.AuthorAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.BookAggregate;
+using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.GenreAggregate.ValueObjects;
 using Mapster;
 
@@ -21,6 +23,10 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
         .Map(dest => dest.Image, src => src.Image)
         .Map(dest => dest.BorrowingPeriod, src => src.BorrowingPeriod)
         .Map(dest => dest.Quantity, src => src.Quantity);
+      
+      config.NewConfig<(UpdateBookRequest Request, string Id), UpdateBookCommand>()
+        .Map(dest => dest.Id, src => Guid.Parse(src.Id))
+        .Map(dest => dest, src => src.Request);
         
       config.NewConfig<Book, BookResponse>()
         .Map(dest => dest.Id, src => src.Id.Value.ToString())
@@ -35,6 +41,12 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
         .Map(dest => dest.Image, src => src.Image)
         .Map(dest => dest.BorrowingPeriod, src => src.BorrowingPeriod)
         .Map(dest => dest.Quantity, src => src.Quantity);
+      
+      config.NewConfig<Guid, BookId>()
+        .Map(dest => dest.Value, src => src);
+      
+      config.NewConfig<BookId, Guid>()
+        .Map(dest => dest, src => src.Value);
       
       config.NewConfig<Guid, AuthorId>()
         .Map(dest => dest.Value, src => src);

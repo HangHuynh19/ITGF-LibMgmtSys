@@ -18,7 +18,11 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
         {
             return _dbContext.Genres.ToListAsync();
         }
-
+        
+        public Task<List<Genre>> GetGenresByIdsAsync(List<GenreId> ids)
+        {
+            return _dbContext.Genres.Where(genre => ids.Contains(genre.Id)).ToListAsync();
+        }
         public Task<Genre?> GetGenreByIdAsync(GenreId id)
         {
             return _dbContext.Genres.FirstOrDefaultAsync(genre => genre.Id == id);

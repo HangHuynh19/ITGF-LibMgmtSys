@@ -18,6 +18,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
     {
       return await _dbContext.Books
         .Include(book => book.Authors)
+        .Include(genre => genre.Genres)
         .Skip((page - 1) * pageSize)
         .Take(pageSize)
         .ToListAsync();
@@ -40,10 +41,26 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
       return book;
     }
 
-    public async Task UpdateBookAsync(Book book)
+    public async Task<Book> UpdateBookAsync(Book book)
     {
-      _dbContext.Update(book);
+      var bookInDb = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == book.Id);
+      
+      bookInDb.UpdateBookProperties(
+        book.Title,
+        book.Isbn,
+        book.Publisher,
+        book.Year,
+        book.Description,
+        book.Image,
+        book.BorrowingPeriod,
+        book.Quantity
+      );
+      await _dbContext.Entry(bookInDb).Collection(b => b.Authors).LoadAsync();
+      await _dbContext.Entry(bookInDb).Collection(b => b.Genres).LoadAsync();
+      _dbContext.Update(bookInDb);
       await _dbContext.SaveChangesAsync();
+      
+      return book;
     }
 
     public async Task DeleteBookAsync(Book book)

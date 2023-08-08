@@ -33,7 +33,6 @@ namespace LibMgmtSys.Backend.Infrastructure
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-        
             return services;
         }
     
