@@ -14,12 +14,12 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
       _dbContext = dbContext;
     }
 
-    public async Task<List<Book>> GetAllBooksWithPaginationAsync(int page, int pageSize)
+    public async Task<List<Book>> GetAllBooksWithPaginationAsync(int pageNumber, int pageSize)
     {
       return await _dbContext.Books
         .Include(book => book.Authors)
         .Include(genre => genre.Genres)
-        .Skip((page - 1) * pageSize)
+        .Skip((pageNumber - 1) * pageSize)
         .Take(pageSize)
         .ToListAsync();
     }

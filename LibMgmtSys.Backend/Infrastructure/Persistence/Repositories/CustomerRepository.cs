@@ -17,7 +17,9 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
         
         public async Task<Customer?> GetCustomerByIdAsync(CustomerId customerId)
         {
-            return await _dbContext.Customers.FirstOrDefaultAsync(customer => customer.Id.Equals(customerId));
+            return await _dbContext.Customers
+                .Include(loan => loan.Loans)
+                .FirstOrDefaultAsync(customer => customer.Id.Equals(customerId));
         }
 
         public async Task<Customer?> GetCustomerByUserIdAsync(UserId userId)
