@@ -11,8 +11,8 @@ namespace LibMgmtSys.Backend.Domain.UserAggregate
         public string Email { get; private set; }
         public string Password { get; private set; }
         public Role Role { get; private set; }
-        public DateTime CreatedAt { get; private set; }
-        public DateTime UpdatedAt { get; private set; }
+        //public DateTime CreatedAt { get; private set; }
+        //public DateTime UpdatedAt { get; private set; }
 
         private User() : base(UserId.CreateUnique())
         {

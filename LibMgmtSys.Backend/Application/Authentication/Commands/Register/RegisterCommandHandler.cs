@@ -4,6 +4,7 @@ using ErrorOr;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Authentication;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
+using LibMgmtSys.Backend.Domain.CustomerAggregate;
 using LibMgmtSys.Backend.Domain.UserAggregate;
 
 namespace LibMgmtSys.Backend.Application.Authentication.Commands.Register
@@ -12,14 +13,17 @@ namespace LibMgmtSys.Backend.Application.Authentication.Commands.Register
     {
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
         private readonly IUserRepository _userRepository;
+        private readonly ICustomerRepository _customerRepository;
 
         public RegisterCommandHandler(
             IJwtTokenGenerator jwtTokenGenerator,
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            ICustomerRepository customerRepository
             )
         {
             _jwtTokenGenerator = jwtTokenGenerator;
             _userRepository = userRepository;
+            _customerRepository = customerRepository;
         }
 
         public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
@@ -28,6 +32,7 @@ namespace LibMgmtSys.Backend.Application.Authentication.Commands.Register
             {
                 return Errors.User.DuplicateEmail;
             }
+            
             var user = User.CreateCustomer(
                 command.FirstName,
                 command.LastName,
@@ -35,8 +40,14 @@ namespace LibMgmtSys.Backend.Application.Authentication.Commands.Register
                 command.Password
                 );
 
-            await _userRepository.AddUserAsync(user);
+            var customer = Customer.Create(
+                user.FirstName,
+                user.LastName,
+                user.Id
+            );
 
+            await _userRepository.AddUserAsync(user);
+            await _customerRepository.AddCustomerAsync(customer);
             var jwtToken = _jwtTokenGenerator.GenerateToken(user);
 
             return new AuthenticationResult(user, jwtToken);
