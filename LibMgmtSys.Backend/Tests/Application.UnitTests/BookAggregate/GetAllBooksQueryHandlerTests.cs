@@ -47,11 +47,7 @@ namespace Tests.Application.UnitTests.BookAggregate
             bookRepositoryMock.Setup(bookRepository => bookRepository.GetAllBooksWithPaginationAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(books);
             
-            var getAllBooksQuery = new GetAllBooksWithPaginationQuery
-            {
-                PageNumber = 1,
-                PageSize = 3
-            };
+            var getAllBooksQuery = new GetAllBooksWithPaginationQuery(PageNumber: 1, PageSize: 3);
             var getAllBooksQueryHandler = new GetAllBooksWithPaginationQueryHandler(
                 bookRepositoryMock.Object
             );

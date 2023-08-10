@@ -41,11 +41,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> GetAllBooks([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var getAllBooksQuery = new GetAllBooksWithPaginationQuery
-            {
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            };
+            var getAllBooksQuery = new GetAllBooksWithPaginationQuery(pageNumber, pageSize);
             var getAllBooksResult = await _mediator.Send(getAllBooksQuery);
 
             return getAllBooksResult.Match(
@@ -76,7 +72,6 @@ namespace LibMmgtSys.Backend.Api.Controllers
         }
         
         [HttpDelete("{id}")]
-        [AllowAnonymous]
         public async Task<IActionResult> DeleteBook([FromRoute] string id)
         {
             var deleteBookCommand = new DeleteBookCommand(BookId.Create(Guid.Parse(id)));

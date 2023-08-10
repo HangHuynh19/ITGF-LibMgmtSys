@@ -23,6 +23,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
         public Task<List<Loan>> GetAllLoansWithPaginationAsync(int pageNumber, int pageSize)
         {
             return _dbContext.Loans
+                .Include(book => book.Book)
                 .Include(customer => customer.Customer)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
