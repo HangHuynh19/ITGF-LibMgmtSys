@@ -49,9 +49,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=Meovacarot8.");
             var builder = new NpgsqlDataSourceBuilder(_configuration.GetConnectionString("DefaultConnection"));
-            //builder.MapEnum<Role>("role");
             optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
         }
 
@@ -78,6 +76,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.HasMany(e => e.Authors).WithMany(e => e.Books);
                 entity.HasMany(e => e.Genres).WithMany(e => e.Books);
                 entity.HasMany(e => e.BookReviews).WithOne(e => e.Book);
+                entity.HasMany(e => e.Loans).WithOne(e => e.Book);
             });
 
             modelBuilder.Entity<Author>(entity =>
@@ -157,6 +156,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.BookId).HasConversion(e => e.Value, e => BookId.Create(e));
                 entity.Property(e => e.CustomerId);
                 entity.HasOne(e => e.Customer).WithMany(e => e.Loans).OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(e => e.Book).WithMany(e => e.Loans).OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Bill>(entity =>

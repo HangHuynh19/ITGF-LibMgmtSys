@@ -2,12 +2,13 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;
   &lt;Assembly Path="/Users/hanghuynh/.nuget/packages/erroror/1.2.1/lib/net6.0/ErrorOr.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=03d9a864_002D8357_002D4ee1_002Db34f_002Daba5a54636a0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Handle_WhenUserIsNotRegistered_ShouldReturnAuthenticationResult" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=03d9a864_002D8357_002D4ee1_002Db34f_002Daba5a54636a0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_WhenUserIsNotRegistered_ShouldReturnAuthenticationResult" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.AuthenticationTests.RegisterCommandHandlerTests.Handle_DuplicateEmail_ShouldReturnDuplicateEmailError&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.LoanAggregate.CreateLoanCommandHandlerTests.Handle_WhenBookNotFound_ReturnsBookNotFound&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b827a80_002D25fe_002D46e6_002D82d3_002D75fbc9fd027f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_WhenBookIdsAreInvalid_ShouldReturnBookNotFound #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1b827a80_002D25fe_002D46e6_002D82d3_002D75fbc9fd027f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Handle_WhenBookIdsAreInvalid_ShouldReturnBookNotFound #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.GetAllBooksQueryHandlerTests.GetAllBooksQueryHandler_ShouldReturnAllBooks&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.AuthenticationTests.RegisterCommandHandlerTests.Handle_WhenUserIsNotRegistered_ShouldReturnAuthenticationResult&lt;/TestId&gt;
@@ -17,6 +18,8 @@
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.CreateBookCommandHandlerTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.DeleteBookCommandHandlerTests.Handle_ValidBookId_ReturnsBookNotFound&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.DeleteBookCommandHandlerTests.Handle_InvalidBookId_ReturnsBookNotFound&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.LoanAggregate.CreateLoanCommandHandlerTests.Handle_WhenBookNotFound_ReturnsBookNotFound&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.LoanAggregate.CreateLoanCommandHandlerTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=30cd294f_002De311_002D40c9_002Dacf6_002D6ffb56a86f81/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_WhenBookIdsAreInvalid_ShouldReturnBookNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;

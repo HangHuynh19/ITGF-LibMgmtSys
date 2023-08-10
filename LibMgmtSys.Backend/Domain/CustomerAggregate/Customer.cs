@@ -12,6 +12,7 @@ namespace LibMgmtSys.Backend.Domain.CustomerAggregate
     private readonly List<Bill> _bills = new();
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
+    public string Email { get; private set; }
     public Uri? ProfileImage { get; private set; } = new Uri("https://i.imgur.com/1qk9n0z.png");
     public UserId UserId { get; private set; }
     public IReadOnlyList<Loan> Loans => _loans.AsReadOnly();
@@ -24,15 +25,17 @@ namespace LibMgmtSys.Backend.Domain.CustomerAggregate
     }
     
     private Customer(
+      CustomerId customerId,
       string firstName,
       string lastName,
+      string email,
       UserId userId,
-      Uri? profileImage = null,
-      CustomerId? customerId = null
-      ) : base(customerId ?? CustomerId.CreateUnique())
+      Uri? profileImage = null
+      ) : base(customerId)
     {
       FirstName = firstName;
       LastName = lastName;
+      Email = email;
       UserId = userId;
       profileImage ??= new Uri("https://i.imgur.com/1qk9n0z.png");
     }
@@ -40,12 +43,15 @@ namespace LibMgmtSys.Backend.Domain.CustomerAggregate
     public static Customer Create(
       string firstName,
       string lastName,
+      string email,
       UserId userId
       )
     {
       return new Customer(
+        CustomerId.CreateUnique(),
         firstName,
         lastName,
+        email,
         userId
         );
     }

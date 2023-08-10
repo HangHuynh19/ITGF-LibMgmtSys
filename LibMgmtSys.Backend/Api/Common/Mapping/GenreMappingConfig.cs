@@ -1,5 +1,5 @@
 using Contracts.Genres;
-using LibMgmtSys.Backend.Application.Genres;
+using LibMgmtSys.Backend.Application.Genres.Commands.CreateGenreCommand;
 using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.GenreAggregate;
 using Mapster;

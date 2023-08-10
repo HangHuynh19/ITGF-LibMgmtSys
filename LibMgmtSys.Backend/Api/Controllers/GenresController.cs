@@ -1,5 +1,5 @@
 using Contracts.Genres;
-using LibMgmtSys.Backend.Application.Genres;
+using LibMgmtSys.Backend.Application.Genres.Commands.CreateGenreCommand;
 using LibMmgtSys.Backend.Api.Controllers;
 using MapsterMapper;
 using MediatR;

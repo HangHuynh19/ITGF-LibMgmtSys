@@ -15,7 +15,6 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
       config.NewConfig<CreateAuthorRequest, CreateAuthorCommand>()
         .Map(dest => dest.Name, src => src.Name)
         .Map(dest => dest.Biography, src => src.Biography);
-      //.Map(dest => dest.BookIds, src => src.BookIds.Value);
 
       config.NewConfig<Author, AuthorResponse>()
         .Map(dest => dest.Id, src => src.Id.Value.ToString())

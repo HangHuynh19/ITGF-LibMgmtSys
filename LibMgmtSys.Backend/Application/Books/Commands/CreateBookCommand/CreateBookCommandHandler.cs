@@ -27,21 +27,21 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
       //_bookReviewRepository = bookReviewRepository;
     }
 
-    public async Task<ErrorOr<Book>> Handle(CreateBookCommand request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<Book>> Handle(CreateBookCommand command, CancellationToken cancellationToken)
     {
       var book = Book.Create(
-        request.Title,
-        request.Isbn,
-        request.Publisher,
-        request.Year,
-        request.Description,
-        request.Image,
-        request.BorrowingPeriod,
-        request.Quantity
+        command.Title,
+        command.Isbn,
+        command.Publisher,
+        command.Year,
+        command.Description,
+        command.Image,
+        command.BorrowingPeriod,
+        command.Quantity
       );
-      var authors = await _authorRepository.GetAuthorsByIdsAsync(request.AuthorIds);
+      var authors = await _authorRepository.GetAuthorsByIdsAsync(command.AuthorIds);
       
-      if (authors.Count != request.AuthorIds.Count)
+      if (authors.Count != command.AuthorIds.Count)
       {
         return Errors.Author.AuthorNotFound;
       }
@@ -51,9 +51,9 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
         book.AddAuthor(author);
       }
       
-      var genres = await _genreRepository.GetGenresByIdsAsync(request.GenreIds);
+      var genres = await _genreRepository.GetGenresByIdsAsync(command.GenreIds);
         
-      if (genres.Count != request.GenreIds.Count)
+      if (genres.Count != command.GenreIds.Count)
       {
         return Errors.Genre.GenreNotFound;
       }

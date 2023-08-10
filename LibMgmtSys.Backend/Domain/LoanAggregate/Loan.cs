@@ -1,3 +1,4 @@
+using LibMgmtSys.Backend.Domain.BookAggregate;
 using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.Common.Models;
 using LibMgmtSys.Backend.Domain.CustomerAggregate;
@@ -15,6 +16,7 @@ namespace LibMgmtSys.Backend.Domain.LoanAggregate
     public DateTime DueDate { get; private set; }
     public DateTime? ReturnedAt { get; private set; }
     public Customer Customer { get; private set; }
+    public Book Book { get; private set; }
     private Loan() : base(LoanId.CreateUnique())
     {
     }
@@ -40,16 +42,15 @@ namespace LibMgmtSys.Backend.Domain.LoanAggregate
       CustomerId customerId,
       DateTime loanedAt,
       DateTime dueDate,
-      DateTime? returnedAt,
-      LoanId? loanId = null
+      DateTime? returnedAt = null
       )
     {
       return new Loan(
-        loanId ?? LoanId.CreateUnique(),
+        LoanId.CreateUnique(),
         bookId,
         customerId,
-        loanedAt,
-        dueDate,
+        loanedAt.ToUniversalTime(),
+        dueDate.ToUniversalTime(),
         returnedAt
         );
     }

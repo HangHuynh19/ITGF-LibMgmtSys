@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace LibMgmtSys.Backend.Application.Genres
+namespace LibMgmtSys.Backend.Application.Genres.Commands.CreateGenreCommand
 {
     public class CreateGenreCommandValidator : AbstractValidator<CreateGenreCommand>
     {

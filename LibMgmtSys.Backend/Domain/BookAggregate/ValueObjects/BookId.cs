@@ -5,7 +5,7 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects
     public sealed class BookId : ValueObject
     {
         public Guid Value { get; private set; }
-        public BookId(Guid value)
+        private BookId(Guid value)
         {
             Value = value;
         }

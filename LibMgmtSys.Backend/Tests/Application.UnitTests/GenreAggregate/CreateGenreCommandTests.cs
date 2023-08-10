@@ -1,5 +1,5 @@
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
-using LibMgmtSys.Backend.Application.Genres;
+using LibMgmtSys.Backend.Application.Genres.Commands.CreateGenreCommand;
 using LibMgmtSys.Backend.Domain.BookAggregate;
 using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using Moq;

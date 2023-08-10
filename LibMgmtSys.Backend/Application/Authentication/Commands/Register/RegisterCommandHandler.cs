@@ -40,9 +40,11 @@ namespace LibMgmtSys.Backend.Application.Authentication.Commands.Register
                 command.Password
                 );
 
+            
             var customer = Customer.Create(
-                user.FirstName,
-                user.LastName,
+                command.FirstName,
+                command.LastName,
+                command.Email,
                 user.Id
             );
 

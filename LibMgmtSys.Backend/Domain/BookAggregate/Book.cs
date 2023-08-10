@@ -5,6 +5,7 @@ using LibMgmtSys.Backend.Domain.BookReviewAggregate;
 using LibMgmtSys.Backend.Domain.Common.Models;
 using LibMgmtSys.Backend.Domain.Common.ValueObjects;
 using LibMgmtSys.Backend.Domain.GenreAggregate;
+using LibMgmtSys.Backend.Domain.LoanAggregate;
 
 namespace LibMgmtSys.Backend.Domain.BookAggregate
 {
@@ -13,6 +14,7 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
     private readonly List<Author> _authors = new();
     private readonly List<Genre> _genres = new();
     private readonly List<BookReview> _bookReviews = new();
+    private readonly List<Loan> _loans = new();
 
     public string Title { get; private set; }
     public IReadOnlyList<Author> Authors => _authors.AsReadOnly();
@@ -26,6 +28,7 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
     public int BorrowingPeriod { get; private set; }
     public int Quantity { get; private set; }
     public IReadOnlyList<BookReview> BookReviews => _bookReviews.AsReadOnly();
+    public IReadOnlyList<Loan> Loans => _loans.AsReadOnly(); 
 
     private Book() : base(BookId.CreateUnique())
     {

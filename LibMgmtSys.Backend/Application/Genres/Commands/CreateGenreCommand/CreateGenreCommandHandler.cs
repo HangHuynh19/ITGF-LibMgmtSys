@@ -4,7 +4,7 @@ using ErrorOr;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
 
-namespace LibMgmtSys.Backend.Application.Genres
+namespace LibMgmtSys.Backend.Application.Genres.Commands.CreateGenreCommand
 {
     public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, ErrorOr<Genre>>
     {

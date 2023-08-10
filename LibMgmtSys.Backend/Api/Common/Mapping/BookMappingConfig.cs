@@ -60,7 +60,7 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
       config.NewConfig<GenreId, Guid>()
         .Map(dest => dest, src => src.Value);
 
-      // TODO: Add mapping for Genre and BookReview
+      // TODO: Add mapping for BookReview
     }
   }
 
