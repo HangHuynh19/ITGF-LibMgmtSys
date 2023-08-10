@@ -116,7 +116,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Rating).HasConversion(e => e.Value, e => Rating.Create(e));
                 entity.Property(e => e.BookId).HasConversion(e => e.Value, e => BookId.Create(e));
                 entity.Property(e => e.CustomerId).HasConversion(e => e.Value, e => CustomerId.Create(e));
-                entity.HasOne(e => e.Book).WithMany(e => e.BookReviews).OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(e => e.Book).WithMany(e => e.BookReviews);
             });
 
             //modelBuilder.HasPostgresEnum<Role>();
@@ -156,7 +156,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.BookId).HasConversion(e => e.Value, e => BookId.Create(e));
                 entity.Property(e => e.CustomerId);
                 entity.HasOne(e => e.Customer).WithMany(e => e.Loans).OnDelete(DeleteBehavior.Cascade);
-                entity.HasOne(e => e.Book).WithMany(e => e.Loans).OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(e => e.Book).WithMany(e => e.Loans);
             });
 
             modelBuilder.Entity<Bill>(entity =>
@@ -166,7 +166,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => BillId.Create(e));
                 entity.Property(e => e.LoanId).ValueGeneratedNever().HasConversion(e => e.Value, e => LoanId.Create(e));
                 entity.Property(e => e.Amount).IsRequired();
-                entity.HasOne(e => e.Customer).WithMany(e => e.Bills).OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(e => e.Customer).WithMany(e => e.Bills);
             });
         }
     }

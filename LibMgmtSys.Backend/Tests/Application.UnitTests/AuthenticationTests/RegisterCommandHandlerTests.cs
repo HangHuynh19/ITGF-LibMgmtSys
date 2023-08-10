@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using LibMgmtSys.Backend.Application.Authentication.Commands.Register;
 using LibMgmtSys.Backend.Application.Authentication.Common;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Authentication;
@@ -28,38 +29,42 @@ public class RegisterCommandHandlerTests
             _customerRepositoryMock.Object
             );
     }
+    
+    private bool IsValidEmail(string email)
+    {
+        const string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
+        return Regex.IsMatch(email, pattern);
+    }
 
-    /*[Fact]
+    [Fact]
     public async Task Handle_WhenUserIsNotRegistered_ShouldReturnAuthenticationResult()
     {
-        // Arrange
-        var command = new RegisterCommand("John", "Doe", "john@mail.com", "password123");
-        var newUser = User.CreateCustomer(command.FirstName, command.LastName, command.Email, command.Password);
-        var newCustomer = Customer.Create(newUser.FirstName, newUser.LastName, newUser.Id);
-        var authenticationResult = new AuthenticationResult(newUser, "token");
+        _userRepositoryMock.Setup(r => r.GetUserByEmailAsync(It.IsAny<string>()))
+            .ReturnsAsync((string email) =>
+            {
+                if (IsValidEmail(email))
+                {
+                    return null;
+                }
+                
+                return User.CreateCustomer("John", "Doe", email, "password123");
+            });
+        var command = new RegisterCommand("Jane", "Doe", "jane@mail.com", "password123");
+        var user = User.CreateCustomer(command.FirstName, command.LastName, command.Email, command.Password);
+        var customer = Customer.Create(command.FirstName, command.LastName, command.Email, user.Id);
         
+        _userRepositoryMock.Setup(r => r.AddUserAsync(It.IsAny<User>()))
+            .ReturnsAsync(user);
+        _customerRepositoryMock.Setup(r => r.AddCustomerAsync(It.IsAny<Customer>()))
+            .ReturnsAsync(customer);
         _jwtTokenGeneratorMock.Setup(g => g.GenerateToken(It.IsAny<User>()))
             .Returns("token");
-        _userRepositoryMock.Setup(r => r.GetUserByEmailAsync(command.Email))
-            .ReturnsAsync((User)null);
-        _userRepositoryMock.Setup(r => r.AddUserAsync(newUser)).ReturnsAsync(newUser);
-        _customerRepositoryMock.Setup(r => r.AddCustomerAsync(newCustomer))
-            .ReturnsAsync(newCustomer);
         
-        // Act
         var result = await _handler.Handle(command, CancellationToken.None);
         
-        // Assert
-        //Assert.False(result.IsError);
-        //Assert.NotNull(result.Value);
-        Assert.Equal(authenticationResult.User, result.Value.User);
-        //Assert.Equal(authenticationResult.Token, result.Value.Token);
-        
-        /*_jwtTokenGeneratorMock.Verify(g => g.GenerateToken(It.IsAny<User>()), Times.Once);
-        _userRepositoryMock.Verify(r => r.GetUserByEmailAsync(command.Email), Times.Once);
-        _userRepositoryMock.Verify(r => r.AddUserAsync(newUser), Times.Once);
-        _customerRepositoryMock.Verify(r => r.AddCustomerAsync(newCustomer), Times.Once);#1#
-    }*/
+        Assert.False(result.IsError);
+        Assert.Equal("token", result.Value.Token);
+    }
 
     [Fact]
     public async Task Handle_DuplicateEmail_ShouldReturnDuplicateEmailError()

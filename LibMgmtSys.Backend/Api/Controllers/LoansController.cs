@@ -1,6 +1,8 @@
 using Contracts.Loans;
 using LibMgmtSys.Backend.Application.Loans.Commands.CreateLoanCommand;
+using LibMgmtSys.Backend.Application.Loans.Commands.DeleteBookCommand;
 using LibMgmtSys.Backend.Application.Loans.Queries.GetAllLoansQuery;
+using LibMgmtSys.Backend.Domain.LoanAggregate.ValueObjects;
 using LibMmgtSys.Backend.Api.Controllers;
 using MapsterMapper;
 using MediatR;
@@ -34,7 +36,6 @@ namespace Api.Controllers
         }
         
         [HttpGet]
-        [AllowAnonymous]
         public async Task<IActionResult> GetAllLoans([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var getAllLoansQuery = new GetAllLoansWithPaginationQuery(pageNumber, pageSize);
@@ -42,6 +43,18 @@ namespace Api.Controllers
 
             return getAllLoansResult.Match(
                 loans => Ok(loans.Select(result => _mapper.Map<LoanResponse>(result))),
+                errors => Problem(errors));
+        }
+
+        [HttpDelete("{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DeleteLoan([FromRoute] string id)
+        {
+            var deleteLoanCommand = new DeleteLoanCommand(LoanId.Create(Guid.Parse(id)));
+            var deleteLoanResult = await _mediator.Send(deleteLoanCommand);
+
+            return deleteLoanResult.Match(
+                loan => Ok(_mapper.Map<LoanResponse>(loan)),
                 errors => Problem(errors));
         }
     }
