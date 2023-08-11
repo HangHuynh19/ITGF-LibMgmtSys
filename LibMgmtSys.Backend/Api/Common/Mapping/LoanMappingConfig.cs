@@ -1,7 +1,6 @@
 using Contracts.Loans;
 using LibMgmtSys.Backend.Application.Loans.Commands.CreateLoanCommand;
 using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
-using LibMgmtSys.Backend.Domain.CustomerAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.LoanAggregate;
 using Mapster;
 
