@@ -1,11 +1,8 @@
-using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using ErrorOr;
-using LibMgmtSys.Backend.Domain.AuthorAggregate;
-using LibMgmtSys.Backend.Domain.AuthorAggregate.ValueObjects;
+using MediatR;
+using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Domain.BookAggregate;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
-using LibMgmtSys.Backend.Domain.GenreAggregate;
-using MediatR;
 
 namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
 {

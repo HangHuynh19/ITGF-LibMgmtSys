@@ -1,5 +1,6 @@
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Domain.UserAggregate;
+using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
@@ -16,6 +17,12 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
         public async Task<User?> GetUserByEmailAsync(string email)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Email.Equals(email));
+            return user;
+        }
+        
+        public async Task<User?> GetUserByIdAsync(UserId id)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == id);
             return user;
         }
         

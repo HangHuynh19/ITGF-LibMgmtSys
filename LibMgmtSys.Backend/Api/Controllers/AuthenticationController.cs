@@ -1,6 +1,6 @@
-using Contracts.Authentication;
 using LibMgmtSys.Backend.Application.Authentication.Commands.Register;
 using LibMgmtSys.Backend.Application.Authentication.Queries.Login;
+using LibMgmtSys.Backend.Contracts.Authentication;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
 using LibMmgtSys.Backend.Api.Controllers;
 using MapsterMapper;

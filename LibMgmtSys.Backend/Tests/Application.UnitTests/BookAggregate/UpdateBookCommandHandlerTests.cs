@@ -1,11 +1,9 @@
+using Moq;
 using LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
-using LibMgmtSys.Backend.Domain.AuthorAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.BookAggregate;
 using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
-using LibMgmtSys.Backend.Domain.GenreAggregate.ValueObjects;
-using Moq;
 
 namespace Tests.Application.UnitTests.BookAggregate
 {
@@ -33,7 +31,7 @@ namespace Tests.Application.UnitTests.BookAggregate
             var command = new UpdateBookCommand
             (
                 BookId.CreateUnique(),
-                "Title",
+                "Updated Title",
                 "Isbn",
                 "Publisher",
                 2021,
@@ -59,7 +57,7 @@ namespace Tests.Application.UnitTests.BookAggregate
             var result = await _handler.Handle(command, CancellationToken.None);
             
             _bookRepositoryMock.Verify(r => r.UpdateBookAsync(existingBook), Times.Once);
-            Assert.Equal(existingBook, result.Value);
+            Assert.Equal("Updated Title", result.Value.Title);
         }
         
         [Fact]

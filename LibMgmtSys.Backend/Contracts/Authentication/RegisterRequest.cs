@@ -1,4 +1,4 @@
-namespace Contracts.Authentication
+namespace LibMgmtSys.Backend.Contracts.Authentication
 {
     public record RegisterRequest(
         string FirstName,

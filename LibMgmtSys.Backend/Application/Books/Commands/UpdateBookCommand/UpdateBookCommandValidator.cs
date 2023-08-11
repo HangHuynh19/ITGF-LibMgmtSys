@@ -2,9 +2,9 @@ using FluentValidation;
 
 namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
 {
-    public class UpdateBookCommandValidation : AbstractValidator<UpdateBookCommand>
+    public class UpdateBookCommandValidator : AbstractValidator<UpdateBookCommand>
     {
-        public UpdateBookCommandValidation()
+        public UpdateBookCommandValidator()
         {
             RuleFor(updateBookCommand => updateBookCommand.Title)
                 .MaximumLength(100);

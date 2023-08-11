@@ -65,5 +65,18 @@ namespace LibMgmtSys.Backend.Domain.UserAggregate
               Role.Admin
               );
         }
+        
+        public void UpdateUserProperties(
+          string firstName,
+          string lastName,
+          string email,
+          string password
+          )
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Email = email;
+            Password = password;
+        }
     }
 }
