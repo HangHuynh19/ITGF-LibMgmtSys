@@ -8,5 +8,5 @@ namespace Contracts.Customers
         string LastName,
         string Email,
         Uri ProfileImage,
-        List<string> BookLoans);
+        List<string> LoanIds);
 }
