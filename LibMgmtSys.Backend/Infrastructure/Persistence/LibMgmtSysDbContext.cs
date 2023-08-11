@@ -19,12 +19,8 @@ using LibMgmtSys.Backend.Domain.CustomerAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.GenreAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.LoanAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
-using LibMgmtSys.Backend.Domain.Common.Models;
 using LibMgmtSys.Backend.Domain.Common.ValueObjects;
 using LibMgmtSys.Backend.Domain.UserAggregate.Enum;
-
-using LibMgmtSys.Backend.Domain;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LibMgmtSys.Backend.Infrastructure.Persistence
 {
@@ -144,6 +140,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.LastName).IsRequired();
                 entity.Property(e => e.ProfileImage).IsRequired();
                 entity.Property(e => e.UserId).HasConversion(e => e.Value, e => UserId.Create(e));
+                entity.HasOne(e => e.User).WithOne(e => e.Customer).HasForeignKey<Customer>(e => e.UserId);
                 entity.HasMany(e => e.Loans).WithOne(e => e.Customer).OnDelete(DeleteBehavior.Cascade);
                 entity.HasMany(e => e.Bills).WithOne(e => e.Customer).OnDelete(DeleteBehavior.Cascade);
             });

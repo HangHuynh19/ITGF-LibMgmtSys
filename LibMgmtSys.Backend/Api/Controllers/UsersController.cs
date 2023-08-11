@@ -1,5 +1,7 @@
+using LibMgmtSys.Backend.Application.Users.Commands.DeleteUserCommand;
 using LibMgmtSys.Backend.Application.Users.Commands.UpdateUserCommand;
 using LibMgmtSys.Backend.Contracts.Users;
+using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
 using LibMmgtSys.Backend.Api.Controllers;
 using MapsterMapper;
 using MediatR;
@@ -22,7 +24,6 @@ namespace LibMgmtSys.Backend.Api.Controllers
         }
         
         [HttpPut("{id}")]
-        [AllowAnonymous]
         public async Task<IActionResult> UpdateUser([FromRoute] string id, [FromBody] UpdateUserRequest request)
         {
             var updateUserCommand = _mapper.Map<UpdateUserCommand>((request, id));
@@ -32,7 +33,18 @@ namespace LibMgmtSys.Backend.Api.Controllers
                 user => Ok(_mapper.Map<UserResponse>(user)),
                 errors => Problem(errors));
         }
-        
+
+        [HttpDelete("{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> DeleteUser([FromRoute] string id)
+        {
+            var deleteUserCommand = new DeleteUserCommand(UserId.Create(Guid.Parse(id)));
+            var deleteUserResult = await _mediator.Send(deleteUserCommand);
+
+            return deleteUserResult.Match(
+                user => Ok(_mapper.Map<UserResponse>(user)),
+                errors => Problem(errors));
+        }
     }
 }
 

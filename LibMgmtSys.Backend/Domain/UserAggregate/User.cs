@@ -1,4 +1,5 @@
 using LibMgmtSys.Backend.Domain.Common.Models;
+using LibMgmtSys.Backend.Domain.CustomerAggregate;
 using LibMgmtSys.Backend.Domain.UserAggregate.Enum;
 using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
 
@@ -10,6 +11,7 @@ namespace LibMgmtSys.Backend.Domain.UserAggregate
         public string LastName { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
+        public Customer Customer { get; private set; }
         public Role Role { get; private set; }
         //public DateTime CreatedAt { get; private set; }
         //public DateTime UpdatedAt { get; private set; }

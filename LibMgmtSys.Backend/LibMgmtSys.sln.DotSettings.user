@@ -28,6 +28,8 @@
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.UserAggregate.UpdateUserCommandHandlerTests.Handle_UserFound_ReturnsUser&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.UpdateBookCommandHandlerTests.Handle_BookFound_ReturnsBook&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.UserAggregate.UpdateUserCommandHandlerTests.Handle_UserNotFound_ReturnsUserNotFound&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.UserAggregate.DeleteUserCommandHandlerTests.Handle_WhenUserNotFound_ReturnsUserNotFound&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.UserAggregate.DeleteUserCommandHandlerTests.Handle_UserFound_ReturnsUser&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=30cd294f_002De311_002D40c9_002Dacf6_002D6ffb56a86f81/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_WhenBookIdsAreInvalid_ShouldReturnBookNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
