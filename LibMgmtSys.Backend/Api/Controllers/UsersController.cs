@@ -35,7 +35,7 @@ namespace LibMgmtSys.Backend.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [AllowAnonymous]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteUser([FromRoute] string id)
         {
             var deleteUserCommand = new DeleteUserCommand(UserId.Create(Guid.Parse(id)));

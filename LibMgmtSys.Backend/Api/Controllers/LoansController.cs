@@ -36,6 +36,7 @@ namespace Api.Controllers
         }
         
         [HttpGet]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> GetAllLoans([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var getAllLoansQuery = new GetAllLoansWithPaginationQuery(pageNumber, pageSize);

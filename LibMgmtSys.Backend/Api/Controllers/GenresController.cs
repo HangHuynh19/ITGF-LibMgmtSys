@@ -3,6 +3,7 @@ using LibMgmtSys.Backend.Application.Genres.Commands.CreateGenreCommand;
 using LibMmgtSys.Backend.Api.Controllers;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -21,6 +22,7 @@ namespace Api.Controllers
         }
         
         [HttpPost]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateGenre([FromBody] CreateGenreRequest request)
         {
             var createGenreCommand = _mapper.Map<CreateGenreCommand>(request);

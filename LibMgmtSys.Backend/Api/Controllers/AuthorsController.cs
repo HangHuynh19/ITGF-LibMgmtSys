@@ -1,11 +1,10 @@
-using ErrorOr;
 using LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand;
 using LibMgmtSys.Backend.Contracts.Authors;
 using LibMgmtSys.Backend.Contracts.Books;
-using LibMgmtSys.Backend.Domain.AuthorAggregate;
 using LibMmgtSys.Backend.Api.Controllers;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibMgmtSys.Backend.Api.Controllers
@@ -24,6 +23,7 @@ namespace LibMgmtSys.Backend.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateAuthor([FromBody] CreateAuthorRequest request)
         {
             

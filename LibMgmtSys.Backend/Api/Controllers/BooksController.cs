@@ -27,6 +27,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateBook([FromBody] CreateBookRequest request)
         {
             var createBookCommand = _mapper.Map<CreateBookCommand>(request);
@@ -61,6 +62,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
         }
         
         [HttpPut("{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> UpdateBook([FromRoute] string id, [FromBody] UpdateBookRequest request)
         {
             var updateBookCommand = _mapper.Map<UpdateBookCommand>((request, id));
@@ -72,6 +74,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteBook([FromRoute] string id)
         {
             var deleteBookCommand = new DeleteBookCommand(BookId.Create(Guid.Parse(id)));

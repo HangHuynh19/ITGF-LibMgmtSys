@@ -22,7 +22,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
         }
         
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> GetCustomerById([FromRoute] string id)
         {
             var getCustomerByIdQuery = new GetCustomerByIdQuery(CustomerId.Create(Guid.Parse(id)));

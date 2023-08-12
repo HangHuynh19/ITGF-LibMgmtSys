@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Authentication;
 using Microsoft.Extensions.Configuration;
@@ -56,6 +57,10 @@ namespace LibMgmtSys.Backend.Infrastructure
                     ValidAudience = jwtSettings.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Secret))
                 });
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role,"admin"));
+            });
         
             return services;
         }

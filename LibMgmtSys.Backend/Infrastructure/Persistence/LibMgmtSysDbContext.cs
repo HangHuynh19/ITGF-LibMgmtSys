@@ -31,7 +31,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
         public LibMgmtSysDbContext(IConfiguration configuration)
         {
             _configuration = configuration;
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
+            //ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.TrackAll;
         }
 
         public DbSet<Book> Books { get; set; } = null!;
