@@ -1,3 +1,4 @@
+using LibMgmtSys.Backend.Application.Common.Interfaces.Authorization;
 using LibMgmtSys.Backend.Application.Users.Commands.DeleteUserCommand;
 using LibMgmtSys.Backend.Application.Users.Commands.UpdateUserCommand;
 using LibMgmtSys.Backend.Contracts.Users;
@@ -16,16 +17,35 @@ namespace LibMgmtSys.Backend.Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ISender _mediator;
+        private readonly IJwtTokenDecoder _jwtTokenDecoder;
         
-        public UsersController(IMapper mapper, ISender mediator)
+        public UsersController(IMapper mapper, ISender mediator, IJwtTokenDecoder jwtTokenDecoder)
         {
             _mapper = mapper;
             _mediator = mediator;
+            _jwtTokenDecoder = jwtTokenDecoder;
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser([FromRoute] string id, [FromBody] UpdateUserRequest request)
+        public async Task<IActionResult> UpdateUser(
+            [FromRoute] string id, 
+            [FromBody] UpdateUserRequest request, 
+            [FromHeader(Name = "Authorization")] string authorization)
         {
+            var bearerToken = _jwtTokenDecoder.GetBearerTokenFromHeader(authorization);
+            
+            if (bearerToken is null)
+            {
+                return Unauthorized();
+            }
+            
+            var decodedJwtToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
+            
+            if (!decodedJwtToken.UserId.ToString().Equals(id))
+            {
+                return Unauthorized();
+            }
+            
             var updateUserCommand = _mapper.Map<UpdateUserCommand>((request, id));
             var updateUserResult = await _mediator.Send(updateUserCommand);
             

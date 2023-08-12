@@ -1,16 +1,18 @@
 using MediatR;
 using ErrorOr;
+using LibMgmtSys.Backend.Application.Common.Interfaces.Authorization;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
 using LibMgmtSys.Backend.Domain.UserAggregate;
 using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
+using Microsoft.AspNetCore.Http;
 
 namespace LibMgmtSys.Backend.Application.Users.Commands.UpdateUserCommand
 {
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, ErrorOr<User>>
     {
         private readonly IUserRepository _userRepository;
-        
+
         public UpdateUserCommandHandler(
             IUserRepository userRepository
         )

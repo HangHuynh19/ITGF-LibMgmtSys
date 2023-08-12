@@ -18,6 +18,12 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
                 .Map(dest => dest.Password, src => src.Request.Password);
 
             config.NewConfig<User, UserResponse>();
+            
+            config.NewConfig<Guid, UserId>()
+                .Map(dest => dest.Value, src => src);
+      
+            config.NewConfig<UserId, Guid>()
+                .Map(dest => dest, src => src.Value);
         }
     }
 }

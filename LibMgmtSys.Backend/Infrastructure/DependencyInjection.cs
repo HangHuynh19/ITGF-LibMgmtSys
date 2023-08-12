@@ -1,11 +1,13 @@
 using System.Security.Claims;
 using System.Text;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Authentication;
+using LibMgmtSys.Backend.Application.Common.Interfaces.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Services;
 using LibMgmtSys.Backend.Infrastructure.Authentication;
+using LibMgmtSys.Backend.Infrastructure.Authorization;
 using LibMgmtSys.Backend.Infrastructure.Persistence.Repositories;
 using LibMgmtSys.Backend.Infrastructure.Persistence;
 using LibMgmtSys.Backend.Infrastructure.Services;

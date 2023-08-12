@@ -4,7 +4,7 @@ namespace LibMgmtSys.Backend.Domain.Common.ValueObjects
 {
     public sealed class Rating : ValueObject
     {
-        public Rating(int value)
+        private Rating(int value)
         {
             Value = value;
         }

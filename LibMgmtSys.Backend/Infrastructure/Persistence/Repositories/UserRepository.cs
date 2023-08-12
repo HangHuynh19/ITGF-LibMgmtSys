@@ -22,7 +22,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
         
         public async Task<User?> GetUserByIdAsync(UserId id)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == id);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id.Equals(id));
             return user;
         }
         
