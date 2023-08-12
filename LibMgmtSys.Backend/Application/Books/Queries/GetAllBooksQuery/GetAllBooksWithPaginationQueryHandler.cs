@@ -16,6 +16,10 @@ public class GetAllBooksWithPaginationQueryHandler : IRequestHandler<GetAllBooks
     
     public async Task<ErrorOr<List<Book>>> Handle(GetAllBooksWithPaginationQuery request, CancellationToken cancellationToken)
     {
-        return await _bookRepository.GetAllBooksWithPaginationAsync(request.PageNumber, request.PageSize);
+        return await _bookRepository.GetAllBooksWithPaginationAsync(
+            request.PageNumber, 
+            request.PageSize, 
+            request.SortOrder, 
+            request.SearchTerm.ToLower().Trim());
     }
 }

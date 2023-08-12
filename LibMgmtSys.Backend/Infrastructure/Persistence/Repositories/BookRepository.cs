@@ -14,14 +14,42 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
       _dbContext = dbContext;
     }
 
-    public async Task<List<Book>> GetAllBooksWithPaginationAsync(int pageNumber, int pageSize)
+    public async Task<List<Book>> GetAllBooksWithPaginationAsync(
+      int pageNumber, 
+      int pageSize, 
+      string sortOrder, 
+      string searchTerm)
     {
-      return await _dbContext.Books
+      /*return await _dbContext.Books
         .Include(book => book.Authors)
         .Include(genre => genre.Genres)
         .Skip((pageNumber - 1) * pageSize)
         .Take(pageSize)
-        .ToListAsync();
+        .ToListAsync();*/
+
+      IQueryable<Book> query = _dbContext.Books
+        .Include(book => book.Authors)
+        .Include(book => book.Genres);
+      
+      if (!string.IsNullOrEmpty(searchTerm))
+      {
+        query = query.Where(book =>
+          book.Title.ToLower().Contains(searchTerm) ||
+          book.Authors.Any(author => author.Name.ToLower().Contains(searchTerm)) ||
+          book.Description.ToLower().Contains(searchTerm) ||
+          book.Publisher.ToLower().Contains(searchTerm) ||
+          book.Genres.Any(genre => genre.Name.ToLower().Contains(searchTerm)));
+      }
+
+      query = sortOrder switch
+      {
+        "desc" => query.OrderByDescending(book => book.Title),
+        _ => query.OrderBy(book => book.Title)
+      };
+
+      query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+      
+      return await query.ToListAsync();
     }
 
     public async Task<Book?> GetBookByIdAsync(BookId id)

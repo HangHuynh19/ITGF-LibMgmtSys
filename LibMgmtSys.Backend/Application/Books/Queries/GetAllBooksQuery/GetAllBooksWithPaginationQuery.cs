@@ -6,7 +6,9 @@ namespace LibMgmtSys.Backend.Application.Books.Queries.GetAllBooksQuery
 {
     public record GetAllBooksWithPaginationQuery(
         int PageNumber,
-        int PageSize
+        int PageSize,
+        string SortOrder,
+        string SearchTerm
         ) : IRequest<ErrorOr<List<Book>>>;
 }
 

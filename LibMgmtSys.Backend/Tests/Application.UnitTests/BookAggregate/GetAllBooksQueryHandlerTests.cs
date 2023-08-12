@@ -44,10 +44,15 @@ namespace Tests.Application.UnitTests.BookAggregate
             );
             var books = new List<Book> { book1, book2, book3 };
             
-            bookRepositoryMock.Setup(bookRepository => bookRepository.GetAllBooksWithPaginationAsync(It.IsAny<int>(), It.IsAny<int>()))
-                .ReturnsAsync(books);
+            bookRepositoryMock.Setup(bookRepository => bookRepository
+                .GetAllBooksWithPaginationAsync(
+                    It.IsAny<int>(), 
+                    It.IsAny<int>(), 
+                    It.IsAny<string>(), 
+                    It.IsAny<string>())
+            ).ReturnsAsync(books);
             
-            var getAllBooksQuery = new GetAllBooksWithPaginationQuery(PageNumber: 1, PageSize: 3);
+            var getAllBooksQuery = new GetAllBooksWithPaginationQuery(PageNumber: 1, PageSize: 3, SortOrder: "desc", SearchTerm: "abc");
             var getAllBooksQueryHandler = new GetAllBooksWithPaginationQueryHandler(
                 bookRepositoryMock.Object
             );

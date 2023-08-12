@@ -40,9 +40,13 @@ namespace LibMmgtSys.Backend.Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAllBooks([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetAllBooks(
+            [FromQuery] int pageNumber = 1, 
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string sortOrder = "asc",
+            [FromQuery] string searchTerm = "")
         {
-            var getAllBooksQuery = new GetAllBooksWithPaginationQuery(pageNumber, pageSize);
+            var getAllBooksQuery = new GetAllBooksWithPaginationQuery(pageNumber, pageSize, sortOrder, searchTerm);
             var getAllBooksResult = await _mediator.Send(getAllBooksQuery);
 
             return getAllBooksResult.Match(
