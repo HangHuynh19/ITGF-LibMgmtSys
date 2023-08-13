@@ -66,13 +66,13 @@ artifacts/
 ### Ignore unnecessary files in frontend
 
 # dependencies
-*/node_modules
+**/node_modules
 
 # testing
-frontend/coverage
+LibMgmtSys.Frontend/coverage
 
 # production
-frontend/build
+LibMgmtSys.Frontend/build
 
 # env files
 LibMgmtSys.Frontend/.env
@@ -98,4 +98,5 @@ LibMgmtSys.Frontend/package-*.json
 .DS_Store
 .AppleDouble
 .LSOverride
-.vscode/
+**/.vscode/
+**/.idea/
