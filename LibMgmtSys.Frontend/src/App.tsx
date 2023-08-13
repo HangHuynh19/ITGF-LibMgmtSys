@@ -1,9 +1,23 @@
-import React from 'react'
+import React from 'react';
+import { ThemeProvider } from '@mui/material';
+import globalTheme from './theme/globalTheme';
+import {Route, RouterProvider, createBrowserRouter, createRoutesFromElements} from 'react-router-dom';
+import Root from './pages/Root';
 
 const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route path='/' element={<Root />} />
+      </>
+    )
+  );
 
-export default App
+  return (
+    <ThemeProvider theme={globalTheme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
+};
+
+export default App;
