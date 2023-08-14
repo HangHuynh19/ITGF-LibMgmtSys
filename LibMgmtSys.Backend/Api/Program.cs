@@ -6,11 +6,22 @@ using LibMgmtSys.Backend.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 {
-
     builder.Configuration.AddJsonFile("appsettings.Development.json");
     builder.Services
         .AddEndpointsApiExplorer()
         .AddSwaggerGen()
+        .AddCors(options =>
+            {
+                options.AddPolicy(
+                    "AllowSpecialAccess",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:3000")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            }
+        )
         //.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly))
         .AddPresentation()
         .AddApplication()
@@ -24,6 +35,7 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
+    app.UseCors("AllowSpecialAccess");
     app.UseExceptionHandler("/error");
     app.UseHttpsRedirection();
     app.UseAuthentication();

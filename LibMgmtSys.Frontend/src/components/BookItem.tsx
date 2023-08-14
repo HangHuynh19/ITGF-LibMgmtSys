@@ -10,7 +10,7 @@ const BookItem = ({ book }: { book: Book }) => {
     <>
       <ImageListItem>
         <img
-          src={require(`../assets/book${randomInt}.jpeg?w=164&h=164&fit=crop&auto=format`)}
+          src={require(`../assets/bookImages/book${randomInt}.jpeg?w=164&h=164&fit=crop&auto=format`)}
           alt={book.title}
           loading='lazy'
         />

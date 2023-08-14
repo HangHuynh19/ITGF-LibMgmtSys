@@ -5,37 +5,28 @@ const BookDetail = ({ book }: { book: Book }) => {
   const randomInt = Math.floor(Math.random() * 15) + 1;
 
   return (
-    <>
-      <ImageListItem>
-        <img
-          src={require(`../assets/book${randomInt}.jpeg?w=248&h=248&fit=crop&auto=format`)}
-          alt={book.title}
-          loading='lazy'
-        />
-      </ImageListItem>
-      <article>
-        <Typography variant='h4' align='center'>
-          {book.title}
-        </Typography>
-        <Typography component='p' align='center'>
+    <div id='book-detail-content'>
+      <img
+        id='book-detail-content__img'
+        src={require(`../assets/bookImages/book${randomInt}.jpeg?w=164&h=164&fit=crop&auto=format`)}
+        alt={book.title}
+        loading='lazy'
+      />
+      <article id='book-detail-content__article'>
+        <Typography variant='h4'>{book.title}</Typography>
+        <Typography component='p'>
           Authors:&nbsp;
           {book.authorNames.join(', ')}
         </Typography>
-        <Typography component='p' align='center'>
-          Publisher: {book.publisher}
-        </Typography>
-        <Typography component='p' align='center'>
-          Year: {book.year}
-        </Typography>
-        <Typography component='p' align='center'>
+        <Typography component='p'>Publisher: {book.publisher}</Typography>
+        <Typography component='p'>Year: {book.year}</Typography>
+        <Typography component='p'>
           Genres:&nbsp;
           {book.genreNames.join(', ')}
         </Typography>
-        <Typography component='p' align='center'>
-          Description: {book.description}
-        </Typography>
+        <Typography component='p'>Description: {book.description}</Typography>
       </article>
-    </>
+    </div>
   );
 };
 

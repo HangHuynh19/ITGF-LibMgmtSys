@@ -1,6 +1,9 @@
 @use '../variables/colors' as colors;
 @use '../variables/fonts' as fonts;
 
-header {
-  
+.app-header {
+  .app-header__btn {
+    font-weight: 900;
+    letter-spacing: 0.1em;
+  }
 }

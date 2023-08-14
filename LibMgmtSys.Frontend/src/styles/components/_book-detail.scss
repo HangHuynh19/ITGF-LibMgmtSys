@@ -1,0 +1,11 @@
+#book-detail-content {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  margin-top: 1em;
+
+  #book-detail-content__img {
+    width: 50%;
+    height: 30em;
+  }
+}

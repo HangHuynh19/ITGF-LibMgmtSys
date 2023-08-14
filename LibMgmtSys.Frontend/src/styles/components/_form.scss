@@ -1,0 +1,50 @@
+@use '../variables/colors' as colors;
+@use '../variables/fonts' as fonts;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  background-color: colors.$papaya-whip;
+  padding: 2em;
+  border-radius: 0.5em;
+  letter-spacing: 0.1em;
+
+  .form__title {
+    font-family: fonts.$heading_font;
+    font-size: 2em;
+    font-weight: 900;
+    color: colors.$eerie-black;
+  }
+
+  .form__input {
+    width: 100%;
+    padding: -0.5em;
+  }
+
+  .form__btn-group {
+    margin-top: 1em;
+  }
+
+  .form__agree-btn {
+    background-color: colors.$perusian-blue;
+    font-weight: 900;
+    color: colors.$alabaster;
+    padding: 0.5em 3em;
+  }
+
+  .form__cancel-btn {
+    background-color: colors.$sienna;
+    color: colors.$alabaster;
+    font-weight: 900;
+    margin-right: 3em;
+    padding: 0.5em 3em;
+  }
+}

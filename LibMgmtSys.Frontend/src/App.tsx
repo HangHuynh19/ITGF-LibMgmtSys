@@ -10,6 +10,7 @@ import {
 import Root from './pages/Root';
 import HomePage from './pages/HomePage';
 import BookDetailPage from './pages/BookDetailPage';
+import './styles/styles.scss';
 
 const App = () => {
   const router = createBrowserRouter(
