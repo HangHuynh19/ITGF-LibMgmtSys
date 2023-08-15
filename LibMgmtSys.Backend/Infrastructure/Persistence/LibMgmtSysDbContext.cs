@@ -116,7 +116,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
             });
 
             //modelBuilder.HasPostgresEnum<Role>();
-            
+
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("users");
