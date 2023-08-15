@@ -41,12 +41,12 @@ namespace LibMgmtSys.Backend.Api.Controllers
             
             var decodedJwtToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
             
-            /* if (!decodedJwtToken.UserId.ToString().Equals(id))
+            /*if (!decodedJwtToken.UserId.ToString().Equals(id))
             {
                 return Unauthorized();
             } */
             
-            var updateUserCommand = _mapper.Map<UpdateUserCommand>((request, decodedJwtToken.UserId));
+            var updateUserCommand = _mapper.Map<UpdateUserCommand>((request, decodedJwtToken.UserId.ToString()));
             var updateUserResult = await _mediator.Send(updateUserCommand);
             
             return updateUserResult.Match(
