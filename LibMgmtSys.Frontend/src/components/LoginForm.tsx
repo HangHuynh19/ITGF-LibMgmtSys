@@ -2,6 +2,7 @@ import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import useAppDispatch from '../hooks/useAppDispatch';
 import { authenticate } from '../store/reducers/authReducer';
 import useInputHook from '../hooks/useInputHook';
+import {fetchCustomerProfile} from '../store/reducers/customerReducer';
 
 const LoginForm = ({
   open,
@@ -19,6 +20,7 @@ const LoginForm = ({
     await dispatch(
       authenticate({ email: email.value, password: password.value })
     );
+    await dispatch(fetchCustomerProfile());
     onClose();
   };
 

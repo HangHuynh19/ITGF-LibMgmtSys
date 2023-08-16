@@ -11,6 +11,7 @@ import Root from './pages/Root';
 import HomePage from './pages/HomePage';
 import BookDetailPage from './pages/BookDetailPage';
 import './styles/styles.scss';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -19,6 +20,7 @@ const App = () => {
         <Route path='/' element={<Root />}>
           <Route path='/' element={<HomePage />} />
           <Route path='/books/:id' element={<BookDetailPage />} />
+          <Route path='/customers/profile' element={<ProfilePage />} />
         </Route>
       </>
     )

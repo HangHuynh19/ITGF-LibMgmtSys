@@ -20,6 +20,7 @@ export const authenticate = createAsyncThunk(
       const response: { token: string } = await loggingIn(email, password);
 
       localStorage.setItem('token', response.token);
+      console.log('authReducer', response);
       return response;
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -28,12 +29,19 @@ export const authenticate = createAsyncThunk(
         return err;
       }
     }
-  });
+  }
+);
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      localStorage.removeItem('token');
+      state.isLoggedIn = false;
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(authenticate.pending, (state, action) => {
@@ -54,4 +62,5 @@ const authSlice = createSlice({
 
 const authReducer = authSlice.reducer;
 
+export const { logout } = authSlice.actions;
 export default authReducer;
