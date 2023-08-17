@@ -8,7 +8,7 @@ const BookDetailPage = () => {
   const book = useAppSelector((state) =>
     state.bookReducer.books.find((book) => book.id === id)
   );
-  console.log('BookDetailPage', book);
+  
   return (
     <>
       {book ? (

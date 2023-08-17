@@ -59,6 +59,33 @@
   padding: 0.5em 3em;
 }
 
+.profile {
+  display: flex;
+  gap: 2em;
+  margin: 2.5em 1em;
+}
+.profile .profile__avatar-container {
+  width: 10em;
+  height: 10em;
+  object-fit: cover;
+}
+.profile .profile__avatar-container .profile__avatar-container__img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profile .profile__article {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.profile .profile__article .profile__info-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
 body {
   padding: 0 2em;
 }

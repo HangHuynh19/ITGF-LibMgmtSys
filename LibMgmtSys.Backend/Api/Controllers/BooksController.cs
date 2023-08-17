@@ -3,6 +3,7 @@ using LibMgmtSys.Backend.Application.Books.Commands.DeleteBookCommand;
 using LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand;
 using LibMgmtSys.Backend.Application.Books.Queries.GetAllBooksQuery;
 using LibMgmtSys.Backend.Application.Books.Queries.GetBookByIdQuery;
+using LibMgmtSys.Backend.Application.Books.Queries.GetBooksByIdsQuery;
 using LibMgmtSys.Backend.Contracts.Books;
 using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
@@ -32,7 +33,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
         {
             var createBookCommand = _mapper.Map<CreateBookCommand>(request);
             var createBookResult = await _mediator.Send(createBookCommand);
-            
+
             return createBookResult.Match(
                 book => Ok(_mapper.Map<BookResponse>(book)),
                 errors => Problem(errors));
@@ -41,7 +42,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetAllBooks(
-            [FromQuery] int pageNumber = 1, 
+            [FromQuery] int pageNumber = 1,
             [FromQuery] int pageSize = 10,
             [FromQuery] string sortOrder = "asc",
             [FromQuery] string searchTerm = "")
@@ -55,35 +56,48 @@ namespace LibMmgtSys.Backend.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBookById([FromRoute] string id)
+        public async Task<IActionResult> GetBookById(
+            [FromRoute] string id)
         {
             var getBookByIdQuery = new GetBookByIdQuery(BookId.Create(Guid.Parse(id)));
             var getBookByIdResult = await _mediator.Send(getBookByIdQuery);
-            
+
             return getBookByIdResult.Match(
                 book => Ok(_mapper.Map<BookResponse>(book)),
                 errors => Problem(errors));
         }
-        
+
+        [HttpGet("by-ids")]
+        public async Task<IActionResult> GetBooksByIds([FromBody] string[] ids)
+        {
+            var bookIds = ids.Select(id => BookId.Create(Guid.Parse(id))).ToList();
+            var getBooksByIdsQuery = new GetBooksByIdsQuery(bookIds);
+            var getBooksByIdsResult = await _mediator.Send(getBooksByIdsQuery);
+
+            return getBooksByIdsResult.Match(
+                books => Ok(books.Select(result => _mapper.Map<BookResponse>(result))),
+                errors => Problem(errors));
+        }
+
         [HttpPut("{id}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> UpdateBook([FromRoute] string id, [FromBody] UpdateBookRequest request)
         {
             var updateBookCommand = _mapper.Map<UpdateBookCommand>((request, id));
             var updateBookResult = await _mediator.Send(updateBookCommand);
-            
+
             return updateBookResult.Match(
                 book => Ok(_mapper.Map<BookResponse>(book)),
                 errors => Problem(errors));
         }
-        
+
         [HttpDelete("{id}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteBook([FromRoute] string id)
         {
             var deleteBookCommand = new DeleteBookCommand(BookId.Create(Guid.Parse(id)));
             var deleteBookResult = await _mediator.Send(deleteBookCommand);
-            
+
             return deleteBookResult.Match(
                 book => Ok(_mapper.Map<BookResponse>(book)),
                 errors => Problem(errors));

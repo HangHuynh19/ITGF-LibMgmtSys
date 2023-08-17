@@ -20,13 +20,6 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
       string sortOrder, 
       string searchTerm)
     {
-      /*return await _dbContext.Books
-        .Include(book => book.Authors)
-        .Include(genre => genre.Genres)
-        .Skip((pageNumber - 1) * pageSize)
-        .Take(pageSize)
-        .ToListAsync();*/
-
       IQueryable<Book> query = _dbContext.Books
         .Include(book => book.Authors)
         .Include(book => book.Genres);

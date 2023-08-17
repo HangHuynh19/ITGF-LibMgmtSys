@@ -1,10 +1,11 @@
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material';
 import LoginForm from './LoginForm';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAppSelector from '../hooks/useAppSelector';
 import RegisterForm from './RegisterForm';
 import UserMenuBtn from './UserMenuBtn';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const Header = () => {
   const navigate = useNavigate();
@@ -47,6 +48,11 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <UserMenuBtn />
+              <Link to='/cart'>
+                <IconButton color='primary'>
+                  <ShoppingCartIcon />
+                </IconButton>
+              </Link>
             </>
           ) : (
             <>

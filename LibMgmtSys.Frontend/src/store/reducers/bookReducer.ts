@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Book } from '../../interfaces/Book';
-import { getAllBooks/* , getBookById  */} from '../../api/apiCalls';
+import { getAllBooks /* , getBookById  */ } from '../../api/apiCalls';
 import axios from 'axios';
 
 const initialState: {
@@ -48,7 +48,12 @@ export const fetchAllBooks = createAsyncThunk(
 const bookSlice = createSlice({
   name: 'book',
   initialState,
-  reducers: {},
+  reducers: {
+    filterBooks: (state, action: PayloadAction<{ ids: string[] }>) => {
+      const { ids } = action.payload;
+      state.books = state.books.filter((book) => ids.includes(book.id));
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllBooks.pending, (state, action) => {
@@ -82,5 +87,5 @@ const bookSlice = createSlice({
 });
 
 const productReducer = bookSlice.reducer;
-
+export const { filterBooks } = bookSlice.actions;
 export default productReducer;

@@ -6,6 +6,7 @@ import useAppDispatch from '../hooks/useAppDispatch';
 import { clearUser } from '../store/reducers/userReducer';
 import { clearCustomer } from '../store/reducers/customerReducer';
 import { logout } from '../store/reducers/authReducer';
+import { clearCart } from '../store/reducers/cartReducer';
 
 const UserMenuBtn = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +24,7 @@ const UserMenuBtn = () => {
     dispatch(clearUser());
     dispatch(clearCustomer());
     dispatch(logout());
+    dispatch(clearCart());
     handleCloseUserMenu();
   };
 

@@ -53,4 +53,11 @@ const getCustomerProfile = async <T>(token: string): Promise<T> => {
   return data;
 };
 
-export { getAllBooks, /* getBookById, */ loggingIn, register, /* putUser */ getCustomerProfile };
+const getBooksByIds = async <T>(ids: string[]): Promise<T> => {
+  const response = await axios.get(`${url}/books/by-id`, { params: { ids } });
+  const data = await response.data;
+  console.log('getBooksByIds', data);
+  return data;
+};
+
+export { getAllBooks, /* getBookById, */ loggingIn, register, /* putUser */ getCustomerProfile, getBooksByIds };
