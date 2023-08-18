@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(LibMgmtSysDbContext))]
-    [Migration("20230810131458_FixLoanMapping11")]
-    partial class FixLoanMapping11
+    [Migration("20230818055041_UpdateDb")]
+    partial class UpdateDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -230,6 +230,10 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_customers");
 
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_customers_user_id");
+
                     b.ToTable("customers", (string)null);
                 });
 
@@ -423,6 +427,18 @@ namespace Infrastructure.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("LibMgmtSys.Backend.Domain.CustomerAggregate.Customer", b =>
+                {
+                    b.HasOne("LibMgmtSys.Backend.Domain.UserAggregate.User", "User")
+                        .WithOne("Customer")
+                        .HasForeignKey("LibMgmtSys.Backend.Domain.CustomerAggregate.Customer", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_customers_users_user_temp_id");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("LibMgmtSys.Backend.Domain.LoanAggregate.Loan", b =>
                 {
                     b.HasOne("LibMgmtSys.Backend.Domain.BookAggregate.Book", "Book")
@@ -473,6 +489,12 @@ namespace Infrastructure.Migrations
                     b.Navigation("Bills");
 
                     b.Navigation("Loans");
+                });
+
+            modelBuilder.Entity("LibMgmtSys.Backend.Domain.UserAggregate.User", b =>
+                {
+                    b.Navigation("Customer")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

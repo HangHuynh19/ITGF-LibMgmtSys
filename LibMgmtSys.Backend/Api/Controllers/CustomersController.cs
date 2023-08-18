@@ -37,9 +37,8 @@ namespace LibMmgtSys.Backend.Api.Controllers
                 return Unauthorized();
             }
             
-            var decodedJwtToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
-            
-            var getCustomerByUserIdQuery = new GetCustomerByUserIdQuery(UserId.Create(decodedJwtToken.UserId));
+            var userFromToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
+            var getCustomerByUserIdQuery = new GetCustomerByUserIdQuery(UserId.Create(userFromToken.UserId));
             var getCustomerByIdResult = await _mediator.Send(getCustomerByUserIdQuery);
             
             return getCustomerByIdResult.Match(

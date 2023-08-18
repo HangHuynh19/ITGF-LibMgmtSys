@@ -1,4 +1,5 @@
 using Contracts.Loans;
+using LibMgmtSys.Backend.Application.Common.Interfaces.Authorization;
 using LibMgmtSys.Backend.Application.Loans.Commands.CreateLoanCommand;
 using LibMgmtSys.Backend.Application.Loans.Commands.DeleteBookCommand;
 using LibMgmtSys.Backend.Application.Loans.Queries.GetAllLoansQuery;
@@ -17,17 +18,28 @@ namespace Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ISender _mediator;
+        private readonly IJwtTokenDecoder _jwtTokenDecoder;
         
-        public LoansController(IMapper mapper, ISender mediator)
+        public LoansController(IMapper mapper, ISender mediator, IJwtTokenDecoder jwtTokenDecoder)
         {
             _mapper = mapper;
             _mediator = mediator;
+            _jwtTokenDecoder = jwtTokenDecoder;
         }
         
         [HttpPost]
-        public async Task<IActionResult> CreateLoan([FromBody] CreateLoanRequest request)
+        public async Task<IActionResult> CreateLoan(
+            [FromHeader(Name = "Authorization")] string authorization,
+            [FromBody] CreateLoanRequest request)
         {
-            var createLoanCommand = _mapper.Map<CreateLoanCommand>(request);
+            var bearerToken = _jwtTokenDecoder.GetBearerTokenFromHeader(authorization);
+
+            if (bearerToken is null) {
+                return Unauthorized();
+            }
+
+            var userFromToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
+            var createLoanCommand = _mapper.Map<CreateLoanCommand>((request, userFromToken.UserId));
             var createLoanResult = await _mediator.Send(createLoanCommand);
             
             return createLoanResult.Match(

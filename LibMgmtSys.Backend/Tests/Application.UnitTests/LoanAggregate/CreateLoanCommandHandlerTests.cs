@@ -33,8 +33,8 @@ namespace Tests.Application.UnitTests.LoanAggregate
         [Fact]
         public async Task Handle_ValidRequest_ReturnsBook()
         {
-            var bookId1 = Guid.NewGuid();
-            var bookId2 = Guid.NewGuid();
+            var bookId1 = Guid.NewGuid().ToString();
+            var bookId2 = Guid.NewGuid().ToString();
             var customer = Customer.Create(
                 "John",
                 "Doe",
@@ -54,7 +54,7 @@ namespace Tests.Application.UnitTests.LoanAggregate
             _loanRepositoryMock.Setup(r => r.AddLoanAsync(It.IsAny<Loan>()))
                 .ReturnsAsync((Loan loan) => loan);
             
-            var command = new CreateLoanCommand(new List<Guid> { bookId1, bookId2 }, DateTime.UtcNow, customer.Id.Value);
+            var command = new CreateLoanCommand(new List<string> { bookId1, bookId2 }, DateTime.UtcNow, customer.Id.Value);
             var result = await _handler.Handle(command, CancellationToken.None);
             
             Assert.False(result.IsError);
@@ -64,8 +64,8 @@ namespace Tests.Application.UnitTests.LoanAggregate
         [Fact]
         public async Task Handle_BookNotFound_ReturnsError()
         {
-            var bookId1 = Guid.NewGuid();
-            var bookId2 = Guid.NewGuid();
+            var bookId1 = Guid.NewGuid().ToString();
+            var bookId2 = Guid.NewGuid().ToString();
             var customer = Customer.Create(
                 "Jane",
                 "Smith",
@@ -86,7 +86,7 @@ namespace Tests.Application.UnitTests.LoanAggregate
                 .ReturnsAsync((Loan loan) => loan);
 
             var command =
-                new CreateLoanCommand(new List<Guid> { bookId1, bookId2 }, DateTime.UtcNow, customer.Id.Value);
+                new CreateLoanCommand(new List<string> { bookId1, bookId2 }, DateTime.UtcNow, customer.Id.Value);
             var result = await _handler.Handle(command, CancellationToken.None);
 
             Assert.True(result.IsError);
@@ -96,8 +96,8 @@ namespace Tests.Application.UnitTests.LoanAggregate
         [Fact]
         public async Task Handle_CustomerNotFound_ReturnsError()
         {
-            var bookId1 = Guid.NewGuid();
-            var bookId2 = Guid.NewGuid();
+            var bookId1 = Guid.NewGuid().ToString();
+            var bookId2 = Guid.NewGuid().ToString();
             var customer = Customer.Create(
                 "Hanna",
                 "Doe",
@@ -118,7 +118,7 @@ namespace Tests.Application.UnitTests.LoanAggregate
                 .ReturnsAsync((Customer)null);
 
             var command =
-                new CreateLoanCommand(new List<Guid> { bookId1, bookId2 }, DateTime.UtcNow, customer.Id.Value);
+                new CreateLoanCommand(new List<string> { bookId1, bookId2 }, DateTime.UtcNow, customer.Id.Value);
             var result = await _handler.Handle(command, CancellationToken.None);
 
             Assert.True(result.IsError);

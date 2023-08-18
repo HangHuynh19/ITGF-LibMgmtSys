@@ -1,37 +1,16 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Book } from '../../interfaces/Book';
-import axios from 'axios';
-import { getBooksByIds } from '../../api/apiCalls';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const initialState: {
   cart: string[];
-  /* booksInCart: Book[]; */
   totalQuantity: number;
   loading: boolean;
   error: string | null | undefined;
 } = {
   cart: [],
-  /* booksInCart: [], */
   totalQuantity: 0,
   loading: false,
   error: null,
 };
-
-/* export const fetchBooksInCart = createAsyncThunk(
-  'fetchBooksInCart',
-  async (bookIds: string[]) => {
-    try {
-      const response = await getBooksByIds(bookIds);
-      return response;
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        return err.response?.data;
-      } else {
-        return err;
-      }
-    }
-  }
-); */
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -65,21 +44,6 @@ const cartSlice = createSlice({
       return initialState;
     },
   },
-  /* extraReducers: (builder) => {
-    builder
-      .addCase(fetchBooksInCart.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchBooksInCart.fulfilled, (state, action) => {
-        state.booksInCart = action.payload;
-        state.loading = false;
-        state.error = null;
-      })
-      .addCase(fetchBooksInCart.rejected, (state, action) => {
-        state.error = action.error.message;
-        state.loading = false;
-      });
-  }, */
 });
 
 const cartReducer = cartSlice.reducer;

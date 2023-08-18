@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(LibMgmtSysDbContext))]
-    [Migration("20230808111626_AddTracker")]
-    partial class AddTracker
+    [Migration("20230818054803_InitiateDb")]
+    partial class InitiateDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,25 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("AuthorBook", b =>
+                {
+                    b.Property<Guid>("AuthorsId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("authors_id");
+
+                    b.Property<Guid>("BooksId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("books_id");
+
+                    b.HasKey("AuthorsId", "BooksId")
+                        .HasName("pk_author_book");
+
+                    b.HasIndex("BooksId")
+                        .HasDatabaseName("ix_author_book_books_id");
+
+                    b.ToTable("author_book", (string)null);
+                });
 
             modelBuilder.Entity("BookGenre", b =>
                 {
@@ -203,6 +222,11 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("email");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text")
@@ -224,6 +248,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_customers");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasDatabaseName("ix_customers_user_id");
 
                     b.ToTable("customers", (string)null);
                 });
@@ -274,6 +302,9 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("pk_loans");
 
+                    b.HasIndex("BookId")
+                        .HasDatabaseName("ix_loans_book_id");
+
                     b.HasIndex("CustomerId")
                         .HasDatabaseName("ix_loans_customer_id");
 
@@ -285,10 +316,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uuid")
                         .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -315,33 +342,27 @@ namespace Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("role");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_at");
-
                     b.HasKey("Id")
                         .HasName("pk_users");
 
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("book_author", b =>
+            modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.Property<Guid>("bookId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("book_id");
+                    b.HasOne("LibMgmtSys.Backend.Domain.AuthorAggregate.Author", null)
+                        .WithMany()
+                        .HasForeignKey("AuthorsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_author_book_authors_authors_temp_id");
 
-                    b.Property<Guid>("authorId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("author_id");
-
-                    b.HasKey("bookId", "authorId")
-                        .HasName("pk_book_author");
-
-                    b.HasIndex("authorId")
-                        .HasDatabaseName("ix_book_author_author_id");
-
-                    b.ToTable("book_author", (string)null);
+                    b.HasOne("LibMgmtSys.Backend.Domain.BookAggregate.Book", null)
+                        .WithMany()
+                        .HasForeignKey("BooksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_author_book_books_books_temp_id2");
                 });
 
             modelBuilder.Entity("BookGenre", b =>
@@ -351,7 +372,7 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_book_genre_books_books_temp_id2");
+                        .HasConstraintName("fk_book_genre_books_books_temp_id3");
 
                     b.HasOne("LibMgmtSys.Backend.Domain.GenreAggregate.Genre", null)
                         .WithMany()
@@ -423,8 +444,27 @@ namespace Infrastructure.Migrations
                     b.Navigation("Customer");
                 });
 
+            modelBuilder.Entity("LibMgmtSys.Backend.Domain.CustomerAggregate.Customer", b =>
+                {
+                    b.HasOne("LibMgmtSys.Backend.Domain.UserAggregate.User", "User")
+                        .WithOne("Customer")
+                        .HasForeignKey("LibMgmtSys.Backend.Domain.CustomerAggregate.Customer", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_customers_users_user_temp_id");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("LibMgmtSys.Backend.Domain.LoanAggregate.Loan", b =>
                 {
+                    b.HasOne("LibMgmtSys.Backend.Domain.BookAggregate.Book", "Book")
+                        .WithMany("Loans")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_loans_books_book_temp_id1");
+
                     b.HasOne("LibMgmtSys.Backend.Domain.CustomerAggregate.Customer", "Customer")
                         .WithMany("Loans")
                         .HasForeignKey("CustomerId")
@@ -432,29 +472,16 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_loans_customers_customer_temp_id2");
 
+                    b.Navigation("Book");
+
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("book_author", b =>
-                {
-                    b.HasOne("LibMgmtSys.Backend.Domain.AuthorAggregate.Author", null)
-                        .WithMany()
-                        .HasForeignKey("authorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_book_author_authors_author_id");
-
-                    b.HasOne("LibMgmtSys.Backend.Domain.BookAggregate.Book", null)
-                        .WithMany()
-                        .HasForeignKey("bookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_book_author_books_book_id");
                 });
 
             modelBuilder.Entity("LibMgmtSys.Backend.Domain.BookAggregate.Book", b =>
                 {
                     b.Navigation("BookReviews");
+
+                    b.Navigation("Loans");
                 });
 
             modelBuilder.Entity("LibMgmtSys.Backend.Domain.CustomerAggregate.Customer", b =>
@@ -462,6 +489,12 @@ namespace Infrastructure.Migrations
                     b.Navigation("Bills");
 
                     b.Navigation("Loans");
+                });
+
+            modelBuilder.Entity("LibMgmtSys.Backend.Domain.UserAggregate.User", b =>
+                {
+                    b.Navigation("Customer")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

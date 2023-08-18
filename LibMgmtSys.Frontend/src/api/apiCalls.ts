@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { User } from '../interfaces/User';
+import { v4 as uuidv4 } from 'uuid';
 
 const url = 'http://localhost:5271/api/v1';
 
@@ -47,7 +48,9 @@ const register = async <T>(user: User): Promise<T> => {
 }; */
 
 const getCustomerProfile = async <T>(token: string): Promise<T> => {
-  const response = await axios.get(`${url}/customers/profile`, { headers: { Authorization: `Bearer ${token}` } });
+  const response = await axios.get(`${url}/customers/profile`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   const data = await response.data;
   console.log('getCustomerProfile', data);
   return data;
@@ -60,4 +63,38 @@ const getBooksByIds = async <T>(ids: string[]): Promise<T> => {
   return data;
 };
 
-export { getAllBooks, /* getBookById, */ loggingIn, register, /* putUser */ getCustomerProfile, getBooksByIds };
+const createLoansFromBookIds = async <T>(
+  ids: string[],
+  token: string
+): Promise<T> => {
+  try {
+    const response = await axios.post(
+      `${url}/loans`,
+      {
+        bookIds: ids,
+        loanedAt: new Date().toISOString(),
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    const data = await response.data;
+    console.log('createLoansFromBookIds', data);
+    return data;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    } else {
+      return err as T;
+    }
+  }
+};
+
+export {
+  getAllBooks,
+  /* getBookById, */ loggingIn,
+  register,
+  /* putUser */ getCustomerProfile,
+  getBooksByIds,
+  createLoansFromBookIds,
+};

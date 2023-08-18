@@ -7,7 +7,7 @@ using MediatR;
 namespace LibMgmtSys.Backend.Application.Loans.Commands.CreateLoanCommand
 {
     public record CreateLoanCommand(
-        List<Guid> BookIds,
+        List<string> BookIds,
         DateTime LoanedAt,
         Guid CustomerId
     ) : IRequest<ErrorOr<List<Loan>>>;

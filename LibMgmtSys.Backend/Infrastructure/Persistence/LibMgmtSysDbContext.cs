@@ -92,6 +92,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                         e.HasIndex("authorId");
                     }
                 );
+                //entity.HasMany(e => e.Books).WithMany(e => e.Authors);
             });
 
             modelBuilder.Entity<Genre>(entity =>

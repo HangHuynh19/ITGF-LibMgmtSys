@@ -5,7 +5,13 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import useAppDispatch from '../hooks/useAppDispatch';
 import { addToCart } from '../store/reducers/cartReducer';
 
-const BookItem = ({ book }: { book: Book }) => {
+const BookItem = ({
+  book,
+  showAddToCart,
+}: {
+  book: Book;
+  showAddToCart: boolean;
+}) => {
   const dispatch = useAppDispatch();
   const authorString = book.authorNames.join(', ');
   const randomInt = Math.floor(Math.random() * 15) + 1;
@@ -31,12 +37,14 @@ const BookItem = ({ book }: { book: Book }) => {
           title={book.title}
           subtitle={authorString}
           actionIcon={
-            <IconButton style={{ paddingRight: '0.5em' }}>
-              <AddShoppingCartIcon
-                sx={{ color: 'white' }}
-                onClick={handleAddToCart}
-              />
-            </IconButton>
+            showAddToCart && (
+              <IconButton style={{ paddingRight: '0.5em' }}>
+                <AddShoppingCartIcon
+                  sx={{ color: 'white' }}
+                  onClick={handleAddToCart}
+                />
+              </IconButton>
+            )
           }
         />
       </ImageListItem>

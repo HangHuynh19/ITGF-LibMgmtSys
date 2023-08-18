@@ -10,12 +10,11 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<CreateLoanRequest, CreateLoanCommand>()
-                //.Map(dest => dest.BookIds, src => src.BookIds)
-                //.Map(dest => dest.LoanedAt, src => src.LoanedAt);
-                //.Map(dest => dest.CustomerId, src => src.CustomerId);
-                .Map(dest => dest, src => src);
-            
+            config.NewConfig<(CreateLoanRequest request, Guid Id), CreateLoanCommand>()
+                .Map(dest => dest.CustomerId, src => src.Id)
+                .Map(dest => dest.BookIds, src => src.request.BookIds)
+                .Map(dest => dest.LoanedAt, src => src.request.LoanedAt);
+
             config.NewConfig<Loan, LoanResponse>()
                 .Map(dest => dest.LoanId, src => src.Id.Value.ToString())
                 .Map(dest => dest.BookId, src => src.BookId.Value.ToString())
@@ -26,7 +25,7 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
                 .Map(dest => dest.ReturnedAt, src => src.ReturnedAt)
                 .Map(dest => dest.DueDate, src => src.DueDate)
                 .Map(dest => dest.ReturnedAt, src => src.ReturnedAt);
-            
+
             /*config.NewConfig<Guid, CustomerId>()
                 .MapWith(id => CustomerId.Create(id));
       
@@ -39,10 +38,10 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
       
             config.NewConfig<BookId, Guid>()
                 .Map(dest => dest, src => src.Value);*/
-            
+
             config.NewConfig<Guid, BookId>()
                 .MapWith(id => BookId.Create(id));
-            
+
             config.NewConfig<BookId, Guid>()
                 .MapWith(id => id.Value);
         }
