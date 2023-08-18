@@ -3,7 +3,8 @@ import { Book } from '../interfaces/Book';
 import { Link } from 'react-router-dom';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import useAppDispatch from '../hooks/useAppDispatch';
-import { addToCart } from '../store/reducers/cartReducer';
+import { addToCart, removeFromCart } from '../store/reducers/cartReducer';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const BookItem = ({
   book,
@@ -18,6 +19,10 @@ const BookItem = ({
 
   const handleAddToCart = () => {
     dispatch(addToCart(book.id));
+  };
+
+  const handleDeleteFromCart = () => {
+    dispatch(removeFromCart(book.id));
   };
 
   return (
@@ -37,11 +42,18 @@ const BookItem = ({
           title={book.title}
           subtitle={authorString}
           actionIcon={
-            showAddToCart && (
+            showAddToCart ? (
               <IconButton style={{ paddingRight: '0.5em' }}>
                 <AddShoppingCartIcon
                   sx={{ color: 'white' }}
                   onClick={handleAddToCart}
+                />
+              </IconButton>
+            ) : (
+              <IconButton style={{ paddingRight: '0.5em' }}>
+                <DeleteIcon
+                  sx={{ color: 'white' }}
+                  onClick={handleDeleteFromCart}
                 />
               </IconButton>
             )
