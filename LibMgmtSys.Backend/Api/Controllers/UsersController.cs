@@ -1,6 +1,7 @@
 using LibMgmtSys.Backend.Application.Common.Interfaces.Authorization;
 using LibMgmtSys.Backend.Application.Users.Commands.DeleteUserCommand;
 using LibMgmtSys.Backend.Application.Users.Commands.UpdateUserCommand;
+using LibMgmtSys.Backend.Application.Users.Queries.CheckUserAdminStatusQuery;
 using LibMgmtSys.Backend.Contracts.Users;
 using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
 using LibMmgtSys.Backend.Api.Controllers;
@@ -24,6 +25,24 @@ namespace LibMgmtSys.Backend.Api.Controllers
             _mapper = mapper;
             _mediator = mediator;
             _jwtTokenDecoder = jwtTokenDecoder;
+        }
+
+        [HttpGet("check-admin-status")]
+        public async Task<IActionResult> CheckUserAdminStatus([FromHeader(Name = "Authorization")] string authorization)
+        {
+            var bearerToken = _jwtTokenDecoder.GetBearerTokenFromHeader(authorization);
+            
+            if (bearerToken is null)
+            {
+                return Unauthorized();
+            }
+            
+            var userFromToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
+            var isAdmin = await _mediator.Send(new CheckUserAdminStatusQuery(userFromToken.UserId));
+            
+            return isAdmin.Match(
+                admin => Ok(admin),
+                errors => Problem(errors));
         }
         
         [HttpPut("{id}")]

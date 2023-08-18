@@ -16,6 +16,10 @@
   </ItemGroup> -->
     
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Users\Queries\" />
+  </ItemGroup>
   
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>

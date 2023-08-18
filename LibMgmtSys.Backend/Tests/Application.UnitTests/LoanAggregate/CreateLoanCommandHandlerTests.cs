@@ -49,12 +49,15 @@ namespace Tests.Application.UnitTests.LoanAggregate
             _bookRepositoryMock
                 .Setup(x => x.GetBooksByIdsAsync(It.IsAny<List<BookId>>()))
                 .ReturnsAsync(books);
-            _customerRepositoryMock.Setup(r => r.GetCustomerByIdAsync(It.IsAny<CustomerId>()))
+            _customerRepositoryMock.Setup(r => r.GetCustomerByUserIdAsync(customer.UserId))
                 .ReturnsAsync(customer);
             _loanRepositoryMock.Setup(r => r.AddLoanAsync(It.IsAny<Loan>()))
                 .ReturnsAsync((Loan loan) => loan);
             
-            var command = new CreateLoanCommand(new List<string> { bookId1, bookId2 }, DateTime.UtcNow, customer.Id.Value);
+            var command = new CreateLoanCommand(
+                new List<string> { bookId1, bookId2 }, 
+                DateTime.UtcNow, 
+                customer.UserId.Value);
             var result = await _handler.Handle(command, CancellationToken.None);
             
             Assert.False(result.IsError);
