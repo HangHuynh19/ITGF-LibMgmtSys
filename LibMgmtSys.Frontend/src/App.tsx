@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { ThemeProvider } from '@mui/material';
 import globalTheme from './theme/globalTheme';
 import {
@@ -13,6 +12,8 @@ import BookDetailPage from './pages/BookDetailPage';
 import './styles/styles.scss';
 import ProfilePage from './pages/ProfilePage';
 import CartPage from './pages/CartPage';
+import UpsertBookForm from './components/UpsertBookForm';
+import UpsertBookPage from './pages/UpsertBookPage';
 
 const App = () => {
   const router = createBrowserRouter(
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='/' element={<Root />}>
           <Route path='/' element={<HomePage />} />
           <Route path='/books/:id' element={<BookDetailPage />} />
+          <Route path='/books/add-book' element={<UpsertBookPage />} />
           <Route path='/customers/profile' element={<ProfilePage />} />
           <Route path='/cart' element={<CartPage />} />
         </Route>

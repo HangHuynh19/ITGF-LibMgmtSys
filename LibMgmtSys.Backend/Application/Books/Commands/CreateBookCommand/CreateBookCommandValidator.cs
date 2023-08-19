@@ -25,8 +25,8 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
       RuleFor(createBookCommand => createBookCommand.Description)
         .NotEmpty()
         .MaximumLength(1000);
-      RuleFor(createBookCommand => createBookCommand.Image)
-        .NotEmpty();
+      /* RuleFor(createBookCommand => createBookCommand.Image)
+        .NotEmpty(); */
       RuleFor(createBookCommand => createBookCommand.BorrowingPeriod)
         .NotEmpty()
         .InclusiveBetween(0, 9999);

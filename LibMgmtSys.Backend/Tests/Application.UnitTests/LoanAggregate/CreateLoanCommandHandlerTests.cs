@@ -42,8 +42,24 @@ namespace Tests.Application.UnitTests.LoanAggregate
                 UserId.CreateUnique());
             var books = new List<Book>
             {
-                Book.Create("Book 1", "1234567890", "Publisher 1", 2023, "Description 1", new Uri("http://google.com"), 7, 10),
-                Book.Create("Book 2", "0987654321", "Publisher 2", 2023, "Description 2", new Uri("http://google.com"), 7, 10)
+                Book.Create(
+                    "Book 1", 
+                    "1234567890", 
+                    "Publisher 1", 
+                    2023, 
+                    "Description 1", 
+                    7, 
+                    10,
+                    new Uri("http://google.com")), 
+                Book.Create(
+                    "Book 2", 
+                    "0987654321", 
+                    "Publisher 2", 
+                    2023, 
+                    "Description 2", 
+                    7, 
+                    10,
+                    new Uri("http://google.com")) 
             };
             
             _bookRepositoryMock
@@ -76,8 +92,15 @@ namespace Tests.Application.UnitTests.LoanAggregate
                 UserId.CreateUnique());
             var foundBooks = new List<Book>
             {
-                Book.Create("Book 1", "1234567890", "Publisher 1", 2023, "Description 1", new Uri("http://google.com"),
-                    7, 10),
+                Book.Create(
+                    "Book 1", 
+                    "1234567890", 
+                    "Publisher 1", 
+                    2023, 
+                    "Description 1", 
+                    7, 
+                    10,
+                    new Uri("http://google.com"))
             };
 
             _bookRepositoryMock
@@ -108,10 +131,24 @@ namespace Tests.Application.UnitTests.LoanAggregate
                 UserId.CreateUnique());
             var books = new List<Book>
             {
-                Book.Create("Book 1", "1234567890", "Publisher 1", 2023, "Description 1", new Uri("http://google.com"),
-                    7, 10),
-                Book.Create("Book 2", "0987654321", "Publisher 2", 2023, "Description 2", new Uri("http://google.com"),
-                    7, 10)
+                Book.Create(
+                    "Book 1", 
+                    "1234567890", 
+                    "Publisher 1", 
+                    2023, 
+                    "Description 1", 
+                    7, 
+                    10,
+                    new Uri("http://google.com")),
+                Book.Create(
+                    "Book 2", 
+                    "0987654321", 
+                    "Publisher 2", 
+                    2023, 
+                    "Description 2", 
+                    7, 
+                    10,
+                    new Uri("http://google.com"))
             };
 
             _bookRepositoryMock

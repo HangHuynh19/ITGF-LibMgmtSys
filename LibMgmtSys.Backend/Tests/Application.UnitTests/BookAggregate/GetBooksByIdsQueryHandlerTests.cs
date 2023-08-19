@@ -35,9 +35,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                     "Publisher",
                     2021,
                     "Description",
-                    new Uri("https://www.google.com/"),
                     1,
-                    1
+                    1,
+                    new Uri("https://www.google.com/")
                 ),
                 Book.Create(
                     "Title",
@@ -45,9 +45,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                     "Publisher",
                     2021,
                     "Description",
-                    new Uri("https://www.google.com/"),
                     1,
-                    1
+                    1,
+                    new Uri("https://www.google.com/")
                 ),
                 Book.Create(
                     "Title",
@@ -55,9 +55,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                     "Publisher",
                     2021,
                     "Description",
-                    new Uri("https://www.google.com/"),
                     1,
-                    1
+                    1,
+                    new Uri("https://www.google.com/")
                 )
             };
             var getBooksByIdsQuery = new GetBooksByIdsQuery(bookIds);

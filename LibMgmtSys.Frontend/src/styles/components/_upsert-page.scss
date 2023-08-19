@@ -1,0 +1,32 @@
+@use '../variables/colors' as colors;
+@use '../variables/fonts' as fonts;
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1em;
+  padding: 2em;
+
+  .page-container__title {
+    font-family: fonts.$heading_font;
+    font-size: 2em;
+    font-weight: 900;
+    color: colors.$eerie-black;
+  }
+
+  .page-container__input-single {
+    width: 100%;
+  }
+
+  .page-container__input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1em;
+
+    .page-container__input-group__input {
+      width: 100%;
+    }
+  }
+}

@@ -1,14 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { User } from '../../interfaces/User';
-import { register } from '../../api/apiCalls';
+import { checkAdminStatus, register } from '../../api/apiCalls';
 import axios from 'axios';
 
 const initialState: {
   user: User | null;
+  isAdmin: boolean;
   loading: boolean;
   error: string | null | undefined;
 } = {
   user: null,
+  isAdmin: false,
   loading: false,
   error: null,
 };
@@ -30,6 +32,22 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const checkIsAmin = createAsyncThunk('checkIsAmin', async () => {
+  try {
+    var token = localStorage.getItem('token');
+    if (token) {
+      const response: boolean = await checkAdminStatus(token);
+      return response;
+    }
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    } else {
+      return err;
+    }
+  }
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
@@ -49,6 +67,18 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(checkIsAmin.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(checkIsAmin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.isAdmin = action.payload;
+        state.error = null;
+      })
+      .addCase(checkIsAmin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

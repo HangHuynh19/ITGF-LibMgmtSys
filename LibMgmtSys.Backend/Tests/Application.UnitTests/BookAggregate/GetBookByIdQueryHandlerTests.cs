@@ -29,9 +29,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                 "Publisher",
                 2021,
                 "Description",
-                new Uri("https://www.google.com/"),
                 1,
-                1
+                1,
+                new Uri("https://www.google.com/")
             );
             var getBookByIdQuery = new GetBookByIdQuery(expectedBookId);
             

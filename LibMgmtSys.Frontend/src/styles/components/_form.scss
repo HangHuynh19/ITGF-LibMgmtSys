@@ -29,6 +29,19 @@
     padding: -0.5em;
   }
 
+  .form__input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+
+    .form__input-col-2 {
+      width: 100%;
+    }
+  }
+
   .form__btn-group {
     margin-top: 1em;
   }

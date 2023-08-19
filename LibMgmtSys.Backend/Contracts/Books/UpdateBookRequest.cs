@@ -9,7 +9,7 @@ namespace LibMgmtSys.Backend.Contracts.Books
         int Year,
         //List<Guid> GenreIds,
         string Description,
-        Uri Image,
+        Uri? Image,
         int BorrowingPeriod,
         int Quantity
         //List<BookReviewId> BookReviewIds

@@ -2,7 +2,8 @@ import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import useAppDispatch from '../hooks/useAppDispatch';
 import { authenticate } from '../store/reducers/authReducer';
 import useInputHook from '../hooks/useInputHook';
-import {fetchCustomerProfile} from '../store/reducers/customerReducer';
+import { fetchCustomerProfile } from '../store/reducers/customerReducer';
+import { checkIsAmin } from '../store/reducers/userReducer';
 
 const LoginForm = ({
   open,
@@ -18,9 +19,10 @@ const LoginForm = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dispatch(
-      authenticate({ email: email.value, password: password.value })
+      authenticate({ email: email.value as string, password: password.value as string }),
     );
     await dispatch(fetchCustomerProfile());
+    await dispatch(checkIsAmin());
     onClose();
   };
 
@@ -34,7 +36,9 @@ const LoginForm = ({
     <>
       <Modal open={open} onClose={onClose}>
         <Box className='form' component='form' onSubmit={handleSubmit}>
-          <Typography className='form__title' variant='h5'>Login</Typography>
+          <Typography className='form__title' variant='h5'>
+            Login
+          </Typography>
           <TextField
             className='form__input'
             label='Email'

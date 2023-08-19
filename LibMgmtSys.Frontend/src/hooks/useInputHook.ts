@@ -1,6 +1,6 @@
-import {useState} from "react";
+import { useState } from 'react';
 
-const useInputHook = (initialValue: string) => {
+const useInputHook = (initialValue: string | number) => {
   const [value, setValue] = useState(initialValue);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,6 +12,6 @@ const useInputHook = (initialValue: string) => {
   };
 
   return { value, onChange, reset };
-}
+};
 
 export default useInputHook;

@@ -26,14 +26,14 @@ const loggingIn = async <T>(email: string, password: string): Promise<T> => {
     password,
   });
   const data = await response.data;
-  console.log('loggingIn', data);
+  //console.log('loggingIn', data);
   return data;
 };
 
 const register = async <T>(user: User): Promise<T> => {
   const response = await axios.post(`${url}/auth/register`, user);
   const data = await response.data;
-  console.log('register', data);
+  //console.log('register', data);
   return data;
 };
 
@@ -52,14 +52,14 @@ const getCustomerProfile = async <T>(token: string): Promise<T> => {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await response.data;
-  console.log('getCustomerProfile', data);
+  //console.log('getCustomerProfile', data);
   return data;
 };
 
 const getBooksByIds = async <T>(ids: string[]): Promise<T> => {
   const response = await axios.get(`${url}/books/by-id`, { params: { ids } });
   const data = await response.data;
-  console.log('getBooksByIds', data);
+  //console.log('getBooksByIds', data);
   return data;
 };
 
@@ -79,7 +79,7 @@ const createLoansFromBookIds = async <T>(
       }
     );
     const data = await response.data;
-    console.log('createLoansFromBookIds', data);
+    //console.log('createLoansFromBookIds', data);
     return data;
   } catch (err) {
     if (axios.isAxiosError(err)) {
@@ -90,6 +90,33 @@ const createLoansFromBookIds = async <T>(
   }
 };
 
+const checkAdminStatus = async <T>(token: string): Promise<T> => {
+  const response = await axios.get(`${url}/users/check-admin-status`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await response.data;
+  console.log('checkAdminStatus', data);
+  return data;
+};
+
+const getAllGenres = async <T>(token: string): Promise<T> => {
+  const response = await axios.get(`${url}/genres`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await response.data;
+  console.log('getAllGenres', data);
+  return data;
+};
+
+const getAllAuthors = async <T>(token: string): Promise<T> => {
+  const response = await axios.get(`${url}/authors`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await response.data;
+  console.log('getAllAuthors', data);
+  return data;
+};
+
 export {
   getAllBooks,
   /* getBookById, */ loggingIn,
@@ -97,4 +124,7 @@ export {
   /* putUser */ getCustomerProfile,
   getBooksByIds,
   createLoansFromBookIds,
+  checkAdminStatus,
+  getAllGenres,
+  getAllAuthors,
 };

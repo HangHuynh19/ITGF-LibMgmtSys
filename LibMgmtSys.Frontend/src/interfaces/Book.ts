@@ -11,4 +11,17 @@ interface Book {
   quantity: number;
 }
 
-export type { Book };
+interface UpsertBook {
+  title: string;
+  isbn: string;
+  publisher: string;
+  authorIds: string[];
+  year: number;
+  description: string;
+  genreIds: string[];
+  image?: string;
+  borrowingPeriod: number;
+  quantity: number;
+}
+
+export type { Book, UpsertBook };

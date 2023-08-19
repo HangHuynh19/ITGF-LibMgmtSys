@@ -27,8 +27,24 @@ namespace Tests.Application.UnitTests.GenreAggregate
             var request = new CreateGenreCommand("Test Name", bookIds);
             var books = new List<Book>
         {
-            Book.Create("Title1", "Description1", "Publisher1", 1991, "Description1", new Uri("https://www.google.com/"), 14, 1),
-            Book.Create("Title2", "Description2", "Publisher2", 1992, "Description2", new Uri("https://www.google.com/"), 14, 1)
+            Book.Create(
+                "Title1", 
+                "Description1", 
+                "Publisher1", 
+                1991, 
+                "Description1", 
+                14, 
+                1,
+                new Uri("https://www.google.com/")), 
+            Book.Create(
+                "Title2", 
+                "Description2", 
+                "Publisher2", 
+                1992, 
+                "Description2", 
+                14, 
+                1,
+                new Uri("https://www.google.com/")) 
         };
             _bookRepositoryMock.Setup(r => r.GetBooksByIdsAsync(bookIds)).ReturnsAsync(books);
 
@@ -56,9 +72,9 @@ namespace Tests.Application.UnitTests.GenreAggregate
                 "Publisher1",
                 1991,
                 "Description1",
-                new Uri("https://www.google.com/"),
                 14,
-                1);
+                1,
+                new Uri("https://www.google.com/"));
             var books = new List<Book> { foundBook };
             _bookRepositoryMock.Setup(r => r.GetBooksByIdsAsync(command.BookIds)).ReturnsAsync(books);
             var result = await _handler.Handle(command, CancellationToken.None);

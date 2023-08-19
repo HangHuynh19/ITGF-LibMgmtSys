@@ -18,9 +18,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                 "Publisher1",
                 2021,
                 "Description1",
-                new Uri("https://www.google.com/"),
                 1,
-                1
+                1,
+                new Uri("https://www.google.com/")
             );
             var book2 = Book.Create(
                 "Title2",
@@ -28,9 +28,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                 "Publisher2",
                 2022,
                 "Description2",
-                new Uri("https://www.google.com/"),
                 2,
-                2
+                2,
+                new Uri("https://www.google.com/")
             );
             var book3 = Book.Create(
                 "Title3",
@@ -38,9 +38,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                 "Publisher3",
                 2023,
                 "Description3",
-                new Uri("https://www.google.com/"),
                 3,
-                3
+                3,
+                new Uri("https://www.google.com/")
             );
             var books = new List<Book> { book1, book2, book3 };
             

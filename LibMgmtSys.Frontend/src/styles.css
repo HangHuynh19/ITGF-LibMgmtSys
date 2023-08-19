@@ -42,6 +42,17 @@
   width: 100%;
   padding: -0.5em;
 }
+.form .form__input-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5em;
+  width: 100%;
+}
+.form .form__input-group .form__input-col-2 {
+  width: 100%;
+}
 .form .form__btn-group {
   margin-top: 1em;
 }
@@ -84,6 +95,49 @@
   display: flex;
   align-items: center;
   gap: 0.5em;
+}
+
+.reservation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  padding: 2em 1.5em;
+}
+.reservation-list .reservation-list__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.reservation-list .reservation-list__header .reservation-list__text {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1em;
+  padding: 2em;
+}
+.page-container .page-container__title {
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 2em;
+  font-weight: 900;
+  color: #242423;
+}
+.page-container .page-container__input-single {
+  width: 100%;
+}
+.page-container .page-container__input-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1em;
+}
+.page-container .page-container__input-group .page-container__input-group__input {
+  width: 100%;
 }
 
 body {

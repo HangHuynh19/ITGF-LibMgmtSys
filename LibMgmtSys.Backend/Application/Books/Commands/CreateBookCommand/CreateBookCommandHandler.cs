@@ -35,9 +35,9 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
         command.Publisher,
         command.Year,
         command.Description,
-        command.Image,
         command.BorrowingPeriod,
-        command.Quantity
+        command.Quantity,
+        command.Image
       );
       var authors = await _authorRepository.GetAuthorsByIdsAsync(command.AuthorIds);
       

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(LibMgmtSysDbContext))]
-    [Migration("20230818054803_InitiateDb")]
-    partial class InitiateDb
+    [Migration("20230819085131_UpdateBookSchema2")]
+    partial class UpdateBookSchema2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -19,6 +19,7 @@ const BookDetail = ({ book }: { book: Book }) => {
           {book.authorNames.join(', ')}
         </Typography>
         <Typography component='p'>Publisher: {book.publisher}</Typography>
+        <Typography component='p'>ISBN: {book.isbn}</Typography>
         <Typography component='p'>Year: {book.year}</Typography>
         <Typography component='p'>
           Genres:&nbsp;

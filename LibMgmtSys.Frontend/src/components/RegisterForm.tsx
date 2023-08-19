@@ -26,10 +26,10 @@ const RegisterForm = ({
 
     await dispatch(
       registerUser({
-        firstName: firstName.value,
-        lastName: lastName.value,
-        email: email.value,
-        password: password.value,
+        firstName: firstName.value as string,
+        lastName: lastName.value as string,
+        email: email.value as string, 
+        password: password.value as string,
       })
     );
     onClose();

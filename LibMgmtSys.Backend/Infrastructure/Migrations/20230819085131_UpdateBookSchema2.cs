@@ -6,46 +6,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateDb : Migration
+    public partial class UpdateBookSchema2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "author_book");
-
-            migrationBuilder.CreateTable(
-                name: "book_author",
-                columns: table => new
-                {
-                    book_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    author_id = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_book_author", x => new { x.book_id, x.author_id });
-                    table.ForeignKey(
-                        name: "fk_book_author_authors_author_id",
-                        column: x => x.author_id,
-                        principalTable: "authors",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_book_author_books_book_id",
-                        column: x => x.book_id,
-                        principalTable: "books",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "ix_book_author_author_id",
-                table: "book_author",
-                column: "author_id");
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "book_author");
@@ -78,6 +42,42 @@ namespace Infrastructure.Migrations
                 name: "ix_author_book_books_id",
                 table: "author_book",
                 column: "books_id");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "author_book");
+
+            migrationBuilder.CreateTable(
+                name: "book_author",
+                columns: table => new
+                {
+                    book_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    author_id = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_book_author", x => new { x.book_id, x.author_id });
+                    table.ForeignKey(
+                        name: "fk_book_author_authors_author_id",
+                        column: x => x.author_id,
+                        principalTable: "authors",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_book_author_books_book_id",
+                        column: x => x.book_id,
+                        principalTable: "books",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "ix_book_author_author_id",
+                table: "book_author",
+                column: "author_id");
         }
     }
 }

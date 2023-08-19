@@ -27,9 +27,9 @@ public class DeleteBookCommandHandlerTests
             "publisher",
             2021,
             "description",
-            new Uri("https://www.google.com"),
             30,
-            10);
+            10,
+            new Uri("https://www.google.com"));
         
         _bookRepositoryMock.Setup(x => x.GetBookByIdAsync(book.Id)).ReturnsAsync(book);
         

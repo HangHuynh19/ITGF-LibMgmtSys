@@ -14,9 +14,9 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
     int Year,
     List<GenreId> GenreIds,
     string Description,
-    Uri Image,
+    Uri? Image,
     int BorrowingPeriod,
     int Quantity
-    //List<BookReviewId> BookReviewIds
+  //List<BookReviewId> BookReviewIds
   ) : IRequest<ErrorOr<Book>>;
 }

@@ -69,5 +69,6 @@
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.LoanAggregate.CreateLoanCommandHandlerTests.Handle_ValidRequest_ReturnsBook&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.GenreAggregate.GetAllGenresQueryHandlerTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.AuthorAggregate.GetAllAuthorsQueryHandlerTests.Handle_ShouldReturnListOfAuthors_WhenRequestIsValid&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.CreateBookCommandHandlerTests.Handle_EverythingIsValid_ShouldReturnBook&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

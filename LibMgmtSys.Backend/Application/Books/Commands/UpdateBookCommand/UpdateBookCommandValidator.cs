@@ -16,8 +16,8 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
                 .InclusiveBetween(0, 9999);
             RuleFor(updateBookCommand => updateBookCommand.Description)
                 .MaximumLength(1000);
-            RuleFor(updateBookCommand => updateBookCommand.Image)
-                .NotEmpty();
+            /* RuleFor(updateBookCommand => updateBookCommand.Image)
+                .NotEmpty(); */
             RuleFor(updateBookCommand => updateBookCommand.BorrowingPeriod)
                 .InclusiveBetween(0, 9999);
             RuleFor(updateBookCommand => updateBookCommand.Quantity)

@@ -3,6 +3,7 @@ import BookList from '../components/BookList';
 import useAppDispatch from '../hooks/useAppDispatch';
 import useAppSelector from '../hooks/useAppSelector';
 import { fetchAllBooks } from '../store/reducers/bookReducer';
+import { Button } from '@mui/material';
 
 const HomePage = () => {
   const books = useAppSelector((state) => state.bookReducer.books);
@@ -13,7 +14,14 @@ const HomePage = () => {
   }, [dispatch]);
   console.log('HomePage', books);
 
-  return <BookList books={books} />;
+  return (
+    <>
+      <Button variant='contained' color='secondary' href='/books/add-book'>
+        Add Book
+      </Button>
+      <BookList books={books} />;
+    </>
+  );
 };
 
 export default HomePage;

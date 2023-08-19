@@ -24,11 +24,11 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
     public IReadOnlyList<Genre> Genres => _genres.AsReadOnly();
     public string Description { get; private set; }
     public AverageRating AverageRating { get; private set; }
-    public Uri Image { get; private set; }
+    public Uri? Image { get; private set; } = new Uri("https://i.imgur.com/1qk9n0z.png");
     public int BorrowingPeriod { get; private set; }
     public int Quantity { get; private set; }
     public IReadOnlyList<BookReview> BookReviews => _bookReviews.AsReadOnly();
-    public IReadOnlyList<Loan> Loans => _loans.AsReadOnly(); 
+    public IReadOnlyList<Loan> Loans => _loans.AsReadOnly();
 
     private Book() : base(BookId.CreateUnique())
     {
@@ -42,9 +42,9 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
       int year,
       string description,
       AverageRating averageRating,
-      Uri image,
       int borrowingPeriod,
-      int quantity
+      int quantity,
+      Uri? image = null
       ) : base(bookId)
     {
       Title = title;
@@ -53,9 +53,9 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
       Year = year;
       Description = description;
       AverageRating = averageRating;
-      Image = image;
       BorrowingPeriod = borrowingPeriod;
       Quantity = quantity;
+      Image = image ?? new Uri("https://i.imgur.com/1qk9n0z.png");
     }
 
     public static Book Create(
@@ -64,9 +64,9 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
       string publisher,
       int year,
       string description,
-      Uri image,
       int borrowingPeriod,
-      int quantity)
+      int quantity,
+      Uri? image = null)
     {
       return new Book(
         BookId.CreateUnique(),
@@ -76,26 +76,26 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
         year,
         description,
         AverageRating.CreateNew(),
-        image,
         borrowingPeriod,
-        quantity);
+        quantity,
+        image);
     }
 
     public void AddAuthor(Author author)
     {
       _authors.Add(author);
     }
-    
+
     public void RemoveAuthor(Author author)
     {
       _authors.Remove(author);
     }
-    
+
     public void AddGenre(Genre genre)
     {
       _genres.Add(genre);
     }
-    
+
     public void RemoveGenre(Genre genre)
     {
       _genres.Remove(genre);
@@ -120,12 +120,12 @@ namespace LibMgmtSys.Backend.Domain.BookAggregate
       BorrowingPeriod = borrowingPeriod;
       Quantity = quantity;
     }
-    
+
     public void ClearAuthors()
     {
       _authors.Clear();
     }
-    
+
     public void ClearGenres()
     {
       _genres.Clear();

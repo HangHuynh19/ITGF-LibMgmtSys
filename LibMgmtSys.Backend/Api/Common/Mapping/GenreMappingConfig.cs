@@ -14,9 +14,10 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
                 .Map(dest => dest.Name, src => src.Name);
 
             config.NewConfig<Genre, GenreResponse>()
+                .Map(dest => dest.Id, src => src.Id.Value.ToString())
                 .Map(dest => dest.Name, src => src.Name)
                 .Map(dest => dest.BookNames, src => src.Books.Select(book => book.Title));
-            
+
             config.NewConfig<Guid, BookId>()
                 .Map(dest => dest.Value, src => src);
 

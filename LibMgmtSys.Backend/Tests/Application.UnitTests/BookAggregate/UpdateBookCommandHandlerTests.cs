@@ -47,9 +47,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                 "Publisher",
                 2021,
                 "Description",
-                new Uri("https://www.google.com"),
                 10,
-                10
+                10,
+                new Uri("https://www.google.com")
             );
             
             _bookRepositoryMock.Setup(r => r.GetBookByIdAsync(command.Id)).ReturnsAsync(existingBook);

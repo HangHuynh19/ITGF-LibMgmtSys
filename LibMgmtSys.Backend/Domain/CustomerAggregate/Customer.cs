@@ -39,14 +39,15 @@ namespace LibMgmtSys.Backend.Domain.CustomerAggregate
       LastName = lastName;
       Email = email;
       UserId = userId;
-      profileImage ??= new Uri("https://i.imgur.com/1qk9n0z.png");
+      ProfileImage = profileImage ?? new Uri("https://i.imgur.com/1qk9n0z.png");
     }
 
     public static Customer Create(
       string firstName,
       string lastName,
       string email,
-      UserId userId
+      UserId userId, 
+      Uri? profileImage = null
       )
     {
       return new Customer(
@@ -54,7 +55,8 @@ namespace LibMgmtSys.Backend.Domain.CustomerAggregate
         firstName,
         lastName,
         email,
-        userId
+        userId,
+        profileImage
         );
     }
   }

@@ -16,7 +16,7 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
         int Year,
         //List<GenreId> GenreIds,
         string Description,
-        Uri Image,
+        Uri? Image,
         int BorrowingPeriod,
         int Quantity
         //List<BookReviewId> BookReviewIds

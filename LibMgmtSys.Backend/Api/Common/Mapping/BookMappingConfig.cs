@@ -17,9 +17,10 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
         .Map(dest => dest.Title, src => src.Title)
         .Map(dest => dest.Isbn, src => src.Isbn)
         .Map(dest => dest.Publisher, src => src.Publisher)
-        //.Map(dest => dest.AuthorIds, src => src.AuthorIds)
+        .Map(dest => dest.AuthorIds, src => src.AuthorIds.Select(id => AuthorId.Create(Guid.Parse(id))))
         .Map(dest => dest.Year, src => src.Year)
         .Map(dest => dest.Description, src => src.Description)
+        .Map(dest => dest.GenreIds, src => src.GenreIds.Select(id => GenreId.Create(Guid.Parse(id))))
         .Map(dest => dest.Image, src => src.Image)
         .Map(dest => dest.BorrowingPeriod, src => src.BorrowingPeriod)
         .Map(dest => dest.Quantity, src => src.Quantity);
@@ -48,17 +49,29 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
       config.NewConfig<BookId, Guid>()
         .Map(dest => dest, src => src.Value);
       
-      config.NewConfig<Guid, AuthorId>()
-        .Map(dest => dest.Value, src => src);
+      /*config.NewConfig<string, AuthorId>()
+        .Map(dest => dest.Value.ToString(), src => src);
       
-      config.NewConfig<AuthorId, Guid>()
-        .Map(dest => dest, src => src.Value);
+      config.NewConfig<AuthorId, string>()
+        .Map(dest => dest, src => src.Value.ToString());
       
       config.NewConfig<Guid, GenreId>()
         .Map(dest => dest.Value, src => src);
       
       config.NewConfig<GenreId, Guid>()
-        .Map(dest => dest, src => src.Value);
+        .Map(dest => dest, src => src.Value);*/
+      
+      /*config.NewConfig<Guid, AuthorId>()
+        .Map(dest => dest.Value, src => src);
+      
+      config.NewConfig<AuthorId, Guid>()
+        .Map(dest => dest, src => src.Value);*/
+      
+      /*config.NewConfig<Guid, GenreId>()
+        .Map(dest => dest.Value, src => src);
+      
+      config.NewConfig<GenreId, Guid>()
+        .Map(dest => dest, src => src.Value);*/
 
       // TODO: Add mapping for BookReview
     }

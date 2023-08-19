@@ -4,13 +4,13 @@ namespace LibMgmtSys.Backend.Contracts.Books
     string Title,
     string Isbn,
     string Publisher,
-    List<Guid> AuthorIds,
+    List<string> AuthorIds,
     int Year,
-    List<Guid> GenreIds,
+    List<string> GenreIds,
     string Description,
-    Uri Image,
+    Uri? Image,
     int BorrowingPeriod,
     int Quantity
-    //List<BookReviewId> BookReviewIds
+  //List<BookReviewId> BookReviewIds
   );
 }
