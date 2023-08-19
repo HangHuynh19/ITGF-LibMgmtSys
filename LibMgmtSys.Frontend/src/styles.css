@@ -3,6 +3,10 @@
 .app-header .app-header__btn {
   font-weight: 900;
   letter-spacing: 0.1em;
+  padding-right: 1em;
+}
+.app-header .app-header__icon {
+  padding-right: 0.5em;
 }
 
 #book-detail-content {
@@ -138,6 +142,52 @@
 }
 .page-container .page-container__input-group .page-container__input-group__input {
   width: 100%;
+}
+.page-container .page-container__input-group__btn-group {
+  display: flex;
+  justify-content: center;
+  margin: 2em;
+}
+.page-container .page-container__input-group__btn-group .input-group__btn-group__agree-btn {
+  background-color: #003249;
+  font-weight: 900;
+  color: #e8eddf;
+  padding: 0.75em 5em;
+  border-radius: 0.5em;
+}
+.page-container .page-container__input-group__btn-group .input-group__btn-group__cancel-btn {
+  background-color: #78290f;
+  color: #e8eddf;
+  font-weight: 900;
+  margin-right: 3em;
+  padding: 0.75em 5em;
+  border-radius: 0.5em;
+}
+
+.home-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 1em;
+}
+.home-page-container .home-page-container__create-book-btn {
+  width: 100%;
+  max-width: 15em;
+  height: 2em;
+  border-radius: 1em;
+  background-color: #f5cb5c;
+  color: #003249;
+  font-family: "Roboto Mono", monospace;
+  font-size: 1.2em;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin: 1em 1em 0 0;
+}
+.home-page-container .home-page-container__create-book-btn:hover {
+  background-color: #007ea7;
+  color: #e8eddf;
 }
 
 body {

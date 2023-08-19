@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Book } from '../../interfaces/Book';
-import { getAllBooks /* , getBookById  */ } from '../../api/apiCalls';
+import { Book, UpsertBook } from '../../interfaces/Book';
+import { createBook, getAllBooks } from '../../api/apiCalls';
 import axios from 'axios';
 
 const initialState: {
@@ -29,12 +29,17 @@ export const fetchAllBooks = createAsyncThunk(
   }
 );
 
-/* export const fetchBookById = createAsyncThunk(
-  'fetchBookById',
-  async (id: string) => {
+export const postBook = createAsyncThunk(
+  'postBook',
+  async (bookToCreate: UpsertBook) => {
     try {
-      const response: Book = await getBookById(id);
-      console.log('fetchBookById reducer', response);
+      var token = localStorage.getItem('token');
+
+      if (!token) {
+        return new Error('Token not found');
+      }
+
+      const response: Book = await createBook(token, bookToCreate);
       return response;
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -43,7 +48,8 @@ export const fetchAllBooks = createAsyncThunk(
         return err;
       }
     }
-  }); */
+  }
+);
 
 const bookSlice = createSlice({
   name: 'book',
@@ -69,20 +75,20 @@ const bookSlice = createSlice({
       .addCase(fetchAllBooks.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      });
-    /* .addCase(fetchAllBooks.pending, (state, action) => {
+      })
+      .addCase(postBook.pending, (state, action) => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchBookById.fulfilled, (state, action) => {
+      .addCase(postBook.fulfilled, (state, action) => {
         state.loading = false;
-        state.books = [action.payload];
+        state.books = [...state.books, action.payload];
         state.error = null;
       })
-      .addCase(fetchBookById.rejected, (state, action) => {
+      .addCase(postBook.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      }); */
+      });
   },
 });
 

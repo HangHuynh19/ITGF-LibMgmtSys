@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { User } from '../interfaces/User';
 import { v4 as uuidv4 } from 'uuid';
+import { UpsertBook } from '../interfaces/Book';
 
 const url = 'http://localhost:5271/api/v1';
 
@@ -117,6 +118,18 @@ const getAllAuthors = async <T>(token: string): Promise<T> => {
   return data;
 };
 
+const createBook = async <T>(
+  token: string,
+  bookToCreate: UpsertBook
+): Promise<T> => {
+  const response = await axios.post(`${url}/books`, bookToCreate, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await response.data;
+  console.log('createBook', data);
+  return data;
+};
+
 export {
   getAllBooks,
   /* getBookById, */ loggingIn,
@@ -127,4 +140,5 @@ export {
   checkAdminStatus,
   getAllGenres,
   getAllAuthors,
+  createBook,
 };

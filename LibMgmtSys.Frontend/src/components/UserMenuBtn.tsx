@@ -31,7 +31,11 @@ const UserMenuBtn = () => {
   return (
     <Box>
       <div onClick={handleOpenUserMenu}>
-        <AccountCircleIcon fontSize='large' color='primary' />
+        <AccountCircleIcon
+          className='app-header__icon'
+          fontSize='large'
+          color='primary'
+        />
       </div>
       <Menu
         anchorEl={anchorElUser}

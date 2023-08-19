@@ -1,4 +1,11 @@
-import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import LoginForm from './LoginForm';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -48,7 +55,7 @@ const Header = () => {
           {isLoggedIn ? (
             <>
               <UserMenuBtn />
-              <Link to='/cart'>
+              <Link className='app-header__icon' to='/cart'>
                 <IconButton color='primary'>
                   <ShoppingCartIcon />
                 </IconButton>

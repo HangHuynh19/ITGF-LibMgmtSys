@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -8,12 +9,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Book } from '../interfaces/Book';
+import { Book, UpsertBook } from '../interfaces/Book';
 import useInputHook from '../hooks/useInputHook';
 import { useState } from 'react';
 import { Author } from '../interfaces/Author';
 import { Set } from 'typescript';
 import { Genre } from '../interfaces/Genre';
+import useAppDispatch from '../hooks/useAppDispatch';
+import { postBook } from '../store/reducers/bookReducer';
+import { useNavigate } from 'react-router-dom';
 
 const UpsertBookForm = ({
   formTitle,
@@ -26,6 +30,8 @@ const UpsertBookForm = ({
   authors: Author[];
   genres: Genre[];
 }) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const title = useInputHook(book?.title || '');
   const isbn = useInputHook(book?.isbn || '');
   const publisher = useInputHook(book?.publisher || '');
@@ -58,9 +64,46 @@ const UpsertBookForm = ({
     setGenreIds(newGenreIds);
   };
 
-  console.log('genreIds', genreIds);
+  const setToArray = (set: Set<string>) => {
+    const array: string[] = [];
+    set.forEach((item) => array.push(item));
+    return array;
+  };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {};
+  const handleCancel = () => {
+    title.reset();
+    isbn.reset();
+    publisher.reset();
+    year.reset();
+    description.reset();
+    borrowingPeriod.reset();
+    quantity.reset();
+    setAuthorIds(new Set<string>());
+    setGenreIds(new Set<string>());
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (formTitle === 'Add Book') {
+      const authorIdsArray = setToArray(authorIds);
+      const genreIdsArray = setToArray(genreIds);
+      const input: UpsertBook = {
+        title: title.value as string,
+        isbn: isbn.value as string,
+        publisher: publisher.value as string,
+        authorIds: authorIdsArray,
+        year: year.value as number,
+        description: description.value as string,
+        genreIds: genreIdsArray,
+        borrowingPeriod: borrowingPeriod.value as number,
+        quantity: quantity.value as number,
+      };
+      console.log('createBook input', input);
+      dispatch(postBook(input));
+    }
+
+    navigate('/');
+  };
 
   return (
     <>
@@ -167,6 +210,22 @@ const UpsertBookForm = ({
             required={formTitle === 'Add Book'}
             onChange={quantity.onChange}
           />
+        </div>
+        <div className='page-container__input-group__btn-group'>
+          <Button
+            className='input-group__btn-group__cancel-btn'
+            variant='contained'
+            onClick={handleCancel}
+          >
+            Cancel
+          </Button>
+          <Button
+            className='input-group__btn-group__agree-btn'
+            variant='contained'
+            type='submit'
+          >
+            Submit
+          </Button>
         </div>
       </Box>
     </>

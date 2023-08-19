@@ -29,4 +29,27 @@
       width: 100%;
     }
   }
+
+  .page-container__input-group__btn-group {
+    display: flex;
+    justify-content: center;
+    margin: 2em;
+
+    .input-group__btn-group__agree-btn {
+      background-color: colors.$perusian-blue;
+      font-weight: 900;
+      color: colors.$alabaster;
+      padding: 0.75em 5em;
+      border-radius: 0.5em;
+    }
+
+    .input-group__btn-group__cancel-btn {
+      background-color: colors.$sienna;
+      color: colors.$alabaster;
+      font-weight: 900;
+      margin-right: 3em;
+      padding: 0.75em 5em;
+      border-radius: 0.5em;
+    }
+  }
 }

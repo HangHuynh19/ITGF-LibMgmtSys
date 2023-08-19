@@ -15,12 +15,12 @@ const HomePage = () => {
   console.log('HomePage', books);
 
   return (
-    <>
-      <Button variant='contained' color='secondary' href='/books/add-book'>
+    <div className='home-page-container'>
+      <Button className='home-page-container__create-book-btn' variant='contained' color='secondary' href='/books/add-book'>
         Add Book
       </Button>
       <BookList books={books} />;
-    </>
+    </div>
   );
 };
 
