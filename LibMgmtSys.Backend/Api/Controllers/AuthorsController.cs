@@ -1,4 +1,5 @@
 using LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand;
+using LibMgmtSys.Backend.Application.Authors.Queries;
 using LibMgmtSys.Backend.Contracts.Authors;
 using LibMgmtSys.Backend.Contracts.Books;
 using LibMmgtSys.Backend.Api.Controllers;
@@ -20,6 +21,18 @@ namespace LibMgmtSys.Backend.Api.Controllers
         {
             _mapper = mapper;
             _mediator = mediator;
+        }
+        
+        [HttpGet]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> GetAllAuthors()
+        {
+            var getAllAuthorsQuery = new GetAllAuthorsQuery();
+            var getAllAuthorsResult = await _mediator.Send(getAllAuthorsQuery);
+
+            return getAllAuthorsResult.Match(
+                authors => Ok(_mapper.Map<List<AuthorResponse>>(authors)),
+                errors => Problem(errors));
         }
 
         [HttpPost]

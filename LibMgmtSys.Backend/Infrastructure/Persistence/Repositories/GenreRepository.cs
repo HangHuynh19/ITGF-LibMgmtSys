@@ -16,7 +16,9 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
         
         public Task<List<Genre>> GetAllGenresAsync()
         {
-            return _dbContext.Genres.ToListAsync();
+            return _dbContext.Genres
+                .Include(genre => genre.Books)
+                .ToListAsync();
         }
         
         public Task<List<Genre>> GetGenresByIdsAsync(List<GenreId> ids)

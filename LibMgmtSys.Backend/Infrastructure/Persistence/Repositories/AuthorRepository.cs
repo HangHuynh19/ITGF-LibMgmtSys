@@ -22,7 +22,9 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
 
     public async Task<List<Author>> GetAllAuthorsAsync()
     {
-      return await _dbContext.Authors.ToListAsync();
+      return await _dbContext.Authors
+        .Include(author => author.Books)
+        .ToListAsync();
     }
 
     public async Task<Author?> GetAuthorByIdAsync(AuthorId id)
