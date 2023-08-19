@@ -15,10 +15,10 @@ interface UpsertBook {
   title: string;
   isbn: string;
   publisher: string;
-  authorIds: string[];
+  authorIds?: string[];
   year: number;
   description: string;
-  genreIds: string[];
+  genreIds?: string[];
   image?: string;
   borrowingPeriod: number;
   quantity: number;

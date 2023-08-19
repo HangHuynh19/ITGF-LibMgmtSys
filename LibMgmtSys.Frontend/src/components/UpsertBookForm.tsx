@@ -86,40 +86,44 @@ const UpsertBookForm = ({
           required={formTitle === 'Add Book'}
           onChange={description.onChange}
         />
-        <FormControl variant='outlined'>
-          <FormLabel>Authors</FormLabel>
-          <FormGroup row>
-            {authors.map((author) => (
-              <FormControlLabel
-                key={author.id}
-                control={
-                  <Checkbox
-                    checked={authorIds.has(author.id)}
-                    onChange={() => handleAuthorToggle(author.id)}
+        {formTitle === 'Add Book' && (
+          <>
+            <FormControl variant='outlined'>
+              <FormLabel>Authors</FormLabel>
+              <FormGroup row>
+                {authors.map((author) => (
+                  <FormControlLabel
+                    key={author.id}
+                    control={
+                      <Checkbox
+                        checked={authorIds.has(author.id)}
+                        onChange={() => handleAuthorToggle(author.id)}
+                      />
+                    }
+                    label={author.name}
                   />
-                }
-                label={author.name}
-              />
-            ))}
-          </FormGroup>
-        </FormControl>
-        <FormControl variant='outlined'>
-          <FormLabel>Genres</FormLabel>
-          <FormGroup row>
-            {genres.map((genre) => (
-              <FormControlLabel
-                key={genre.id}
-                control={
-                  <Checkbox
-                    checked={genreIds.has(genre.id)}
-                    onChange={() => handleGenreToggle(genre.id)}
+                ))}
+              </FormGroup>
+            </FormControl>
+            <FormControl variant='outlined'>
+              <FormLabel>Genres</FormLabel>
+              <FormGroup row>
+                {genres.map((genre) => (
+                  <FormControlLabel
+                    key={genre.id}
+                    control={
+                      <Checkbox
+                        checked={genreIds.has(genre.id)}
+                        onChange={() => handleGenreToggle(genre.id)}
+                      />
+                    }
+                    label={genre.name}
                   />
-                }
-                label={genre.name}
-              />
-            ))}
-          </FormGroup>
-        </FormControl>
+                ))}
+              </FormGroup>
+            </FormControl>
+          </>
+        )}
         <div className='page-container__input-group'>
           <TextField
             className='page-container__input-group__input'
