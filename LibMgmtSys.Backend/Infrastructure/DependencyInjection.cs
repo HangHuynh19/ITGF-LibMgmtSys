@@ -25,10 +25,10 @@ namespace LibMgmtSys.Backend.Infrastructure
                 .AddAuth(configuration)
                 .AddPersistence();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-        
+
             return services;
         }
-    
+
         private static IServiceCollection AddPersistence(this IServiceCollection services)
         {
             services.AddDbContext<LibMgmtSysDbContext>();
@@ -40,12 +40,12 @@ namespace LibMgmtSys.Backend.Infrastructure
             services.AddScoped<ILoanRepository, LoanRepository>();
             return services;
         }
-    
+
         private static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
         {
             var jwtSettings = new JwtSettings();
             configuration.Bind(JwtSettings.SectionName, jwtSettings);
-        
+
             services.AddSingleton(Options.Create(jwtSettings));
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
@@ -61,9 +61,9 @@ namespace LibMgmtSys.Backend.Infrastructure
                 });
             services.AddAuthorization(option =>
             {
-                option.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role,"admin"));
+                option.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "admin"));
             });
-        
+
             return services;
         }
     }

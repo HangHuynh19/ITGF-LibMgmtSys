@@ -3,9 +3,22 @@ import { IconButton, Typography } from '@mui/material';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import DeleteBookDialog from './DeleteBookDialog';
+import useAppSelector from '../hooks/useAppSelector';
 
 const BookDetail = ({ book }: { book: Book }) => {
   const randomInt = Math.floor(Math.random() * 15) + 1;
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const isAdmin = useAppSelector((state) => state.userReducer.isAdmin);
+
+  const handleOpenDeleteDialog = () => {
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleCloseDeleteDialog = () => {
+    setIsDeleteDialogOpen(false);
+  };
 
   return (
     <div id='book-detail-content'>
@@ -20,16 +33,23 @@ const BookDetail = ({ book }: { book: Book }) => {
           <Typography className='title-section__title' variant='h4'>
             {book.title}
           </Typography>
-          <div className='title-section__button-group'>
-            <Link to={`/books/${book.id}/edit`}>
-              <IconButton>
-                <BorderColorIcon />
+          {isAdmin && (
+            <div className='title-section__button-group'>
+              <Link to={`/books/${book.id}/edit`}>
+                <IconButton onClick={handleOpenDeleteDialog}>
+                  <BorderColorIcon />
+                </IconButton>
+              </Link>
+              <IconButton onClick={handleOpenDeleteDialog}>
+                <DeleteIcon />
               </IconButton>
-            </Link>
-            <IconButton>
-              <DeleteIcon />
-            </IconButton>
-          </div>
+              <DeleteBookDialog
+                book={book}
+                isOpen={isDeleteDialogOpen}
+                onClose={handleCloseDeleteDialog}
+              />
+            </div>
+          )}
         </div>
         <Typography component='p'>
           <b>Authors:</b>&nbsp;

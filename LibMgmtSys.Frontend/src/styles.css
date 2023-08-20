@@ -79,13 +79,13 @@
 .form .form__btn-group {
   margin-top: 1em;
 }
-.form .form__agree-btn {
+.form .form__btn-group .form__agree-btn {
   background-color: #003249;
   font-weight: 900;
   color: #e8eddf;
   padding: 0.5em 3em;
 }
-.form .form__cancel-btn {
+.form .form__btn-group .form__cancel-btn {
   background-color: #78290f;
   color: #e8eddf;
   font-weight: 900;
@@ -207,6 +207,13 @@
 .home-page-container .home-page-container__create-book-btn:hover {
   background-color: #007ea7;
   color: #e8eddf;
+}
+
+#delete-book-dialog__btn-group {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
 }
 
 body {

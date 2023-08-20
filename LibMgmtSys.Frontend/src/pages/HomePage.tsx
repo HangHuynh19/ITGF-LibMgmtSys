@@ -7,6 +7,7 @@ import { Button } from '@mui/material';
 
 const HomePage = () => {
   const books = useAppSelector((state) => state.bookReducer.books);
+  const isAdmin = useAppSelector((state) => state.userReducer.isAdmin);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -16,9 +17,16 @@ const HomePage = () => {
 
   return (
     <div className='home-page-container'>
-      <Button className='home-page-container__create-book-btn' variant='contained' color='secondary' href='/books/add-book'>
-        Add Book
-      </Button>
+      {isAdmin && (
+        <Button
+          className='home-page-container__create-book-btn'
+          variant='contained'
+          color='secondary'
+          href='/books/add-book'
+        >
+          Add Book
+        </Button>
+      )}
       <BookList books={books} />;
     </div>
   );

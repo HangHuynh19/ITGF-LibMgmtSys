@@ -44,20 +44,20 @@
 
   .form__btn-group {
     margin-top: 1em;
-  }
 
-  .form__agree-btn {
-    background-color: colors.$perusian-blue;
-    font-weight: 900;
-    color: colors.$alabaster;
-    padding: 0.5em 3em;
-  }
+    .form__agree-btn {
+      background-color: colors.$perusian-blue;
+      font-weight: 900;
+      color: colors.$alabaster;
+      padding: 0.5em 3em;
+    }
 
-  .form__cancel-btn {
-    background-color: colors.$sienna;
-    color: colors.$alabaster;
-    font-weight: 900;
-    margin-right: 3em;
-    padding: 0.5em 3em;
+    .form__cancel-btn {
+      background-color: colors.$sienna;
+      color: colors.$alabaster;
+      font-weight: 900;
+      margin-right: 3em;
+      padding: 0.5em 3em;
+    }
   }
 }

@@ -21,6 +21,7 @@ using LibMgmtSys.Backend.Domain.LoanAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.Common.ValueObjects;
 using LibMgmtSys.Backend.Domain.UserAggregate.Enum;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace LibMgmtSys.Backend.Infrastructure.Persistence
 {
@@ -47,6 +48,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
         {
             var builder = new NpgsqlDataSourceBuilder(_configuration.GetConnectionString("DefaultConnection"));
             optionsBuilder.UseNpgsql(builder.Build()).UseSnakeCaseNamingConvention();
+            optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

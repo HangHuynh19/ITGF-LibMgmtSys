@@ -143,6 +143,15 @@ const updateBook = async <T>(
   return data;
 };
 
+const deleteBook = async <T>(token: string, id: string): Promise<T> => {
+  const response = await axios.delete(`${url}/books/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await response.data;
+  console.log('deleteBook', data);
+  return data;
+};
+
 export {
   getAllBooks,
   /* getBookById, */ loggingIn,
@@ -155,4 +164,5 @@ export {
   getAllAuthors,
   createBook,
   updateBook,
+  deleteBook,
 };

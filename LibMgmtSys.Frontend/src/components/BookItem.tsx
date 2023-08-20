@@ -5,6 +5,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import useAppDispatch from '../hooks/useAppDispatch';
 import { addToCart, removeFromCart } from '../store/reducers/cartReducer';
 import DeleteIcon from '@mui/icons-material/Delete';
+import useAppSelector from '../hooks/useAppSelector';
 
 const BookItem = ({
   book,
@@ -14,6 +15,7 @@ const BookItem = ({
   showAddToCart: boolean;
 }) => {
   const dispatch = useAppDispatch();
+  const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const authorString = book.authorNames.join(', ');
   const randomInt = Math.floor(Math.random() * 15) + 1;
 
@@ -42,21 +44,23 @@ const BookItem = ({
           title={book.title}
           subtitle={authorString}
           actionIcon={
-            showAddToCart ? (
-              <IconButton style={{ paddingRight: '0.5em' }}>
-                <AddShoppingCartIcon
-                  sx={{ color: 'white' }}
-                  onClick={handleAddToCart}
-                />
-              </IconButton>
-            ) : (
-              <IconButton style={{ paddingRight: '0.5em' }}>
-                <DeleteIcon
-                  sx={{ color: 'white' }}
-                  onClick={handleDeleteFromCart}
-                />
-              </IconButton>
-            )
+            isLoggedIn ? (
+              showAddToCart ? (
+                <IconButton style={{ paddingRight: '0.5em' }}>
+                  <AddShoppingCartIcon
+                    sx={{ color: 'white' }}
+                    onClick={handleAddToCart}
+                  />
+                </IconButton>
+              ) : (
+                <IconButton style={{ paddingRight: '0.5em' }}>
+                  <DeleteIcon
+                    sx={{ color: 'white' }}
+                    onClick={handleDeleteFromCart}
+                  />
+                </IconButton>
+              )
+            ) : null
           }
         />
       </ImageListItem>
