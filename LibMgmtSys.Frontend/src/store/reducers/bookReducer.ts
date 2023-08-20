@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Book, UpsertBook } from '../../interfaces/Book';
-import { createBook, getAllBooks } from '../../api/apiCalls';
+import { createBook, getAllBooks, updateBook } from '../../api/apiCalls';
 import axios from 'axios';
 
 const initialState: {
@@ -51,6 +51,29 @@ export const postBook = createAsyncThunk(
   }
 );
 
+export const putBook = createAsyncThunk(
+  'putBook',
+  async ({ id, bookToUpdate }: { id: string; bookToUpdate: UpsertBook }) => {
+    try {
+      var token = localStorage.getItem('token');
+
+      if (!token) {
+        return new Error('Token not found');
+      }
+
+      const response: Book = await updateBook(token, id, bookToUpdate);
+
+      return response;
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        return err.response?.data;
+      } else {
+        return err;
+      }
+    }
+  }
+);
+
 const bookSlice = createSlice({
   name: 'book',
   initialState,
@@ -86,6 +109,21 @@ const bookSlice = createSlice({
         state.error = null;
       })
       .addCase(postBook.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(putBook.pending, (state, action) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(putBook.fulfilled, (state, action) => {
+        state.loading = false;
+        state.books = state.books.map((book) =>
+          book.id === action.payload.id ? action.payload : book
+        );
+        state.error = null;
+      })
+      .addCase(putBook.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

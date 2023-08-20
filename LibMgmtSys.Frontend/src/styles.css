@@ -16,8 +16,27 @@
   margin-top: 1em;
 }
 #book-detail-content #book-detail-content__img {
-  width: 50%;
+  max-width: 50%;
   height: 30em;
+}
+#book-detail-content .book-detail-content__title-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "title title button";
+}
+#book-detail-content .book-detail-content__title-section .title-section__title {
+  grid-area: title;
+  font-size: 2em;
+  font-weight: bold;
+  font-family: "Roboto Condensed", sans-serif;
+}
+#book-detail-content .book-detail-content__title-section .title-section__button-group {
+  grid-area: button;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 0.5em;
 }
 
 .form {

@@ -1,5 +1,8 @@
 import { Book } from '../interfaces/Book';
-import { ImageListItem, Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Link } from 'react-router-dom';
 
 const BookDetail = ({ book }: { book: Book }) => {
   const randomInt = Math.floor(Math.random() * 15) + 1;
@@ -12,20 +15,48 @@ const BookDetail = ({ book }: { book: Book }) => {
         alt={book.title}
         loading='lazy'
       />
-      <article id='book-detail-content__article'>
-        <Typography variant='h4'>{book.title}</Typography>
+      <article>
+        <div className='book-detail-content__title-section'>
+          <Typography className='title-section__title' variant='h4'>
+            {book.title}
+          </Typography>
+          <div className='title-section__button-group'>
+            <Link to={`/books/${book.id}/edit`}>
+              <IconButton>
+                <BorderColorIcon />
+              </IconButton>
+            </Link>
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </div>
+        </div>
         <Typography component='p'>
-          Authors:&nbsp;
+          <b>Authors:</b>&nbsp;
           {book.authorNames.join(', ')}
         </Typography>
-        <Typography component='p'>Publisher: {book.publisher}</Typography>
-        <Typography component='p'>ISBN: {book.isbn}</Typography>
-        <Typography component='p'>Year: {book.year}</Typography>
         <Typography component='p'>
-          Genres:&nbsp;
+          <b>Publisher:</b> {book.publisher}
+        </Typography>
+        <Typography component='p'>
+          <b>ISBN:</b> {book.isbn}
+        </Typography>
+        <Typography component='p'>
+          <b>Year:</b> {book.year}
+        </Typography>
+        <Typography component='p'>
+          <b>Genres:</b>&nbsp;
           {book.genreNames.join(', ')}
         </Typography>
-        <Typography component='p'>Description: {book.description}</Typography>
+        <Typography component='p'>
+          <b>Description:</b> {book.description}
+        </Typography>
+        <Typography component='p'>
+          <b>Borrowing Period:</b> {book.borrowingPeriod}
+        </Typography>
+        <Typography component='p'>
+          <b>Quantity:</b> {book.quantity}
+        </Typography>
       </article>
     </div>
   );

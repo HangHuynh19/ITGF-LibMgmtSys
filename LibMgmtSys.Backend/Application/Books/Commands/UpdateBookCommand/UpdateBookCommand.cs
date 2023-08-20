@@ -8,7 +8,7 @@ using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
 {
     public record UpdateBookCommand(
-        BookId Id,
+        string Id,
         string Title,
         string Isbn,
         string Publisher,

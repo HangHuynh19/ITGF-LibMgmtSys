@@ -7,6 +7,7 @@ interface Book {
   year: number;
   genreNames: string[];
   description: string;
+  image: string;
   borrowingPeriod: number;
   quantity: number;
 }

@@ -130,6 +130,19 @@ const createBook = async <T>(
   return data;
 };
 
+const updateBook = async <T>(
+  token: string,
+  id: string,
+  bookToUpdate: UpsertBook
+): Promise<T> => {
+  const response = await axios.put(`${url}/books/${id}`, bookToUpdate, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await response.data;
+  console.log('updateBook', data);
+  return data;
+};
+
 export {
   getAllBooks,
   /* getBookById, */ loggingIn,
@@ -141,4 +154,5 @@ export {
   getAllGenres,
   getAllAuthors,
   createBook,
+  updateBook,
 };

@@ -78,7 +78,7 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
         book.Publisher,
         book.Year,
         book.Description,
-        book.Image,
+        book.Image!,
         book.BorrowingPeriod,
         book.Quantity
       );

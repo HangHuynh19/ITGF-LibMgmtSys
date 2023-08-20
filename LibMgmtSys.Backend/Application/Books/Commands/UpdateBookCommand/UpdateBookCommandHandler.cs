@@ -2,6 +2,7 @@ using ErrorOr;
 using MediatR;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Domain.BookAggregate;
+using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
 
 namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
@@ -25,7 +26,7 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
 
         public async Task<ErrorOr<Book>> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.GetBookByIdAsync(command.Id);
+            var book = await _bookRepository.GetBookByIdAsync(BookId.Create(Guid.Parse(command.Id)));
             
             if (book is null)
             {
@@ -60,7 +61,7 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
                 command.Publisher,
                 command.Year,
                 command.Description,
-                command.Image,
+                command.Image!,
                 command.BorrowingPeriod,
                 command.Quantity
             );

@@ -26,7 +26,7 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
         .Map(dest => dest.Quantity, src => src.Quantity);
       
       config.NewConfig<(UpdateBookRequest Request, string Id), UpdateBookCommand>()
-        .Map(dest => dest.Id, src => Guid.Parse(src.Id))
+        .Map(dest => dest.Id, src => src.Id)
         .Map(dest => dest, src  => src.Request);
         
       config.NewConfig<Book, BookResponse>()

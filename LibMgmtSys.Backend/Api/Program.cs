@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 {
     builder.Configuration.AddJsonFile("appsettings.Development.json");
     builder.Services
-        .AddEndpointsApiExplorer()
+        //.AddEndpointsApiExplorer()
         .AddSwaggerGen()
         .AddCors(options =>
             {
