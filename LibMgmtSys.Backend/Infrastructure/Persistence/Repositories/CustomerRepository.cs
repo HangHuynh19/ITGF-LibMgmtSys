@@ -36,6 +36,12 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
             return customer;
         }
         
+        public async Task UpdateCustomerAsync(Customer customer)
+        {
+            _dbContext.Customers.Update(customer);
+            await _dbContext.SaveChangesAsync();
+        }
+        
         public async Task DeleteCustomerAsync(Customer customer)
         {
             _dbContext.Customers.Remove(customer);

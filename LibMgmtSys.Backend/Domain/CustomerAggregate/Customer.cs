@@ -59,5 +59,16 @@ namespace LibMgmtSys.Backend.Domain.CustomerAggregate
         profileImage
         );
     }
+    
+    public void UpdateCustomerProperties(
+      string firstName,
+      string lastName,
+      string email
+      )
+    {
+      FirstName = firstName;
+      LastName = lastName;
+      Email = email;
+    }
   }
 }

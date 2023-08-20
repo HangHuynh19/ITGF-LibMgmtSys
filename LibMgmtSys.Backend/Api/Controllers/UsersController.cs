@@ -19,7 +19,7 @@ namespace LibMgmtSys.Backend.Api.Controllers
         private readonly IMapper _mapper;
         private readonly ISender _mediator;
         private readonly IJwtTokenDecoder _jwtTokenDecoder;
-        
+
         public UsersController(IMapper mapper, ISender mediator, IJwtTokenDecoder jwtTokenDecoder)
         {
             _mapper = mapper;
@@ -31,43 +31,36 @@ namespace LibMgmtSys.Backend.Api.Controllers
         public async Task<IActionResult> CheckUserAdminStatus([FromHeader(Name = "Authorization")] string authorization)
         {
             var bearerToken = _jwtTokenDecoder.GetBearerTokenFromHeader(authorization);
-            
+
             if (bearerToken is null)
             {
                 return Unauthorized();
             }
-            
+
             var userFromToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
             var isAdmin = await _mediator.Send(new CheckUserAdminStatusQuery(userFromToken.UserId));
-            
+
             return isAdmin.Match(
                 admin => Ok(admin),
                 errors => Problem(errors));
         }
-        
-        [HttpPut("{id}")]
+
+        [HttpPut("edit")]
         public async Task<IActionResult> UpdateUser(
-            //[FromRoute] string id, 
-            [FromBody] UpdateUserRequest request, 
-            [FromHeader(Name = "Authorization")] string authorization)
+            [FromHeader(Name = "Authorization")] string authorization,
+            [FromBody] UpdateUserRequest request)
         {
             var bearerToken = _jwtTokenDecoder.GetBearerTokenFromHeader(authorization);
-            
+
             if (bearerToken is null)
             {
                 return Unauthorized();
             }
-            
-            var decodedJwtToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
-            
-            /*if (!decodedJwtToken.UserId.ToString().Equals(id))
-            {
-                return Unauthorized();
-            } */
-            
-            var updateUserCommand = _mapper.Map<UpdateUserCommand>((request, decodedJwtToken.UserId.ToString()));
+
+            var userFromToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
+            var updateUserCommand = _mapper.Map<UpdateUserCommand>((request, userFromToken.UserId.ToString()));
             var updateUserResult = await _mediator.Send(updateUserCommand);
-            
+
             return updateUserResult.Match(
                 user => Ok(_mapper.Map<UserResponse>(user)),
                 errors => Problem(errors));
