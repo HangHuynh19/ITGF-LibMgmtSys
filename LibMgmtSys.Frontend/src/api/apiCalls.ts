@@ -5,7 +5,20 @@ import { UpsertBook } from '../interfaces/Book';
 
 const url = 'http://localhost:5271/api/v1';
 
-const getAllBooks = async <T>(sortingOrder: string): Promise<T> => {
+const getAllBooks = async <T>(
+  sortingOrder: string,
+  searchTerm: string
+): Promise<T> => {
+  console.log('getAllBooks', sortingOrder, searchTerm);
+  if (searchTerm) {
+    const response = await axios.get(
+      `${url}/books?pageNumber=1&pageSize=100&sortOrder=${sortingOrder}&searchTerm=${searchTerm}`
+    );
+    const data = await response.data;
+
+    return data;
+  }
+
   const response = await axios.get(
     `${url}/books?pageNumber=1&pageSize=100&sortOrder=${sortingOrder}`
   );

@@ -10,7 +10,12 @@ const UpdateBookPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllBooks('asc'));
+    dispatch(
+      fetchAllBooks({
+        sortingOrder: 'asc',
+        searchTerm: '',
+      })
+    );
   }, [dispatch]);
 
   return (

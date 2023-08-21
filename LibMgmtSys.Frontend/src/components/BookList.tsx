@@ -5,12 +5,25 @@ import { useEffect } from 'react';
 import useAppDispatch from '../hooks/useAppDispatch';
 import { fetchAllBooks } from '../store/reducers/bookReducer';
 
-const BookList = ({ books }: { books: Book[] }) => {
+const BookList = ({
+  books,
+  sortingOrder,
+  searchTerm,
+}: {
+  books: Book[];
+  sortingOrder: string;
+  searchTerm: string;
+}) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllBooks('asc'));
-  }, [dispatch]);
+    dispatch(
+      fetchAllBooks({
+        sortingOrder: sortingOrder,
+        searchTerm: searchTerm,
+      })
+    );
+  }, [dispatch, searchTerm, sortingOrder]);
 
   return (
     <Box sx={{ height: '80vh', overflowY: 'scroll' }}>

@@ -8,23 +8,50 @@
   align-items: flex-end;
   gap: 1em;
 
-  .home-page-container__create-book-btn {
+  .home-page__search-and-sort {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 1em;
     width: 100%;
-    max-width: 15em;
-    height: 2em;
-    border-radius: 1em;
-    background-color: colors.$saffron;
-    color: colors.$perusian-blue;
-    font-family: fonts.$text-font;
-    font-size: 1.2em;
-    font-weight: 900;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    margin: 1em 1em 0 0;
+    margin-top: 1em;
 
-    &:hover {
-      background-color: colors.$cerulean;
-      color: colors.$alabaster;
+    .home-page__search-and-sort__btn-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5em;
+
+      .home-page__search-and-sort__search-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5em;
+
+        .search-and-sort__search-bar__search-field {
+          width: 20em;
+        }
+      }
+    }
+
+    .home-page-container__create-book-btn {
+      width: 100%;
+      max-width: 10em;
+      height: 2em;
+      border-radius: 1em;
+      background-color: colors.$saffron;
+      color: colors.$perusian-blue;
+      font-family: fonts.$text-font;
+      font-size: 1.2em;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: colors.$cerulean;
+        color: colors.$alabaster;
+      }
     }
   }
 }

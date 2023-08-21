@@ -20,9 +20,15 @@ const initialState: {
 
 export const fetchAllBooks = createAsyncThunk(
   'fetchAllBooks',
-  async (sortingOrder: string) => {
+  async ({
+    sortingOrder,
+    searchTerm,
+  }: {
+    sortingOrder: string;
+    searchTerm: string;
+  }) => {
     try {
-      const response: Book[] = await getAllBooks(sortingOrder);
+      const response: Book[] = await getAllBooks(sortingOrder, searchTerm);
       return response;
     } catch (err) {
       if (axios.isAxiosError(err)) {

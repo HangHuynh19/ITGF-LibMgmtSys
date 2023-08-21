@@ -1,9 +1,13 @@
-import {Autocomplete, Box, TextField} from "@mui/material";
-import useAppSelector from "../hooks/useAppSelector";
-import {useState} from "react";
+import { Autocomplete, Box, TextField } from '@mui/material';
+import useAppSelector from '../hooks/useAppSelector';
+import { useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
-const SearchBar = () => {
+interface SearchBarProps {
+  onSearchTermSent: (searchTerm: string) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSearchTermSent }) => {
   const books = useAppSelector((state) => state.bookReducer.books);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -14,18 +18,26 @@ const SearchBar = () => {
     setSearchTerm(value);
   };
 
+  const onSearchIconClick = () => {
+    onSearchTermSent(searchTerm);
+  };
+
+  console.log('SearchTerm in SearchBar', searchTerm);
+
   return (
-    <Box>
-      <Autocomplete 
-        size="small"
+    <Box className='home-page__search-and-sort__search-bar'>
+      <Autocomplete
+        className='search-and-sort__search-bar__search-field'
+        size='small'
         freeSolo
+        disableClearable
         options={books.map((book) => book.title)}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Search"
-            margin="normal"
-            variant="outlined"
+            label='Search'
+            margin='normal'
+            variant='outlined'
             InputProps={{
               ...params.InputProps,
               type: 'search',
@@ -35,9 +47,9 @@ const SearchBar = () => {
         value={searchTerm}
         onInputChange={handleSearchTermChange}
       />
-      <SearchIcon />
+      <SearchIcon onClick={onSearchIconClick} />
     </Box>
   );
-}
+};
 
 export default SearchBar;
