@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { User } from '../../interfaces/User';
-import { checkAdminStatus, register } from '../../api/apiCalls';
+import { checkAdminStatus, register, updateUser } from '../../api/apiCalls';
 import axios from 'axios';
 
 const initialState: {
@@ -48,6 +48,23 @@ export const checkIsAmin = createAsyncThunk('checkIsAmin', async () => {
   }
 });
 
+export const putUser = createAsyncThunk('putUser', async (user: User) => {
+  try {
+    var token = localStorage.getItem('token');
+    if (!token) {
+      return new Error('No token found');
+    }
+    const response: User = await updateUser(user, token);
+    return response;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      return err.response?.data;
+    } else {
+      return err;
+    }
+  }
+});
+
 const userSlice = createSlice({
   name: 'user',
   initialState: initialState,
@@ -79,6 +96,18 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(checkIsAmin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(putUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(putUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.error = null;
+      })
+      .addCase(putUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

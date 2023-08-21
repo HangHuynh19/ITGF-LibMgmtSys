@@ -4,6 +4,8 @@ import useAppDispatch from '../hooks/useAppDispatch';
 import useAppSelector from '../hooks/useAppSelector';
 import { fetchAllBooks } from '../store/reducers/bookReducer';
 import { Button } from '@mui/material';
+import SortIcon from '@mui/icons-material/Sort';
+import SearchBar from '../components/SearchBar';
 
 const HomePage = () => {
   const books = useAppSelector((state) => state.bookReducer.books);
@@ -17,16 +19,20 @@ const HomePage = () => {
 
   return (
     <div className='home-page-container'>
-      {isAdmin && (
-        <Button
-          className='home-page-container__create-book-btn'
-          variant='contained'
-          color='secondary'
-          href='/books/add-book'
-        >
-          Add Book
-        </Button>
-      )}
+      <div>
+        <SortIcon />
+        <SearchBar />
+        {isAdmin && (
+          <Button
+            className='home-page-container__create-book-btn'
+            variant='contained'
+            color='secondary'
+            href='/books/add-book'
+          >
+            Add Book
+          </Button>
+        )}
+      </div>
       <BookList books={books} />;
     </div>
   );

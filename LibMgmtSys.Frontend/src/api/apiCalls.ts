@@ -7,7 +7,7 @@ const url = 'http://localhost:5271/api/v1';
 
 const getAllBooks = async <T>(sortingOrder: string): Promise<T> => {
   const response = await axios.get(
-    `${url}/books?pageNumber=1&pageSize=100&sortOrder=asc`
+    `${url}/books?pageNumber=1&pageSize=100&sortOrder=${sortingOrder}`
   );
   const data = await response.data;
 
@@ -38,15 +38,15 @@ const register = async <T>(user: User): Promise<T> => {
   return data;
 };
 
-/* const putUser = async <T>(user: User, token: string): Promise<T> => {
+const updateUser = async <T>(user: User, token: string): Promise<T> => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
-  const response = await axios.put(`${url}/users/:id`, user, { headers });
+  const response = await axios.put(`${url}/users/edit`, user, { headers });
   const data = await response.data;
-  console.log('putUser', data);
+  //console.log('putUser', data);
   return data;
-}; */
+};
 
 const getCustomerProfile = async <T>(token: string): Promise<T> => {
   const response = await axios.get(`${url}/customers/profile`, {
@@ -96,7 +96,7 @@ const checkAdminStatus = async <T>(token: string): Promise<T> => {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await response.data;
-  console.log('checkAdminStatus', data);
+  //console.log('checkAdminStatus', data);
   return data;
 };
 
@@ -105,7 +105,7 @@ const getAllGenres = async <T>(token: string): Promise<T> => {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await response.data;
-  console.log('getAllGenres', data);
+  //console.log('getAllGenres', data);
   return data;
 };
 
@@ -114,7 +114,7 @@ const getAllAuthors = async <T>(token: string): Promise<T> => {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await response.data;
-  console.log('getAllAuthors', data);
+  //console.log('getAllAuthors', data);
   return data;
 };
 
@@ -126,7 +126,7 @@ const createBook = async <T>(
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await response.data;
-  console.log('createBook', data);
+  //console.log('createBook', data);
   return data;
 };
 
@@ -139,7 +139,7 @@ const updateBook = async <T>(
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await response.data;
-  console.log('updateBook', data);
+  //console.log('updateBook', data);
   return data;
 };
 
@@ -148,7 +148,7 @@ const deleteBook = async <T>(token: string, id: string): Promise<T> => {
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await response.data;
-  console.log('deleteBook', data);
+  //console.log('deleteBook', data);
   return data;
 };
 
@@ -156,7 +156,8 @@ export {
   getAllBooks,
   /* getBookById, */ loggingIn,
   register,
-  /* putUser */ getCustomerProfile,
+  updateUser,
+  getCustomerProfile,
   getBooksByIds,
   createLoansFromBookIds,
   checkAdminStatus,

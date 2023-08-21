@@ -2,10 +2,30 @@ import { Button, IconButton, Typography } from '@mui/material';
 import useAppSelector from '../hooks/useAppSelector';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { useEffect, useState } from 'react';
+import RegisterForm from '../components/UpsertUserForm';
+import UpsertUserForm from '../components/UpsertUserForm';
+import { User } from '../interfaces/User';
+import { fetchCustomerProfile } from '../store/reducers/customerReducer';
+import useAppDispatch from '../hooks/useAppDispatch';
 
 const ProfilePage = () => {
+  const dispatch = useAppDispatch();
   const customer = useAppSelector((state) => state.customerReducer.customer);
   const randomInt = Math.floor(Math.random() * 8) + 1;
+  const [isEditUserModalOpen, setIsEditUserModalOpen] = useState(false);
+
+  const handleOpenEditUserModal = () => {
+    setIsEditUserModalOpen(true);
+  };
+
+  const handleCloseEditUserModal = () => {
+    setIsEditUserModalOpen(false);
+  };
+
+  const handleProfileUpdate = async () => {
+    await dispatch(fetchCustomerProfile());
+  };
 
   return (
     <>
@@ -26,12 +46,19 @@ const ProfilePage = () => {
               </Typography>
               <IconButton
                 aria-label='edit'
-                onClick={() => {}}
+                onClick={handleOpenEditUserModal}
                 color='primary'
                 size='large'
               >
                 <BorderColorIcon />
               </IconButton>
+              <UpsertUserForm
+                formTitle='Edit Profile'
+                user={customer}
+                open={isEditUserModalOpen}
+                onClose={handleCloseEditUserModal}
+                onFormSubmit={handleProfileUpdate}
+              />
             </div>
             <div className='profile__info-container'>
               <MailOutlineIcon color='primary' />

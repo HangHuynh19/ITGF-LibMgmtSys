@@ -10,12 +10,15 @@ import LoginForm from './LoginForm';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useAppSelector from '../hooks/useAppSelector';
-import RegisterForm from './RegisterForm';
 import UserMenuBtn from './UserMenuBtn';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import UpsertUserForm from './UpsertUserForm';
+import useAppDispatch from '../hooks/useAppDispatch';
+import { fetchCustomerProfile } from '../store/reducers/customerReducer';
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.authReducer.isLoggedIn);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
@@ -38,6 +41,10 @@ const Header = () => {
 
   const handleClosingRegisterModal = () => {
     setIsRegisterModalOpen(false);
+  };
+
+  const handleRegisterFormSubmit = () => {
+    dispatch(fetchCustomerProfile());
   };
 
   return (
@@ -81,9 +88,11 @@ const Header = () => {
               >
                 Register
               </Button>
-              <RegisterForm
+              <UpsertUserForm
+                formTitle='Register'
                 open={isRegisterModalOpen}
                 onClose={handleClosingRegisterModal}
+                onFormSubmit={handleRegisterFormSubmit}
               />
             </>
           )}

@@ -1,19 +1,26 @@
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import useAppDispatch from '../hooks/useAppDispatch';
-import { registerUser } from '../store/reducers/userReducer';
+import { putUser, registerUser } from '../store/reducers/userReducer';
 import useInputHook from '../hooks/useInputHook';
 import useAppSelector from '../hooks/useAppSelector';
 import { useState } from 'react';
+import { User } from '../interfaces/User';
+import { useNavigate } from 'react-router-dom';
 
-const RegisterForm = ({
+const UpsertUserForm = ({
+  formTitle,
+  user,
   open,
   onClose,
+  onFormSubmit,
 }: {
+  formTitle: string;
+  user?: User;
   open: boolean;
   onClose: () => void;
+  onFormSubmit: () => void;
 }) => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.userReducer.user);
   const firstName = useInputHook(user ? user.firstName : '');
   const lastName = useInputHook(user ? user.lastName : '');
   const email = useInputHook(user ? user.email : '');
@@ -24,15 +31,38 @@ const RegisterForm = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await dispatch(
-      registerUser({
+    if (formTitle === 'Register') {
+      await dispatch(
+        registerUser({
+          firstName: firstName.value as string,
+          lastName: lastName.value as string,
+          email: email.value as string,
+          password: password.value as string,
+        })
+      );
+    }
+
+    if (formTitle === 'Edit User') {
+      const updatedUser = {
+        id: user?.id,
         firstName: firstName.value as string,
         lastName: lastName.value as string,
-        email: email.value as string, 
+        email: email.value as string,
         password: password.value as string,
-      })
-    );
+      };
+      console.log(updatedUser);
+      await dispatch(
+        putUser({
+          firstName: firstName.value as string,
+          lastName: lastName.value as string,
+          email: email.value as string,
+          password: password.value as string,
+        })
+      );
+    }
+
     onClose();
+    onFormSubmit();
   };
 
   const handleCancel = () => {
@@ -58,28 +88,31 @@ const RegisterForm = ({
     <Modal open={open} onClose={onClose}>
       <Box className='form' component='form' onSubmit={handleSubmit}>
         <Typography className='form__title' variant='h5'>
-          Register
+          {formTitle}
         </Typography>
         <TextField
           className='form__input'
           label='First Name'
+          value={firstName.value}
           variant='outlined'
-          required
+          required={formTitle === 'Register'}
           onChange={firstName.onChange}
         />
         <TextField
           className='form__input'
           label='Last Name'
+          value={lastName.value}
           variant='outlined'
-          required
+          required={formTitle === 'Register'}
           onChange={lastName.onChange}
         />
         <TextField
           className='form__input'
           label='Email'
+          value={email.value}
           type='email'
           variant='outlined'
-          required
+          required={formTitle === 'Register'}
           onChange={email.onChange}
         />
         <TextField
@@ -87,7 +120,7 @@ const RegisterForm = ({
           label='Password'
           type='password'
           variant='outlined'
-          required
+          required={formTitle === 'Register'}
           onChange={password.onChange}
         />
         <TextField
@@ -95,7 +128,7 @@ const RegisterForm = ({
           label='Confirmed Password'
           type='password'
           variant='outlined'
-          required
+          required={formTitle === 'Register'}
           error={!!passwordError}
           helperText={passwordError ? `${passwordError}` : ''}
           onChange={handleConfirmedPasswordChange}
@@ -109,7 +142,7 @@ const RegisterForm = ({
             Cancel
           </Button>
           <Button className='form__agree-btn' variant='contained' type='submit'>
-            Register
+            {formTitle.split(' ')[0]}
           </Button>
         </Box>
       </Box>
@@ -117,4 +150,4 @@ const RegisterForm = ({
   );
 };
 
-export default RegisterForm;
+export default UpsertUserForm;
