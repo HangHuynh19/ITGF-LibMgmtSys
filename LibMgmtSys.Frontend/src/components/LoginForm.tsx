@@ -4,6 +4,7 @@ import { authenticate } from '../store/reducers/authReducer';
 import useInputHook from '../hooks/useInputHook';
 import { fetchCustomerProfile } from '../store/reducers/customerReducer';
 import { checkIsAmin } from '../store/reducers/userReducer';
+import {fetchCustomerLoans} from '../store/reducers/loanReducer';
 
 const LoginForm = ({
   open,
@@ -22,7 +23,8 @@ const LoginForm = ({
       authenticate({ email: email.value as string, password: password.value as string }),
     );
     await dispatch(fetchCustomerProfile());
-    await dispatch(checkIsAmin());
+    await dispatch(checkIsAmin()); 
+    await dispatch(fetchCustomerLoans());
     onClose();
   };
 

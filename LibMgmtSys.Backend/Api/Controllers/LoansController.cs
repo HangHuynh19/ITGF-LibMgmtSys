@@ -1,9 +1,12 @@
 using Contracts.Loans;
 using LibMgmtSys.Backend.Application.Common.Interfaces.Authorization;
+using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Application.Loans.Commands.CreateLoanCommand;
 using LibMgmtSys.Backend.Application.Loans.Commands.DeleteBookCommand;
 using LibMgmtSys.Backend.Application.Loans.Queries.GetAllLoansQuery;
+using LibMgmtSys.Backend.Application.Loans.Queries.GetLoansByIdsQuery;
 using LibMgmtSys.Backend.Domain.LoanAggregate.ValueObjects;
+using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
 using LibMmgtSys.Backend.Api.Controllers;
 using MapsterMapper;
 using MediatR;
@@ -19,12 +22,18 @@ namespace Api.Controllers
         private readonly IMapper _mapper;
         private readonly ISender _mediator;
         private readonly IJwtTokenDecoder _jwtTokenDecoder;
+        private readonly ICustomerRepository _customerRepository;
         
-        public LoansController(IMapper mapper, ISender mediator, IJwtTokenDecoder jwtTokenDecoder)
+        public LoansController(
+            IMapper mapper, 
+            ISender mediator, 
+            IJwtTokenDecoder jwtTokenDecoder,
+            ICustomerRepository customerRepository)
         {
             _mapper = mapper;
             _mediator = mediator;
             _jwtTokenDecoder = jwtTokenDecoder;
+            _customerRepository = customerRepository;
         }
         
         [HttpPost]
@@ -55,6 +64,32 @@ namespace Api.Controllers
             var getAllLoansResult = await _mediator.Send(getAllLoansQuery);
 
             return getAllLoansResult.Match(
+                loans => Ok(loans.Select(result => _mapper.Map<LoanResponse>(result))),
+                errors => Problem(errors));
+        }
+        
+        [HttpGet("own-loans")]
+        public async Task<IActionResult> GetLoansByIds(
+            [FromHeader(Name = "Authorization")] string authorization)
+        {
+            var bearerToken = _jwtTokenDecoder.GetBearerTokenFromHeader(authorization);
+
+            if (bearerToken is null) {
+                return Unauthorized();
+            }
+
+            var userFromToken = _jwtTokenDecoder.DecodeJwtToken(bearerToken);
+            var customerId = 
+                await _customerRepository.GetCustomerByUserIdAsync(UserId.Create(userFromToken.UserId));
+            
+            if (customerId is null) {
+                return NotFound();
+            }
+            
+            var getLoansByIdsQuery = new GetLoansByCustomerIdQuery(customerId.Id);
+            var getLoansByIdsResult = await _mediator.Send(getLoansByIdsQuery);
+
+            return getLoansByIdsResult.Match(
                 loans => Ok(loans.Select(result => _mapper.Map<LoanResponse>(result))),
                 errors => Problem(errors));
         }

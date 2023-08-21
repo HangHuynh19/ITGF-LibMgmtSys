@@ -29,7 +29,7 @@ const BookItem = ({
 
   return (
     <>
-      <ImageListItem>
+      <ImageListItem style={{ maxHeight: '492px' }}>
         <Link to={`/books/${book.id}`}>
           <ImageListItem>
             <img

@@ -70,10 +70,19 @@ const getCustomerProfile = async <T>(token: string): Promise<T> => {
   return data;
 };
 
-const getBooksByIds = async <T>(ids: string[]): Promise<T> => {
+/* const getBooksByIds = async <T>(ids: string[]): Promise<T> => {
   const response = await axios.get(`${url}/books/by-id`, { params: { ids } });
   const data = await response.data;
   //console.log('getBooksByIds', data);
+  return data;
+}; */
+
+const getCustomerLoans = async <T>(token: string): Promise<T> => {
+  const response = await axios.get(`${url}/loans/own-loans`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await response.data;
+  //console.log('getCustomerLoans', data);
   return data;
 };
 
@@ -171,7 +180,8 @@ export {
   register,
   updateUser,
   getCustomerProfile,
-  getBooksByIds,
+  /* getBooksByIds, */
+  getCustomerLoans,
   createLoansFromBookIds,
   checkAdminStatus,
   getAllGenres,

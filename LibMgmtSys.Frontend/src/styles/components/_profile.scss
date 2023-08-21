@@ -1,4 +1,5 @@
 @use '../variables/colors' as colors;
+@use '../variables/fonts' as fonts;
 
 .profile {
   display: flex;
@@ -27,6 +28,34 @@
       display: flex;
       align-items: center;
       gap: 0.5em;
+    }
+  }
+}
+
+.loan-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  .loan-container__secttion-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-family: fonts.$heading-font;
+    margin: 0 1em;
+  }
+
+  .loans__loan-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+    margin: 0 1em;
+    padding: 0.5em;
+
+    .loans__loan-item__img {
+      width: 5em;
+      height: 5em;
+      object-fit: cover;
     }
   }
 }

@@ -67,7 +67,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
                 errors => Problem(errors));
         }
 
-        [HttpGet("by-ids")]
+        /*[HttpGet("by-ids")]
         public async Task<IActionResult> GetBooksByIds([FromBody] string[] ids)
         {
             var bookIds = ids.Select(id => BookId.Create(Guid.Parse(id))).ToList();
@@ -77,7 +77,7 @@ namespace LibMmgtSys.Backend.Api.Controllers
             return getBooksByIdsResult.Match(
                 books => Ok(books.Select(result => _mapper.Map<BookResponse>(result))),
                 errors => Problem(errors));
-        }
+        }*/
 
         [HttpPut("{id}")]
         [Authorize(Policy = "Admin")]

@@ -6,6 +6,7 @@ import customerReducer from './reducers/customerReducer';
 import cartReducer from './reducers/cartReducer';
 import authorReducer from './reducers/authorReducer';
 import genreReducer from './reducers/genreReducer';
+import loanReducer from './reducers/loanReducer';
 
 const cartData = JSON.parse(localStorage.getItem('cart') || '[]');
 
@@ -18,6 +19,7 @@ const store = configureStore({
     cartReducer: cartReducer,
     authorReducer: authorReducer,
     genreReducer: genreReducer,
+    loanReducer: loanReducer,
   },
   preloadedState: {
     cartReducer: cartData,

@@ -1,4 +1,5 @@
 using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
+using LibMgmtSys.Backend.Domain.CustomerAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.LoanAggregate;
 using LibMgmtSys.Backend.Domain.LoanAggregate.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +30,15 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
                 .Include(customer => customer.Customer)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
+                .ToListAsync();
+        }
+        
+        public async Task<List<Loan>> GetLoansByCustomerIdAsync(CustomerId customerId)
+        {
+            return await _dbContext.Loans
+                .Include(book => book.Book)
+                .Include(customer => customer.Customer)
+                .Where(loan => loan.CustomerId.Equals(customerId))
                 .ToListAsync();
         }
 

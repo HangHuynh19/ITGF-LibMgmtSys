@@ -120,6 +120,31 @@
   gap: 0.5em;
 }
 
+.loan-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.loan-container .loan-container__secttion-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: "Roboto Condensed", sans-serif;
+  margin: 0 1em;
+}
+.loan-container .loans__loan-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
+  margin: 0 1em;
+  padding: 0.5em;
+}
+.loan-container .loans__loan-item .loans__loan-item__img {
+  width: 5em;
+  height: 5em;
+  object-fit: cover;
+}
+
 .reservation-list {
   display: flex;
   flex-direction: column;
@@ -190,9 +215,33 @@
   align-items: flex-end;
   gap: 1em;
 }
-.home-page-container .home-page-container__create-book-btn {
+.home-page-container .home-page__search-and-sort {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1em;
   width: 100%;
-  max-width: 15em;
+  margin-top: 1em;
+}
+.home-page-container .home-page__search-and-sort .home-page__search-and-sort__btn-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.home-page-container .home-page__search-and-sort .home-page__search-and-sort__btn-group .home-page__search-and-sort__search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.home-page-container .home-page__search-and-sort .home-page__search-and-sort__btn-group .home-page__search-and-sort__search-bar .search-and-sort__search-bar__search-field {
+  width: 20em;
+}
+.home-page-container .home-page__search-and-sort .home-page-container__create-book-btn {
+  width: 100%;
+  max-width: 10em;
   height: 2em;
   border-radius: 1em;
   background-color: #f5cb5c;
@@ -202,9 +251,8 @@
   font-weight: 900;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  margin: 1em 1em 0 0;
 }
-.home-page-container .home-page-container__create-book-btn:hover {
+.home-page-container .home-page__search-and-sort .home-page-container__create-book-btn:hover {
   background-color: #007ea7;
   color: #e8eddf;
 }
