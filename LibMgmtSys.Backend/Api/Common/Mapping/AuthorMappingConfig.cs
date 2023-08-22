@@ -22,11 +22,11 @@ namespace LibMgmtSys.Backend.Api.Common.Mapping
         .Map(dest => dest.Biography, src => src.Biography)
         .Map(dest => dest.BookNames, src => src.Books.Select(book => book.Title));
 
-      config.NewConfig<Guid, BookId>()
+      /*config.NewConfig<Guid, BookId>()
         .Map(dest => dest.Value, src => src);
 
       config.NewConfig<BookId, Guid>()
-        .Map(dest => dest, src => src.Value);
+        .Map(dest => dest, src => src.Value);*/
     }
   }
 }
