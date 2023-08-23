@@ -6,6 +6,9 @@ import { fetchAllBooks } from '../store/reducers/bookReducer';
 import { Button } from '@mui/material';
 import SearchBar from '../components/SearchBar';
 import SortingIconButton from '../components/SortingIconButton';
+import { fetchCustomerProfile } from '../store/reducers/customerReducer';
+import {checkIsAmin} from '../store/reducers/userReducer';
+import {fetchCustomerLoans} from '../store/reducers/loanReducer';
 
 const HomePage = () => {
   const books = useAppSelector((state) => state.bookReducer.books);
@@ -29,10 +32,10 @@ const HomePage = () => {
         searchTerm: searchTerm,
       })
     );
+    dispatch(checkIsAmin()); 
+    dispatch(fetchCustomerProfile());
+    dispatch(fetchCustomerLoans());
   }, [dispatch, searchTerm, sortingOrder]);
-
-  console.log('SearchTerm in HomePage', searchTerm);
-  console.log('SortingOrder in HomePage', sortingOrder);
 
   return (
     <div className='home-page-container'>

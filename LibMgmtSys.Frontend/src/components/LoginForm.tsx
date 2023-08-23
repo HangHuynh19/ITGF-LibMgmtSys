@@ -4,7 +4,7 @@ import { authenticate } from '../store/reducers/authReducer';
 import useInputHook from '../hooks/useInputHook';
 import { fetchCustomerProfile } from '../store/reducers/customerReducer';
 import { checkIsAmin } from '../store/reducers/userReducer';
-import {fetchCustomerLoans} from '../store/reducers/loanReducer';
+import { fetchCustomerLoans } from '../store/reducers/loanReducer';
 
 const LoginForm = ({
   open,
@@ -20,10 +20,13 @@ const LoginForm = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await dispatch(
-      authenticate({ email: email.value as string, password: password.value as string }),
+      authenticate({
+        email: email.value as string,
+        password: password.value as string,
+      })
     );
+    await dispatch(checkIsAmin());
     await dispatch(fetchCustomerProfile());
-    await dispatch(checkIsAmin()); 
     await dispatch(fetchCustomerLoans());
     onClose();
   };

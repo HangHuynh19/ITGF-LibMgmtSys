@@ -22,9 +22,9 @@ export const fetchCustomerProfile = createAsyncThunk(
       if (!token) {
         return Error('No token found');
       }
-      console.log('fetchCustomerProfile', token);
-      const response: Customer = await getCustomerProfile(token);
 
+      const response: Customer = await getCustomerProfile(token);
+      //console.log('fetchCustomerProfile', response.errors);
       return response;
     } catch (err) {
       if (axios.isAxiosError(err)) {

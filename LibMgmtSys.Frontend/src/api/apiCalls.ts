@@ -64,9 +64,14 @@ const updateUser = async <T>(user: User, token: string): Promise<T> => {
 const getCustomerProfile = async <T>(token: string): Promise<T> => {
   const response = await axios.get(`${url}/customers/profile`, {
     headers: { Authorization: `Bearer ${token}` },
+    validateStatus: (status) => status >= 200 && status < 300,
   });
+
+  if (response.status !== 200) {
+    throw new Error('Customer profile not found');
+  }
+
   const data = await response.data;
-  //console.log('getCustomerProfile', data);
   return data;
 };
 
@@ -148,7 +153,7 @@ const createBook = async <T>(
     headers: { Authorization: `Bearer ${token}` },
   });
   const data = await response.data;
-  //console.log('createBook', data);
+  console.log('createBook', data);
   return data;
 };
 

@@ -67,7 +67,7 @@ const CreateBookForm = ({
   };
 
   const handleCancel = () => {
-    title.reset();
+    /* title.reset();
     isbn.reset();
     publisher.reset();
     year.reset();
@@ -75,7 +75,8 @@ const CreateBookForm = ({
     borrowingPeriod.reset();
     quantity.reset();
     setAuthorIds(new Set<string>());
-    setGenreIds(new Set<string>());
+    setGenreIds(new Set<string>()); */
+    navigate('/');
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
