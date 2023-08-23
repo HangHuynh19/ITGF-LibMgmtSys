@@ -30,7 +30,7 @@ namespace Tests.Application.UnitTests.BookAggregate
         {
             var command = new UpdateBookCommand
             (
-                BookId.CreateUnique(),
+                "901c607b-95b8-45ce-b818-008dbb588dca",
                 "Updated Title",
                 "Isbn",
                 "Publisher",
@@ -52,7 +52,8 @@ namespace Tests.Application.UnitTests.BookAggregate
                 new Uri("https://www.google.com")
             );
             
-            _bookRepositoryMock.Setup(r => r.GetBookByIdAsync(command.Id)).ReturnsAsync(existingBook);
+            _bookRepositoryMock
+                .Setup(r => r.GetBookByIdAsync(BookId.Create(Guid.Parse(command.Id)))).ReturnsAsync(existingBook);
             
             var result = await _handler.Handle(command, CancellationToken.None);
             
@@ -65,7 +66,7 @@ namespace Tests.Application.UnitTests.BookAggregate
         {
             var command = new UpdateBookCommand
             (
-                BookId.CreateUnique(),
+                "901c607b-95b8-45ce-b818-008dbb588dca",
                 "Title",
                 "Isbn",
                 "Publisher",
@@ -76,7 +77,8 @@ namespace Tests.Application.UnitTests.BookAggregate
                 10
             );
             
-            _bookRepositoryMock.Setup(r => r.GetBookByIdAsync(command.Id)).ReturnsAsync((Book)null);
+            _bookRepositoryMock
+                .Setup(r => r.GetBookByIdAsync(BookId.Create(Guid.Parse(command.Id)))).ReturnsAsync((Book)null);
             
             var result = await _handler.Handle(command, CancellationToken.None);
             

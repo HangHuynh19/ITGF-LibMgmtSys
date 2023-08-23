@@ -10,13 +10,15 @@ namespace Tests.Application.UnitTests.UserAggregate
     public class UpdateUserCommandHandlerTests
     {
         private readonly Mock<IUserRepository> _userRepositoryMock;
+        private readonly Mock<ICustomerRepository> _customerRepositoryMock;
         private readonly UpdateUserCommandHandler _handler;
         
         public UpdateUserCommandHandlerTests()
         {
             _userRepositoryMock = new Mock<IUserRepository>();
+            _customerRepositoryMock = new Mock<ICustomerRepository>();
             _handler = new UpdateUserCommandHandler(
-                _userRepositoryMock.Object);
+                _userRepositoryMock.Object, _customerRepositoryMock.Object);
         }
         
         [Fact]
