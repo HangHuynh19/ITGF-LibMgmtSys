@@ -63,8 +63,8 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
 
     public async Task<Book> AddBookAsync(Book book)
     {
-      _dbContext.Add(book);
-      await _dbContext.SaveChangesAsync();
+      await _dbContext.AddAsync(book);
+      //await _dbContext.SaveChangesAsync();
       return book;
     }
 
@@ -82,18 +82,18 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
         book.BorrowingPeriod,
         book.Quantity
       );
-      await _dbContext.Entry(bookInDb).Collection(b => b.Authors).LoadAsync();
-      await _dbContext.Entry(bookInDb).Collection(b => b.Genres).LoadAsync();
+      //await _dbContext.Entry(bookInDb).Collection(b => b.Authors).LoadAsync();
+      //await _dbContext.Entry(bookInDb).Collection(b => b.Genres).LoadAsync();
       _dbContext.Update(bookInDb);
-      await _dbContext.SaveChangesAsync();
+      //await _dbContext.SaveChangesAsync();
       
       return book;
     }
 
-    public async Task DeleteBookAsync(Book book)
+    public void DeleteBook(Book book)
     {
       _dbContext.Remove(book);
-      await _dbContext.SaveChangesAsync();
+      //await _dbContext.SaveChangesAsync();
     }
   }
 }

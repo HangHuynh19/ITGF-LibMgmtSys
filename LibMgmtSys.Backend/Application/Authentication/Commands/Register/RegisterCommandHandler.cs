@@ -44,6 +44,7 @@ namespace LibMgmtSys.Backend.Application.Authentication.Commands.Register
 
             await _unitOfWork.User.AddUserAsync(user);
             await _unitOfWork.Customer.AddCustomerAsync(customer);
+            await _unitOfWork.CommitAsync();
             
             var jwtToken = _jwtTokenGenerator.GenerateToken(user);
 

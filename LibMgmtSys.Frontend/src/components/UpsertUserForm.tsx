@@ -42,7 +42,7 @@ const UpsertUserForm = ({
       );
     }
 
-    if (formTitle === 'Edit User') {
+    if (formTitle === 'Edit Profile') {
       const updatedUser = {
         id: user?.id,
         firstName: firstName.value as string,

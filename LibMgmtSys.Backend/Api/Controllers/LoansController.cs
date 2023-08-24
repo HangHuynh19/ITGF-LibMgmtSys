@@ -95,6 +95,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteLoan([FromRoute] string id)
         {
             var deleteLoanCommand = new DeleteLoanCommand(LoanId.Create(Guid.Parse(id)));

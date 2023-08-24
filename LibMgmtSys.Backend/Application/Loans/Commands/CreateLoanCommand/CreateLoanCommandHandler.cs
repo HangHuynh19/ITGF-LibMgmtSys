@@ -47,6 +47,8 @@ namespace LibMgmtSys.Backend.Application.Loans.Commands.CreateLoanCommand
                 await _unitOfWork.Loan.AddLoanAsync(loan);
                 loans.Add(loan);
             }
+            
+            await _unitOfWork.CommitAsync();
 
             return loans;
         }

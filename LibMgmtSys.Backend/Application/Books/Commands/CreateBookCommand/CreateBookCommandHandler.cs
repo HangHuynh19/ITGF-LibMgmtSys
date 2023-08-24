@@ -54,6 +54,8 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
       }
         
       await _unitOfWork.Book.AddBookAsync(book);
+      await _unitOfWork.CommitAsync();
+      
       return book;
     }
   }

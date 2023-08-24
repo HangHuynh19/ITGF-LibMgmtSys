@@ -55,7 +55,7 @@ namespace Tests.Application.UnitTests.LoanAggregate
             // Assert
             Assert.False(result.IsError);
             Assert.Equal(loan, result.Value);
-            _unitOfWorkMock.Verify(r => r.Loan.DeleteLoanAsync(loan), Times.Once);
+            _unitOfWorkMock.Verify(r => r.Loan.DeleteLoan(loan), Times.Once);
         }
     }
 }

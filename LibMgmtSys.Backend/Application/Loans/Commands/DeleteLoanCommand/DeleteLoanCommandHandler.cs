@@ -26,7 +26,9 @@ namespace LibMgmtSys.Backend.Application.Loans.Commands.DeleteBookCommand
                 return Errors.Loan.LoanNotFound;
             }
             
-            await _unitOfWork.Loan.DeleteLoanAsync(loan);
+            _unitOfWork.Loan.DeleteLoan(loan);
+            await _unitOfWork.CommitAsync();
+            
             return loan;
         }
     }

@@ -9,8 +9,8 @@ namespace LibMgmtSys.Backend.Application.Common.Interfaces.Persistence
         Task<User?> GetUserByIdAsync(UserId id);
         Task<List<User>> GetAllUsersAsync();
         Task<User> AddUserAsync(User user);
-        Task UpdateUserAsync(User user);
-        Task DeleteUserAsync(User user);
+        void UpdateUser(User user);
+        void DeleteUser(User user);
     }
 }
 

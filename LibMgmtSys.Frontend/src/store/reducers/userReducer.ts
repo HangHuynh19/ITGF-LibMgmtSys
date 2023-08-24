@@ -55,6 +55,7 @@ export const putUser = createAsyncThunk('putUser', async (user: User) => {
       return new Error('No token found');
     }
     const response: User = await updateUser(user, token);
+    console.log('putUser', response);
     return response;
   } catch (err) {
     if (axios.isAxiosError(err)) {

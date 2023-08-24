@@ -36,7 +36,7 @@ public class DeleteBookCommandHandlerTests
         
         Assert.False(result.IsError);
         Assert.Equal(book, result.Value);
-        _unitOfWorkMock.Verify(r => r.Book.DeleteBookAsync(book), Times.Once);
+        _unitOfWorkMock.Verify(r => r.Book.DeleteBook(book), Times.Once);
     }
 
     [Fact]

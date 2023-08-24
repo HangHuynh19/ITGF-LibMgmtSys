@@ -20,6 +20,8 @@ namespace LibMgmtSys.Backend.Application.Genres.Commands.CreateGenreCommand
             var genre = Genre.Create(request.Name);
             
             await _unitOfWork.Genre.AddGenreAsync(genre);
+            await _unitOfWork.CommitAsync();
+            
             return genre;
         }
     }

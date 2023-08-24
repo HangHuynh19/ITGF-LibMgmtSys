@@ -23,13 +23,7 @@ const UpdateBookForm = () => {
   const quantity = useInputHook(book?.quantity || 0);
 
   const handleCancel = () => {
-    title.reset();
-    isbn.reset();
-    publisher.reset();
-    year.reset();
-    description.reset();
-    borrowingPeriod.reset();
-    quantity.reset();
+    navigate(`/books/${book?.id}`);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -65,7 +59,7 @@ const UpdateBookForm = () => {
     <>
       <Box className='page-container' component='form' onSubmit={handleSubmit}>
         <Typography className='page-container__title' variant='h5'>
-          Add Book
+          Edit Book
         </Typography>
         <TextField
           className='.page-container__input-single'
