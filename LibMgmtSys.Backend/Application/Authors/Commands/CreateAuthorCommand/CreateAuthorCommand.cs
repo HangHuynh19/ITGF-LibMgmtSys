@@ -8,7 +8,6 @@ namespace LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand
 {
   public record CreateAuthorCommand(
     string Name,
-    string Biography,
-    List<BookId> BookIds
+    string Biography
   ) : IRequest<ErrorOr<Author>>;
 }

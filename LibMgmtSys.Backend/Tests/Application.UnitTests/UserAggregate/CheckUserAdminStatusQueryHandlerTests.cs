@@ -9,13 +9,13 @@ namespace Tests.Application.UnitTests.UserAggregate
 {
     public class CheckUserAdminStatusQueryHandlerTests
     {
-        private readonly Mock<IUserRepository> _userRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly CheckUserAdminStatusQueryHandler _handler;
         
         public CheckUserAdminStatusQueryHandlerTests()
         {
-            _userRepositoryMock = new Mock<IUserRepository>();
-            _handler = new CheckUserAdminStatusQueryHandler(_userRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _handler = new CheckUserAdminStatusQueryHandler(_unitOfWorkMock.Object);
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace Tests.Application.UnitTests.UserAggregate
 
             var query = new CheckUserAdminStatusQuery(userId);
 
-            _userRepositoryMock.Setup(r => r.GetUserByIdAsync(UserId.Create(userId)))
+            _unitOfWorkMock.Setup(r => r.User.GetUserByIdAsync(UserId.Create(userId)))
                 .ReturnsAsync(existingUser);
 
             var result = await _handler.Handle(query, CancellationToken.None);
@@ -52,7 +52,7 @@ namespace Tests.Application.UnitTests.UserAggregate
 
             var query = new CheckUserAdminStatusQuery(userId);
 
-            _userRepositoryMock.Setup(r => r.GetUserByIdAsync(UserId.Create(userId)))
+            _unitOfWorkMock.Setup(r => r.User.GetUserByIdAsync(UserId.Create(userId)))
                 .ReturnsAsync(existingUser);
 
             var result = await _handler.Handle(query, CancellationToken.None);
@@ -66,7 +66,7 @@ namespace Tests.Application.UnitTests.UserAggregate
             var userId = Guid.NewGuid();
             var query = new CheckUserAdminStatusQuery(userId);
 
-            _userRepositoryMock.Setup(r => r.GetUserByIdAsync(UserId.Create(userId)))
+            _unitOfWorkMock.Setup(r => r.User.GetUserByIdAsync(UserId.Create(userId)))
                 .ReturnsAsync((User)null);
 
             var result = await _handler.Handle(query, CancellationToken.None);

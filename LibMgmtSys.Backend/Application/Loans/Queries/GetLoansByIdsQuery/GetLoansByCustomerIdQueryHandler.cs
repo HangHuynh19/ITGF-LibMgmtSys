@@ -7,16 +7,16 @@ namespace LibMgmtSys.Backend.Application.Loans.Queries.GetLoansByIdsQuery
 {
     public class GetLoansByCustomerIdQueryHandler : IRequestHandler<GetLoansByCustomerIdQuery, ErrorOr<List<Loan>>>
     {
-        private readonly ILoanRepository _loanRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public GetLoansByCustomerIdQueryHandler(ILoanRepository loanRepository)
+        public GetLoansByCustomerIdQueryHandler(IUnitOfWork unitOfWork)
         {
-            _loanRepository = loanRepository;
+            _unitOfWork = unitOfWork;
         }
         
         public async Task<ErrorOr<List<Loan>>> Handle(GetLoansByCustomerIdQuery query, CancellationToken cancellationToken)
         {
-            return await _loanRepository.GetLoansByCustomerIdAsync(query.CustomerId);
+            return await _unitOfWork.Loan.GetLoansByCustomerIdAsync(query.CustomerId);
         }
     }
 }

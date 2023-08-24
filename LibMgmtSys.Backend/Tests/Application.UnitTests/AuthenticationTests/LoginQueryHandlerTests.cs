@@ -11,13 +11,12 @@ namespace Tests.Application.UnitTests.AuthenticationTests
     {
         private readonly LoginQueryHandler _handler;
         private readonly Mock<IJwtTokenGenerator> _jwtTokenGeneratorMock;
-        private readonly Mock<IUserRepository> _userRepositoryMock;
-        
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         public LoginQueryHandlerTests()
         {
             _jwtTokenGeneratorMock = new Mock<IJwtTokenGenerator>();
-            _userRepositoryMock = new Mock<IUserRepository>();
-            _handler = new LoginQueryHandler(_jwtTokenGeneratorMock.Object, _userRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _handler = new LoginQueryHandler(_unitOfWorkMock.Object, _jwtTokenGeneratorMock.Object);
         }
         
         [Fact]
@@ -29,7 +28,7 @@ namespace Tests.Application.UnitTests.AuthenticationTests
             var user = User.CreateCustomer("John", "Doe", email, password);
             var query = new LoginQuery(email, password);
             
-            _userRepositoryMock.Setup(r => r.GetUserByEmailAsync(email))
+            _unitOfWorkMock.Setup(r => r.User.GetUserByEmailAsync(email))
                 .ReturnsAsync(user);
             _jwtTokenGeneratorMock.Setup(g => g.GenerateToken(user))
                 .Returns("token");
@@ -53,7 +52,7 @@ namespace Tests.Application.UnitTests.AuthenticationTests
             var user = User.CreateCustomer("John", "Doe", email, "correctPassword");
             var query = new LoginQuery(email, password);
             
-            _userRepositoryMock.Setup(r => r.GetUserByEmailAsync(email))
+            _unitOfWorkMock.Setup(r => r.User.GetUserByEmailAsync(email))
                 .ReturnsAsync(user);
             
             // Act
@@ -72,7 +71,7 @@ namespace Tests.Application.UnitTests.AuthenticationTests
             var password = "password123";
             var query = new LoginQuery(email, password);
             
-            _userRepositoryMock.Setup(r => r.GetUserByEmailAsync(email))
+            _unitOfWorkMock.Setup(r => r.User.GetUserByEmailAsync(email))
                 .ReturnsAsync((User)null);
             
             // Act

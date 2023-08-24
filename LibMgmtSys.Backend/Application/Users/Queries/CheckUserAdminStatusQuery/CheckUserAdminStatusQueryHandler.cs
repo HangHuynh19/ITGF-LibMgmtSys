@@ -9,18 +9,18 @@ namespace LibMgmtSys.Backend.Application.Users.Queries.CheckUserAdminStatusQuery
 {
     public class CheckUserAdminStatusQueryHandler : IRequestHandler<CheckUserAdminStatusQuery, ErrorOr<bool>>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
         public CheckUserAdminStatusQueryHandler(
-            IUserRepository userRepository
+            IUnitOfWork unitOfWork
         )
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
         
         public async Task<ErrorOr<bool>> Handle(CheckUserAdminStatusQuery query, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserByIdAsync(UserId.Create(query.UserId));
+            var user = await _unitOfWork.User.GetUserByIdAsync(UserId.Create(query.UserId));
             
             if (user is null)
             {

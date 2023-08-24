@@ -32,6 +32,7 @@ namespace LibMgmtSys.Backend.Infrastructure
         private static IServiceCollection AddPersistence(this IServiceCollection services)
         {
             services.AddDbContext<LibMgmtSysDbContext>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddScoped<IGenreRepository, GenreRepository>();

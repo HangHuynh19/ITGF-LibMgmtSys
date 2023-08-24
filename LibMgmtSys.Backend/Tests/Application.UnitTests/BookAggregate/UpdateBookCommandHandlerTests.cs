@@ -9,20 +9,13 @@ namespace Tests.Application.UnitTests.BookAggregate
 {
     public class UpdateBookCommandHandlerTests
     {
-        private readonly Mock<IBookRepository> _bookRepositoryMock;
-        private readonly Mock<IAuthorRepository> _authorRepositoryMock;
-        private readonly Mock<IGenreRepository> _genreRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly UpdateBookCommandHandler _handler;
         
         public UpdateBookCommandHandlerTests()
         {
-            _bookRepositoryMock = new Mock<IBookRepository>();
-            _authorRepositoryMock = new Mock<IAuthorRepository>();
-            _genreRepositoryMock = new Mock<IGenreRepository>();
-            _handler = new UpdateBookCommandHandler(
-                _bookRepositoryMock.Object, 
-                _authorRepositoryMock.Object, 
-                _genreRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _handler = new UpdateBookCommandHandler(_unitOfWorkMock.Object);
         }
         
         [Fact]
@@ -30,7 +23,7 @@ namespace Tests.Application.UnitTests.BookAggregate
         {
             var command = new UpdateBookCommand
             (
-                BookId.CreateUnique(),
+                "693312cd-8ab8-42c2-84c3-5996e087c334",
                 "Updated Title",
                 "Isbn",
                 "Publisher",
@@ -52,11 +45,12 @@ namespace Tests.Application.UnitTests.BookAggregate
                 new Uri("https://www.google.com")
             );
             
-            _bookRepositoryMock.Setup(r => r.GetBookByIdAsync(command.Id)).ReturnsAsync(existingBook);
+            _unitOfWorkMock.Setup(r => r.Book.GetBookByIdAsync(BookId.Create(Guid.Parse(command.Id))))
+                .ReturnsAsync(existingBook);
             
             var result = await _handler.Handle(command, CancellationToken.None);
             
-            _bookRepositoryMock.Verify(r => r.UpdateBookAsync(existingBook), Times.Once);
+            _unitOfWorkMock.Verify(r => r.Book.UpdateBookAsync(existingBook), Times.Once);
             Assert.Equal("Updated Title", result.Value.Title);
         }
         
@@ -65,7 +59,7 @@ namespace Tests.Application.UnitTests.BookAggregate
         {
             var command = new UpdateBookCommand
             (
-                BookId.CreateUnique(),
+                "badfcbfe-e7e4-4a05-a256-140794ffb3ef",
                 "Title",
                 "Isbn",
                 "Publisher",
@@ -76,11 +70,12 @@ namespace Tests.Application.UnitTests.BookAggregate
                 10
             );
             
-            _bookRepositoryMock.Setup(r => r.GetBookByIdAsync(command.Id)).ReturnsAsync((Book)null);
+            _unitOfWorkMock.Setup(r => r.Book.GetBookByIdAsync(BookId.Create(Guid.Parse(command.Id))))
+                .ReturnsAsync((Book)null);
             
             var result = await _handler.Handle(command, CancellationToken.None);
             
-            _bookRepositoryMock.Verify(r => r.UpdateBookAsync(It.IsAny<Book>()), Times.Never);
+            _unitOfWorkMock.Verify(r => r.Book.UpdateBookAsync(It.IsAny<Book>()), Times.Never);
             Assert.Equal(Errors.Book.BookNotFound, result.Errors[0]);
         }
     }

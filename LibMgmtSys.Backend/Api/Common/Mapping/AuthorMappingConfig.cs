@@ -2,8 +2,6 @@ using LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand;
 using LibMgmtSys.Backend.Contracts.Authors;
 using LibMgmtSys.Backend.Contracts.Books;
 using LibMgmtSys.Backend.Domain.AuthorAggregate;
-using LibMgmtSys.Backend.Domain.BookAggregate;
-using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using Mapster;
 
 namespace LibMgmtSys.Backend.Api.Common.Mapping

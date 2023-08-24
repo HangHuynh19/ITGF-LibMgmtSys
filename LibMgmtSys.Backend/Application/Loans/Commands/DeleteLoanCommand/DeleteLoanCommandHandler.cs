@@ -8,26 +8,25 @@ namespace LibMgmtSys.Backend.Application.Loans.Commands.DeleteBookCommand
 {
     public class DeleteLoanCommandHandler : IRequestHandler<DeleteLoanCommand, ErrorOr<Loan>>
     {
-        private readonly ILoanRepository _loanRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
         public DeleteLoanCommandHandler(
-            ILoanRepository loanRepository
+            IUnitOfWork unitOfWork
         )
         {
-            _loanRepository = loanRepository;
+            _unitOfWork = unitOfWork;
         }
         
         public async Task<ErrorOr<Loan>> Handle(DeleteLoanCommand request, CancellationToken cancellationToken)
         {
-            var loan = await _loanRepository.GetLoanByIdAsync(request.LoanId);
+            var loan = await _unitOfWork.Loan.GetLoanByIdAsync(request.LoanId);
             
             if (loan is null)
             {
                 return Errors.Loan.LoanNotFound;
             }
             
-            await _loanRepository.DeleteLoanAsync(loan);
-            
+            await _unitOfWork.Loan.DeleteLoanAsync(loan);
             return loan;
         }
     }

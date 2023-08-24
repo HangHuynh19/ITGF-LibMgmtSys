@@ -12,13 +12,13 @@ namespace Tests.Application.UnitTests.LoanAggregate
 {
     public class DeleteLoanCommandHandlerTests
     {
-        private readonly Mock<ILoanRepository> _loanRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly DeleteLoanCommandHandler _handler;
 
         public DeleteLoanCommandHandlerTests()
         {
-            _loanRepositoryMock = new Mock<ILoanRepository>();
-            _handler = new DeleteLoanCommandHandler(_loanRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _handler = new DeleteLoanCommandHandler(_unitOfWorkMock.Object);
         }
         
         [Fact]
@@ -27,7 +27,7 @@ namespace Tests.Application.UnitTests.LoanAggregate
             // Arrange
             var loanId = LoanId.CreateUnique();
             
-            _loanRepositoryMock.Setup(x => x.GetLoanByIdAsync(loanId)).ReturnsAsync((Loan)null);
+            _unitOfWorkMock.Setup(x => x.Loan.GetLoanByIdAsync(loanId)).ReturnsAsync((Loan)null);
             
             // Act
             var result = await _handler.Handle(new DeleteLoanCommand(loanId), CancellationToken.None);
@@ -47,7 +47,7 @@ namespace Tests.Application.UnitTests.LoanAggregate
                 DateTime.Now,
                 DateTime.Now.AddDays(7));
             
-            _loanRepositoryMock.Setup(x => x.GetLoanByIdAsync(loan.Id)).ReturnsAsync(loan);
+            _unitOfWorkMock.Setup(x => x.Loan.GetLoanByIdAsync(loan.Id)).ReturnsAsync(loan);
             
             // Act
             var result = await _handler.Handle(new DeleteLoanCommand(loan.Id), CancellationToken.None);
@@ -55,7 +55,7 @@ namespace Tests.Application.UnitTests.LoanAggregate
             // Assert
             Assert.False(result.IsError);
             Assert.Equal(loan, result.Value);
-            _loanRepositoryMock.Verify(r => r.DeleteLoanAsync(loan), Times.Once);
+            _unitOfWorkMock.Verify(r => r.Loan.DeleteLoanAsync(loan), Times.Once);
         }
     }
 }
