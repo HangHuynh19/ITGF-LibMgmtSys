@@ -11,24 +11,18 @@ namespace LibMgmtSys.Backend.Application.Authentication.Commands.Register
 {
     public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ErrorOr<AuthenticationResult>>
     {
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IUserRepository _userRepository;
-        private readonly ICustomerRepository _customerRepository;
-
-        public RegisterCommandHandler(
-            IJwtTokenGenerator jwtTokenGenerator,
-            IUserRepository userRepository,
-            ICustomerRepository customerRepository
-            )
+    
+        public RegisterCommandHandler(IUnitOfWork unitOfWork, IJwtTokenGenerator jwtTokenGenerator)
         {
+            _unitOfWork = unitOfWork;
             _jwtTokenGenerator = jwtTokenGenerator;
-            _userRepository = userRepository;
-            _customerRepository = customerRepository;
         }
 
         public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
-            if (await _userRepository.GetUserByEmailAsync(command.Email) is not null)
+            if (await _unitOfWork.User.GetUserByEmailAsync(command.Email) is not null)
             {
                 return Errors.User.DuplicateEmail;
             }
@@ -48,8 +42,9 @@ namespace LibMgmtSys.Backend.Application.Authentication.Commands.Register
                 user.Id
             );
 
-            await _userRepository.AddUserAsync(user);
-            await _customerRepository.AddCustomerAsync(customer);
+            await _unitOfWork.User.AddUserAsync(user);
+            await _unitOfWork.Customer.AddCustomerAsync(customer);
+            
             var jwtToken = _jwtTokenGenerator.GenerateToken(user);
 
             return new AuthenticationResult(user, jwtToken);

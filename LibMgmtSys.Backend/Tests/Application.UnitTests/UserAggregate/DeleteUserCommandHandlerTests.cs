@@ -9,13 +9,13 @@ namespace Tests.Application.UnitTests.UserAggregate
 {
     public class DeleteUserCommandHandlerTests
     {
-        private readonly Mock<IUserRepository> _userRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly DeleteUserCommandHandler _handler;
         
         public DeleteUserCommandHandlerTests()
         {
-            _userRepositoryMock = new Mock<IUserRepository>();
-            _handler = new DeleteUserCommandHandler(_userRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _handler = new DeleteUserCommandHandler(_unitOfWorkMock.Object);
         }
         
         [Fact]
@@ -25,8 +25,8 @@ namespace Tests.Application.UnitTests.UserAggregate
             var userId = UserId.CreateUnique();
             var command = new DeleteUserCommand(userId);
             
-            _userRepositoryMock
-                .Setup(x => x.GetUserByIdAsync(userId))
+            _unitOfWorkMock
+                .Setup(x => x.User.GetUserByIdAsync(userId))
                 .ReturnsAsync((User)null);
             
             // Act
@@ -43,14 +43,14 @@ namespace Tests.Application.UnitTests.UserAggregate
             var command = new DeleteUserCommand(userId);
             var user = User.CreateCustomer("John", "Doe", "john@mail.com", "12345678");
             
-            _userRepositoryMock
-                .Setup(x => x.GetUserByIdAsync(userId))
+            _unitOfWorkMock
+                .Setup(x => x.User.GetUserByIdAsync(userId))
                 .ReturnsAsync(user);
             
             var result = await _handler.Handle(command, CancellationToken.None);
             
             Assert.Equal(user, result.Value);
-            _userRepositoryMock.Verify(x => x.DeleteUserAsync(user), Times.Once);
+            _unitOfWorkMock.Verify(x => x.User.DeleteUserAsync(user), Times.Once);
         }
     }
 }

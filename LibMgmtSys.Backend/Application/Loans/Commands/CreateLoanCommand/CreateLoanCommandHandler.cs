@@ -11,29 +11,21 @@ namespace LibMgmtSys.Backend.Application.Loans.Commands.CreateLoanCommand
 {
     public class CreateLoanCommandHandler : IRequestHandler<CreateLoanCommand, ErrorOr<List<Loan>>>
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly ICustomerRepository _customerRepository;
-        private readonly ILoanRepository _loanRepository;
-
-        public CreateLoanCommandHandler(
-            IBookRepository bookRepository,
-            ICustomerRepository customerRepository,
-            ILoanRepository loanRepository
-        )
+        private readonly IUnitOfWork _unitOfWork;
+        
+        public CreateLoanCommandHandler(IUnitOfWork unitOfWork)
         {
-            _bookRepository = bookRepository;
-            _customerRepository = customerRepository;
-            _loanRepository = loanRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ErrorOr<List<Loan>>> Handle(CreateLoanCommand command, CancellationToken cancellationToken)
         {
             var loans = new List<Loan>();
             var bookIds = command.BookIds.Select(bookId => BookId.Create(Guid.Parse(bookId))).ToList();
-
-            var books = await _bookRepository.GetBooksByIdsAsync(bookIds);
-            var customer = await _customerRepository.GetCustomerByUserIdAsync(UserId.Create(command.CustomerId));
-
+            
+            var books = await _unitOfWork.Book.GetBooksByIdsAsync(bookIds);
+            var customer = await _unitOfWork.Customer.GetCustomerByUserIdAsync(UserId.Create(command.CustomerId));
+            
             if (books.Count != command.BookIds.Count)
             {
                 return Errors.Book.BookNotFound;
@@ -51,8 +43,8 @@ namespace LibMgmtSys.Backend.Application.Loans.Commands.CreateLoanCommand
                     customer.Id,
                     DateTime.UtcNow,
                     DateTime.Now + TimeSpan.FromDays(books[0].BorrowingPeriod));
-
-                await _loanRepository.AddLoanAsync(loan);
+                
+                await _unitOfWork.Loan.AddLoanAsync(loan);
                 loans.Add(loan);
             }
 

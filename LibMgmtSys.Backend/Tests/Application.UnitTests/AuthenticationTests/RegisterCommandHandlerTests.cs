@@ -15,22 +15,18 @@ public class RegisterCommandHandlerTests
 {
     private readonly RegisterCommandHandler _handler;
     private readonly Mock<IJwtTokenGenerator> _jwtTokenGeneratorMock;
-    private readonly Mock<IUserRepository> _userRepositoryMock;
-    private readonly Mock<ICustomerRepository> _customerRepositoryMock;
+    private readonly Mock<IUnitOfWork> _unitOfWorkMock;
     
     public RegisterCommandHandlerTests()
     {
         _jwtTokenGeneratorMock = new Mock<IJwtTokenGenerator>();
-        _userRepositoryMock = new Mock<IUserRepository>();
-        _customerRepositoryMock = new Mock<ICustomerRepository>();
+        _unitOfWorkMock = new Mock<IUnitOfWork>();
         _handler = new RegisterCommandHandler(
-            _jwtTokenGeneratorMock.Object, 
-            _userRepositoryMock.Object,
-            _customerRepositoryMock.Object
-            );
+            _unitOfWorkMock.Object,
+            _jwtTokenGeneratorMock.Object);
     }
     
-    private bool IsValidEmail(string email)
+    private static bool IsValidEmail(string email)
     {
         const string pattern = @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
         return Regex.IsMatch(email, pattern);
@@ -39,7 +35,7 @@ public class RegisterCommandHandlerTests
     [Fact]
     public async Task Handle_WhenUserIsNotRegistered_ShouldReturnAuthenticationResult()
     {
-        _userRepositoryMock.Setup(r => r.GetUserByEmailAsync(It.IsAny<string>()))
+        _unitOfWorkMock.Setup(r => r.User.GetUserByEmailAsync(It.IsAny<string>()))
             .ReturnsAsync((string email) =>
             {
                 if (IsValidEmail(email))
@@ -53,9 +49,9 @@ public class RegisterCommandHandlerTests
         var user = User.CreateCustomer(command.FirstName, command.LastName, command.Email, command.Password);
         var customer = Customer.Create(command.FirstName, command.LastName, command.Email, user.Id);
         
-        _userRepositoryMock.Setup(r => r.AddUserAsync(It.IsAny<User>()))
+        _unitOfWorkMock.Setup(r => r.User.AddUserAsync(It.IsAny<User>()))
             .ReturnsAsync(user);
-        _customerRepositoryMock.Setup(r => r.AddCustomerAsync(It.IsAny<Customer>()))
+        _unitOfWorkMock.Setup(r => r.Customer.AddCustomerAsync(It.IsAny<Customer>()))
             .ReturnsAsync(customer);
         _jwtTokenGeneratorMock.Setup(g => g.GenerateToken(It.IsAny<User>()))
             .Returns("token");
@@ -70,22 +66,14 @@ public class RegisterCommandHandlerTests
     public async Task Handle_DuplicateEmail_ShouldReturnDuplicateEmailError()
     {
         // Arrange
-        var jwtTokenGeneratorMock = new Mock<IJwtTokenGenerator>();
-        var userRepositoryMock = new Mock<IUserRepository>();
-        var customerRepositoryMock = new Mock<ICustomerRepository>();
-        var handler = new RegisterCommandHandler(
-            jwtTokenGeneratorMock.Object, 
-            userRepositoryMock.Object,
-            customerRepositoryMock.Object
-        );
         var command = new RegisterCommand("John", "Doe", "john@mail.com", "password123");
         var existingUser = User.CreateCustomer("Existing", "User", command.Email, "password123");
-
-        userRepositoryMock.Setup(r => r.GetUserByEmailAsync(command.Email))
+        
+        _unitOfWorkMock.Setup(r => r.User.GetUserByEmailAsync(command.Email))
             .ReturnsAsync(existingUser);
         
         // Act
-        var result = await handler.Handle(command, CancellationToken.None);
+        var result = await _handler.Handle(command, CancellationToken.None);
         
         // Assert
         Assert.True(result.IsError);

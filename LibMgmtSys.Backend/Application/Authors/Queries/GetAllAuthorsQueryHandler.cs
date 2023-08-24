@@ -7,16 +7,16 @@ namespace LibMgmtSys.Backend.Application.Authors.Queries
 {
     public class GetAllAuthorsQueryHandler : IRequestHandler<GetAllAuthorsQuery, ErrorOr<List<Author>>>
     {
-        private readonly IAuthorRepository _authorRepository;
-        
-        public GetAllAuthorsQueryHandler(IAuthorRepository authorRepository)
+        private readonly IUnitOfWork _unitOfWork;
+    
+        public GetAllAuthorsQueryHandler(IUnitOfWork unitOfWork)
         {
-            _authorRepository = authorRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ErrorOr<List<Author>>> Handle(GetAllAuthorsQuery request, CancellationToken cancellationToken)
         {
-            return await _authorRepository.GetAllAuthorsAsync();
+            return await _unitOfWork.Author.GetAllAuthorsAsync();
         }
     }
 }

@@ -8,16 +8,16 @@ namespace LibMgmtSys.Backend.Application.Customers.Queries.GetCustomerByIdQuery
 {
     public class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery, ErrorOr<Customer>>
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public GetCustomerByIdQueryHandler(ICustomerRepository customerRepository)
+        public GetCustomerByIdQueryHandler(IUnitOfWork unitOfWork)
         {
-            _customerRepository = customerRepository;
+            _unitOfWork = unitOfWork;
         }
         
         public async Task<ErrorOr<Customer>> Handle(GetCustomerByIdQuery request, CancellationToken cancellationToken)
         {
-            var customer = await _customerRepository.GetCustomerByIdAsync(request.CustomerId);
+            var customer = await _unitOfWork.Customer.GetCustomerByIdAsync(request.CustomerId);
             
             if (customer is null)
             {

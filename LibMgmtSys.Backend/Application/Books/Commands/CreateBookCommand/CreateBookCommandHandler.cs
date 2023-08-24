@@ -9,22 +9,11 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
 {
   public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, ErrorOr<Book>>
   {
-    private readonly IBookRepository _bookRepository;
-    private readonly IAuthorRepository _authorRepository;
-    private readonly IGenreRepository _genreRepository;
-    //private readonly IBookReviewRepository _bookReviewRepository;
-
-    public CreateBookCommandHandler(
-      IBookRepository bookRepository,
-      IAuthorRepository authorRepository,
-      IGenreRepository genreRepository
-      //IBookReviewRepository bookReviewRepository
-    )
+    private readonly IUnitOfWork _unitOfWork;
+    
+    public CreateBookCommandHandler(IUnitOfWork unitOfWork)
     {
-      _bookRepository = bookRepository;
-      _authorRepository = authorRepository;
-      _genreRepository = genreRepository;
-      //_bookReviewRepository = bookReviewRepository;
+      _unitOfWork = unitOfWork;
     }
 
     public async Task<ErrorOr<Book>> Handle(CreateBookCommand command, CancellationToken cancellationToken)
@@ -39,7 +28,8 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
         command.Quantity,
         command.Image
       );
-      var authors = await _authorRepository.GetAuthorsByIdsAsync(command.AuthorIds);
+      
+      var authors = await _unitOfWork.Author.GetAuthorsByIdsAsync(command.AuthorIds);
       
       if (authors.Count != command.AuthorIds.Count)
       {
@@ -50,8 +40,8 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
       {
         book.AddAuthor(author);
       }
-      
-      var genres = await _genreRepository.GetGenresByIdsAsync(command.GenreIds);
+        
+      var genres = await _unitOfWork.Genre.GetGenresByIdsAsync(command.GenreIds);
         
       if (genres.Count != command.GenreIds.Count)
       {
@@ -62,8 +52,8 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.CreateBookCommand
       {
         book.AddGenre(genre);
       }
-      
-      await _bookRepository.AddBookAsync(book);
+        
+      await _unitOfWork.Book.AddBookAsync(book);
       return book;
     }
   }

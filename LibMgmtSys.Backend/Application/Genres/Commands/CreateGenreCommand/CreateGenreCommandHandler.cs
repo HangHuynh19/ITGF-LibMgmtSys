@@ -8,31 +8,18 @@ namespace LibMgmtSys.Backend.Application.Genres.Commands.CreateGenreCommand
 {
     public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, ErrorOr<Genre>>
     {
-        public readonly IGenreRepository _genreRepository;
-        public readonly IBookRepository _bookRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public CreateGenreCommandHandler(IGenreRepository genreRepository, IBookRepository bookRepository)
+        public CreateGenreCommandHandler(IUnitOfWork unitOfWork/*, IGenreRepository genreRepository*/)
         {
-            _genreRepository = genreRepository;
-            _bookRepository = bookRepository;
+            _unitOfWork = unitOfWork;
         }
         
         public async Task<ErrorOr<Genre>> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
         {
             var genre = Genre.Create(request.Name);
-            var books = await _bookRepository.GetBooksByIdsAsync(request.BookIds);
             
-            if (books.Count != request.BookIds.Count)
-            {
-                return Errors.Book.BookNotFound;
-            }
-            
-            foreach (var book in books)
-            {
-                genre.AddBook(book);
-            }
-            
-            await _genreRepository.AddGenreAsync(genre);
+            await _unitOfWork.Genre.AddGenreAsync(genre);
             return genre;
         }
     }

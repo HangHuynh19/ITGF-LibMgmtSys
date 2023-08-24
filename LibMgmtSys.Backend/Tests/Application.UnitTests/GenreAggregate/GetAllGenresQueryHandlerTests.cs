@@ -8,13 +8,13 @@ namespace Tests.Application.UnitTests.GenreAggregate
 {
     public class GetAllGenresQueryHandlerTests
     {
-        private readonly Mock<IGenreRepository> _genreRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly GetAllGenresQueryHandler _getAllGenresQueryHandler;
         
         public GetAllGenresQueryHandlerTests()
         {
-            _genreRepositoryMock = new Mock<IGenreRepository>();
-            _getAllGenresQueryHandler = new GetAllGenresQueryHandler(_genreRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _getAllGenresQueryHandler = new GetAllGenresQueryHandler(_unitOfWorkMock.Object);
         }
         
         [Fact]
@@ -28,8 +28,9 @@ namespace Tests.Application.UnitTests.GenreAggregate
                 Genre.Create("Genre 2"),
                 Genre.Create("Genre 3"),
             };
-            _genreRepositoryMock
-                .Setup(genreRepository => genreRepository.GetAllGenresAsync())
+            
+            _unitOfWorkMock
+                .Setup(genreRepository => genreRepository.Genre.GetAllGenresAsync())
                 .ReturnsAsync(expectedGenres);
             
             // Act

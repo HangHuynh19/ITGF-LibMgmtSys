@@ -10,17 +10,17 @@ namespace LibMgmtSys.Backend.Application.Authentication.Queries.Login
     public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<AuthenticationResult>>
     {
         private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public LoginQueryHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+        public LoginQueryHandler(IUnitOfWork unitOfWork, IJwtTokenGenerator jwtTokenGenerator)
         {
+            _unitOfWork = unitOfWork;
             _jwtTokenGenerator = jwtTokenGenerator;
-            _userRepository = userRepository;
         }
         
         public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserByEmailAsync(query.Email);
+            var user = await _unitOfWork.User.GetUserByEmailAsync(query.Email);
             
             if (user is null)
             {

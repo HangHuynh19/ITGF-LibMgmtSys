@@ -6,8 +6,7 @@ using ErrorOr;
 namespace LibMgmtSys.Backend.Application.Genres.Commands.CreateGenreCommand
 {
     public record CreateGenreCommand(
-        string Name,
-        List<BookId> BookIds
+        string Name
         ) : IRequest<ErrorOr<Genre>>;
 }
 

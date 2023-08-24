@@ -13,21 +13,13 @@ namespace Tests.Application.UnitTests.LoanAggregate
 {
     public class CreateLoanCommandHandlerTests
     {
-        private readonly Mock<IBookRepository> _bookRepositoryMock;
-        private readonly Mock<ICustomerRepository> _customerRepositoryMock;
-        private readonly Mock<ILoanRepository> _loanRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly CreateLoanCommandHandler _handler;
 
         public CreateLoanCommandHandlerTests()
         {
-            _bookRepositoryMock = new Mock<IBookRepository>();
-            _customerRepositoryMock = new Mock<ICustomerRepository>();
-            _loanRepositoryMock = new Mock<ILoanRepository>();
-            _handler = new CreateLoanCommandHandler(
-                _bookRepositoryMock.Object,
-                _customerRepositoryMock.Object,
-                _loanRepositoryMock.Object
-            );
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _handler = new CreateLoanCommandHandler(_unitOfWorkMock.Object);
         }
         
         [Fact]
@@ -62,12 +54,11 @@ namespace Tests.Application.UnitTests.LoanAggregate
                     new Uri("http://google.com")) 
             };
             
-            _bookRepositoryMock
-                .Setup(x => x.GetBooksByIdsAsync(It.IsAny<List<BookId>>()))
+            _unitOfWorkMock.Setup(r => r.Book.GetBooksByIdsAsync(It.IsAny<List<BookId>>()))
                 .ReturnsAsync(books);
-            _customerRepositoryMock.Setup(r => r.GetCustomerByUserIdAsync(customer.UserId))
+            _unitOfWorkMock.Setup(r => r.Customer.GetCustomerByUserIdAsync(customer.UserId))
                 .ReturnsAsync(customer);
-            _loanRepositoryMock.Setup(r => r.AddLoanAsync(It.IsAny<Loan>()))
+            _unitOfWorkMock.Setup(r => r.Loan.AddLoanAsync(It.IsAny<Loan>()))
                 .ReturnsAsync((Loan loan) => loan);
             
             var command = new CreateLoanCommand(
@@ -103,12 +94,11 @@ namespace Tests.Application.UnitTests.LoanAggregate
                     new Uri("http://google.com"))
             };
 
-            _bookRepositoryMock
-                .Setup(x => x.GetBooksByIdsAsync(It.IsAny<List<BookId>>()))
+            _unitOfWorkMock.Setup(r => r.Book.GetBooksByIdsAsync(It.IsAny<List<BookId>>()))
                 .ReturnsAsync(foundBooks);
-            _customerRepositoryMock.Setup(r => r.GetCustomerByIdAsync(It.IsAny<CustomerId>()))
+            _unitOfWorkMock.Setup(r => r.Customer.GetCustomerByIdAsync(It.IsAny<CustomerId>()))
                 .ReturnsAsync(customer);
-            _loanRepositoryMock.Setup(r => r.AddLoanAsync(It.IsAny<Loan>()))
+            _unitOfWorkMock.Setup(r => r.Loan.AddLoanAsync(It.IsAny<Loan>()))
                 .ReturnsAsync((Loan loan) => loan);
 
             var command =
@@ -151,10 +141,9 @@ namespace Tests.Application.UnitTests.LoanAggregate
                     new Uri("http://google.com"))
             };
 
-            _bookRepositoryMock
-                .Setup(x => x.GetBooksByIdsAsync(It.IsAny<List<BookId>>()))
+            _unitOfWorkMock.Setup(r => r.Book.GetBooksByIdsAsync(It.IsAny<List<BookId>>()))
                 .ReturnsAsync(books);
-            _customerRepositoryMock.Setup(r => r.GetCustomerByIdAsync(It.IsAny<CustomerId>()))
+            _unitOfWorkMock.Setup(r => r.Customer.GetCustomerByIdAsync(It.IsAny<CustomerId>()))
                 .ReturnsAsync((Customer)null);
 
             var command =
