@@ -59,6 +59,8 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
             );
             
             await _unitOfWork.Book.UpdateBookAsync(book);
+            await _unitOfWork.CommitAsync();
+            
             return book;
         }
     }

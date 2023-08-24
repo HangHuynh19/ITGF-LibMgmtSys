@@ -24,7 +24,9 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.DeleteBookCommand
                 return Errors.Book.BookNotFound;
             }
             
-            await _unitOfWork.Book.DeleteBookAsync(book);
+            _unitOfWork.Book.DeleteBook(book);
+            await _unitOfWork.CommitAsync();
+            
             return book;
         }
     }

@@ -20,6 +20,8 @@ namespace LibMgmtSys.Backend.Application.Authors.Commands.CreateAuthorCommand
       var author = Author.Create(request.Name, request.Biography);
       
       await _unitOfWork.Author.AddAuthorAsync(author);
+      await _unitOfWork.CommitAsync();
+      
       return author;
     }
   }

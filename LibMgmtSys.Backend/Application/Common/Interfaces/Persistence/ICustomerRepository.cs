@@ -9,8 +9,8 @@ namespace LibMgmtSys.Backend.Application.Common.Interfaces.Persistence
         Task<Customer?> GetCustomerByIdAsync(CustomerId customerId);
         Task<Customer?> GetCustomerByUserIdAsync(UserId userId);
         Task<Customer> AddCustomerAsync(Customer customer);
-        Task UpdateCustomerAsync(Customer customer);
-        Task DeleteCustomerAsync(Customer customer);
+        void UpdateCustomer(Customer customer);
+        void DeleteCustomer(Customer customer);
     }
 }
 

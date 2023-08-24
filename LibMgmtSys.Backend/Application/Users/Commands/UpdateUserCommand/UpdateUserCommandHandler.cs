@@ -37,7 +37,7 @@ namespace LibMgmtSys.Backend.Application.Users.Commands.UpdateUserCommand
                 newPassword
             );
             
-            await _unitOfWork.User.UpdateUserAsync(user);
+            _unitOfWork.User.UpdateUser(user);
             
             if (customer is not null)
             {
@@ -46,8 +46,10 @@ namespace LibMgmtSys.Backend.Application.Users.Commands.UpdateUserCommand
                     command.LastName,
                     command.Email
                 );
-                await _unitOfWork.Customer.UpdateCustomerAsync(customer);
+                _unitOfWork.Customer.UpdateCustomer(customer);
             }
+            
+            await _unitOfWork.CommitAsync();
 
             return user;
         }

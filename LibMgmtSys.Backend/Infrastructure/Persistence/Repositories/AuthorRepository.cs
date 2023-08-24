@@ -37,20 +37,20 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
 
     public async Task AddAuthorAsync(Author author)
     {
-      _dbContext.Add(author);
-      await _dbContext.SaveChangesAsync();
+      await _dbContext.AddAsync(author);
+      //await _dbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateAuthorAsync(Author author)
+    public void UpdateAuthor(Author author)
     {
       _dbContext.Update(author);
-      await _dbContext.SaveChangesAsync();
+      //await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAuthorAsync(Author author)
+    public void DeleteAuthor(Author author)
     {
       _dbContext.Remove(author);
-      await _dbContext.SaveChangesAsync();
+      //await _dbContext.SaveChangesAsync();
     }
   }
 }

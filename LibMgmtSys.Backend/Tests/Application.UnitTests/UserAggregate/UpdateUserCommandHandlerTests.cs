@@ -54,8 +54,8 @@ namespace Tests.Application.UnitTests.UserAggregate
             
             var result = await _handler.Handle(command, CancellationToken.None);
             
-            _unitOfWorkMock.Verify(r => r.User.UpdateUserAsync(existingUser), Times.Once);
-            _unitOfWorkMock.Verify(r => r.Customer.UpdateCustomerAsync(existingCustomer), Times.Once);
+            _unitOfWorkMock.Verify(r => r.User.UpdateUser(existingUser), Times.Once);
+            _unitOfWorkMock.Verify(r => r.Customer.UpdateCustomer(existingCustomer), Times.Once);
             Assert.Equal("John2", result.Value.FirstName);
             Assert.Equal("john2@mail.com", result.Value.Email);
         }
@@ -79,7 +79,7 @@ namespace Tests.Application.UnitTests.UserAggregate
 
             var result = await _handler.Handle(command, CancellationToken.None);
             
-            _unitOfWorkMock.Verify(r => r.User.UpdateUserAsync(It.IsAny<User>()), Times.Never);
+            _unitOfWorkMock.Verify(r => r.User.UpdateUser(It.IsAny<User>()), Times.Never);
             Assert.Equal(Errors.User.UserNotFound, result.Errors[0]);
         }
     }

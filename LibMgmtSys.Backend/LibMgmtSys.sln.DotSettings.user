@@ -52,6 +52,8 @@
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.GenreAggregate.CreateGenreCommandTests.Handle_WhenBookIdsAreInvalid_ShouldReturnBookNotFound&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.CreateBookCommandHandlerTests.Handle_EverythingIsValid_ShouldReturnBook&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.GenreAggregate.CreateGenreCommandTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.DeleteBookCommandHandlerTests.Handle_ValidBookId_ReturnsBook&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.LoanAggregate.DeleteLoanCommandHandlerTests.Handle_WhenLoanFound_ReturnsLoan&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=67f91a92_002Dbf51_002D4840_002D8001_002Dbfc0ff8cb26a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_WhenBookIdsAreInvalid_ShouldReturnBookNotFound #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;

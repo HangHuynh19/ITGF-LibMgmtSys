@@ -50,7 +50,7 @@ namespace Tests.Application.UnitTests.UserAggregate
             var result = await _handler.Handle(command, CancellationToken.None);
             
             Assert.Equal(user, result.Value);
-            _unitOfWorkMock.Verify(x => x.User.DeleteUserAsync(user), Times.Once);
+            _unitOfWorkMock.Verify(x => x.User.DeleteUser(user), Times.Once);
         }
     }
 }

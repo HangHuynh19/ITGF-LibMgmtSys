@@ -30,10 +30,10 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
             return _dbContext.Genres.FirstOrDefaultAsync(genre => genre.Id == id);
         }
 
-        public Task AddGenreAsync(Genre genre)
+        public async Task AddGenreAsync(Genre genre)
         {
-            _dbContext.Add(genre);
-            return _dbContext.SaveChangesAsync();
+            await _dbContext.AddAsync(genre);
+            //return _dbContext.SaveChangesAsync();
         }
     }
 }

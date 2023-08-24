@@ -31,21 +31,21 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
 
         public async Task<Customer> AddCustomerAsync(Customer customer)
         {
-            _dbContext.Customers.Add(customer);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.Customers.AddAsync(customer);
+            //await _dbContext.SaveChangesAsync();
             return customer;
         }
         
-        public async Task UpdateCustomerAsync(Customer customer)
+        public void UpdateCustomer(Customer customer)
         {
             _dbContext.Customers.Update(customer);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
         }
         
-        public async Task DeleteCustomerAsync(Customer customer)
+        public void DeleteCustomer(Customer customer)
         {
             _dbContext.Customers.Remove(customer);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
         }
     }
 }

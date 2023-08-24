@@ -9,7 +9,7 @@ namespace LibMgmtSys.Backend.Application.Common.Interfaces.Persistence
         Task<Author?> GetAuthorByIdAsync(AuthorId id);
         Task<List<Author>> GetAuthorsByIdsAsync(List<AuthorId> ids);
         Task AddAuthorAsync(Author author);
-        Task UpdateAuthorAsync(Author author);
-        Task DeleteAuthorAsync(Author author);
+        void UpdateAuthor(Author author);
+        void DeleteAuthor(Author author);
     }
 }

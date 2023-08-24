@@ -26,7 +26,9 @@ namespace LibMgmtSys.Backend.Application.Users.Commands.DeleteUserCommand
                 return Errors.User.UserNotFound;
             }
             
-            await _unitOfWork.User.DeleteUserAsync(user);
+            _unitOfWork.User.DeleteUser(user);
+            await _unitOfWork.CommitAsync();
+            
             return user;
         }
     }
