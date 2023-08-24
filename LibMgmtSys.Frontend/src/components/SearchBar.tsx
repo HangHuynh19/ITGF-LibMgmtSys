@@ -8,7 +8,7 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearchTermSent }) => {
-  const books = useAppSelector((state) => state.bookReducer.books);
+  const books = useAppSelector((state) => state.bookReducer.books) || [];
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchTermChange = (

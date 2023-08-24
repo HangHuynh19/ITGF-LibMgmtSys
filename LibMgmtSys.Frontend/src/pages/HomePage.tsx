@@ -3,12 +3,12 @@ import BookList from '../components/BookList';
 import useAppDispatch from '../hooks/useAppDispatch';
 import useAppSelector from '../hooks/useAppSelector';
 import { fetchAllBooks } from '../store/reducers/bookReducer';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import SearchBar from '../components/SearchBar';
 import SortingIconButton from '../components/SortingIconButton';
 import { fetchCustomerProfile } from '../store/reducers/customerReducer';
-import {checkIsAmin} from '../store/reducers/userReducer';
-import {fetchCustomerLoans} from '../store/reducers/loanReducer';
+import { checkIsAmin } from '../store/reducers/userReducer';
+import { fetchCustomerLoans } from '../store/reducers/loanReducer';
 
 const HomePage = () => {
   const books = useAppSelector((state) => state.bookReducer.books);
@@ -32,7 +32,7 @@ const HomePage = () => {
         searchTerm: searchTerm,
       })
     );
-    dispatch(checkIsAmin()); 
+    dispatch(checkIsAmin());
     dispatch(fetchCustomerProfile());
     dispatch(fetchCustomerLoans());
   }, [dispatch, searchTerm, sortingOrder]);
@@ -55,11 +55,15 @@ const HomePage = () => {
           </Button>
         )}
       </div>
-      <BookList
-        books={books}
-        sortingOrder={sortingOrder}
-        searchTerm={searchTerm}
-      />
+      {books ? (
+        <BookList
+          books={books}
+          sortingOrder={sortingOrder}
+          searchTerm={searchTerm}
+        />
+      ) : (
+        <Typography variant='h6'>No books found</Typography>
+      )}
       ;
     </div>
   );

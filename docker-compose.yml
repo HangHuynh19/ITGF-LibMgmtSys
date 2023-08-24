@@ -1,0 +1,10 @@
+version: '3'
+services:
+  backend:
+    image: backend-image
+    ports:
+      - '5271:5271' # Map host port to container port
+  frontend:
+    image: lib-mgmt-sys-frontend-image
+    ports:
+      - '3000:80' # Map host port to container port

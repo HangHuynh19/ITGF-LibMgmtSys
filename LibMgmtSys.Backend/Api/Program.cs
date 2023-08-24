@@ -37,10 +37,21 @@ var app = builder.Build();
     }
     app.UseCors("AllowSpecialAccess");
     app.UseExceptionHandler("/error");
+
+    app.Map("/api/v1/message", app =>
+    {
+        app.Run(async context =>
+        {
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync("{\"message\": \"Hello, this is a custom message!\"}");
+        });
+    });
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
-    app.Run();
+
+    var urls = builder.Configuration["Urls"];
+    app.Run(urls);
 }
 
