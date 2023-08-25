@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
                     "AllowSpecialAccess",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:3000")
+                        builder.WithOrigins("http://piu-lib-website.s3-website-eu-west-1.amazonaws.com")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
