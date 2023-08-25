@@ -1,25 +1,18 @@
-# Use the official ASP.NET runtime as a base image
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
-WORKDIR /app
-EXPOSE 5271
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+WORKDIR /App
+EXPOSE 80
+ENV ASPNETCORE_URLS=http://*:80
 
-# Use the official SDK image to build the app
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-COPY ["Api/Api.csproj", "./Api/"]
-COPY ["Application/Application.csproj", "./Application/"]
-COPY ["Contracts/Contracts.csproj", "./Contracts/"]
-COPY ["Domain/Domain.csproj", "./Domain/"]
-COPY ["Infrastructure/Infrastructure.csproj", "./Infrastructure/"]
-RUN dotnet restore "./Api/Api.csproj"
-COPY . .
+# Copy everything
+COPY ./ ./
+# Restore as distinct layers
+RUN dotnet restore
+# Build and publish a release
+RUN cd Infrastructure/
+RUN dotnet publish -c Release -o out
 
-RUN dotnet build "./Api/Api.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "./Api/Api.csproj" -c Release -o /app/publish
-
-# Use the base image again for the final container
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /App
+COPY --from=build-env /App/out .
 ENTRYPOINT ["dotnet", "Api.dll"]

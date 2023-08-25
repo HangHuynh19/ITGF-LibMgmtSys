@@ -54,4 +54,3 @@ var app = builder.Build();
     var urls = builder.Configuration["Urls"];
     app.Run(urls);
 }
-

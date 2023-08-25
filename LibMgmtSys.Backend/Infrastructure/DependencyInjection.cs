@@ -38,7 +38,6 @@ namespace LibMgmtSys.Backend.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ILoanRepository, LoanRepository>();
-            Console.WriteLine("AddPersistence");
             return services;
         }
 

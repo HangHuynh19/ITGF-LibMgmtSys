@@ -1,10 +1,42 @@
-version: '3'
+version: '3.4'
 services:
   backend:
-    image: backend-image
+    container_name: 'aspnetcoreapp'
+    image: backend-image-2
+    build:
+      context: ./LibMgmtSys.Backend
+      dockerfile: Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=User ID=postgres;Password=Meovacarot8.;Port=5432;Database=postgres;
     ports:
-      - '5271:5271' # Map host port to container port
+      - 5271:5271
+    #depends_on:
+      #- db
+    networks:
+      - aspnetcoreapp-network
   frontend:
-    image: lib-mgmt-sys-frontend-image
+    container_name: 'reactapp'
+    image: frontend
+    build:
+      context: ./LibMgmtSys.Frontend
+      dockerfile: Dockerfile
     ports:
-      - '3000:80' # Map host port to container port
+      - 3000:3000
+    depends_on:
+      - backend
+    networks:
+      - aspnetcoreapp-network
+  #db:
+    #container_name: 'db'
+    #image: postgres
+    #restart: always
+    #environment:
+      #POSTGRES_PASSWORD: Meovacarot8.
+      #POSTGRES_DB: postgres
+    #ports:
+      #- 5432:5432
+    #networks:
+      #- aspnetcoreapp-network
+networks:
+  aspnetcoreapp-network:
+    driver: bridge
