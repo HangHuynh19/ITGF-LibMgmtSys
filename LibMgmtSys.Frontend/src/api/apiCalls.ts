@@ -3,7 +3,7 @@ import { User } from '../interfaces/User';
 import { v4 as uuidv4 } from 'uuid';
 import { UpsertBook } from '../interfaces/Book';
 
-const url = 'http://localhost:5271/api/v1';
+const url = 'http://54.74.114.170/api/v1';
 
 const getAllBooks = async <T>(
   sortingOrder: string,
