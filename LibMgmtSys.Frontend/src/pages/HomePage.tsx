@@ -9,6 +9,7 @@ import SortingIconButton from '../components/SortingIconButton';
 import { fetchCustomerProfile } from '../store/reducers/customerReducer';
 import { checkIsAmin } from '../store/reducers/userReducer';
 import { fetchCustomerLoans } from '../store/reducers/loanReducer';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const books = useAppSelector((state) => state.bookReducer.books);
@@ -45,14 +46,15 @@ const HomePage = () => {
           <SearchBar onSearchTermSent={handleSearchTermSent} />
         </div>
         {isAdmin && (
-          <Button
-            className='home-page-container__create-book-btn'
-            variant='contained'
-            color='secondary'
-            href='/books/add-book'
-          >
-            Add Book
-          </Button>
+          <Link to='/books/add-book'>
+            <Button
+              className='home-page-container__create-book-btn'
+              variant='contained'
+              color='secondary'
+            >
+              Add Book
+            </Button>
+          </Link>
         )}
       </div>
       {books ? (
