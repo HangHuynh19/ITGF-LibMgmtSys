@@ -116,7 +116,7 @@ const bookSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchAllBooks.pending, (state, action) => {
+      .addCase(fetchAllBooks.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
@@ -130,7 +130,7 @@ const bookSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(postBook.pending, (state, action) => {
+      .addCase(postBook.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
@@ -143,7 +143,7 @@ const bookSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(putBook.pending, (state, action) => {
+      .addCase(putBook.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
@@ -158,7 +158,7 @@ const bookSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(removeBook.pending, (state, action) => {
+      .addCase(removeBook.pending, (state) => {
         state.loading = true;
         state.error = null;
       })

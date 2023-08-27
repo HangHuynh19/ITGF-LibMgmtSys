@@ -3,8 +3,7 @@ import {
   Box,
   Button,
   IconButton,
-  Toolbar,
-  Typography,
+  Toolbar
 } from '@mui/material';
 import LoginForm from './LoginForm';
 import { useState } from 'react';

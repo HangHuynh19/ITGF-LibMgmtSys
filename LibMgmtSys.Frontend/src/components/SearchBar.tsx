@@ -12,7 +12,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchTermSent }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchTermChange = (
-    event: React.ChangeEvent<{}>,
+    _event: React.ChangeEvent<{}>,
     value: string
   ) => {
     setSearchTerm(value);
@@ -21,8 +21,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchTermSent }) => {
   const onSearchIconClick = () => {
     onSearchTermSent(searchTerm);
   };
-
-  console.log('SearchTerm in SearchBar', searchTerm);
 
   return (
     <Box className='home-page__search-and-sort__search-bar'>

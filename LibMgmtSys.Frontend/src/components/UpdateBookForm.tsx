@@ -39,7 +39,6 @@ const UpdateBookForm = () => {
       borrowingPeriod: borrowingPeriod.value as number,
       quantity: quantity.value as number,
     };
-    //console.log('updateBook input', input);
 
     if (!book) {
       return;
@@ -51,7 +50,6 @@ const UpdateBookForm = () => {
         bookToUpdate: input,
       })
     );
-
     navigate(`/books/${book.id}`);
   };
 

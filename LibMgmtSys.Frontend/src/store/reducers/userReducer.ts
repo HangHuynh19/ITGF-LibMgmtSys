@@ -75,7 +75,7 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(registerUser.pending, (state, action) => {
+      .addCase(registerUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
@@ -87,7 +87,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(checkIsAmin.pending, (state, action) => {
+      .addCase(checkIsAmin.pending, (state) => {
         state.loading = true;
       })
       .addCase(checkIsAmin.fulfilled, (state, action) => {
@@ -99,7 +99,7 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(putUser.pending, (state, action) => {
+      .addCase(putUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(putUser.fulfilled, (state, action) => {

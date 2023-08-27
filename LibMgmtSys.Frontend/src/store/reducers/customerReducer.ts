@@ -24,7 +24,7 @@ export const fetchCustomerProfile = createAsyncThunk(
       }
 
       const response: Customer = await getCustomerProfile(token);
-      //console.log('fetchCustomerProfile', response.errors);
+      
       return response;
     } catch (err) {
       if (axios.isAxiosError(err)) {

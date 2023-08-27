@@ -17,7 +17,6 @@ const SortingIconButton: React.FC<SortingIconButtonProps> = ({
   onSortingOrderSent,
 }) => {
   const [sortingOrder, setSortingOrder] = useState('asc');
-
   const handleSortingOrderChange = (event: SelectChangeEvent<string>) => {
     setSortingOrder(event.target.value);
     onSortingOrderSent(event.target.value);

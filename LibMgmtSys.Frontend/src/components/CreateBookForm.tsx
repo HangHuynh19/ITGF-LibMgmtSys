@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Book, UpsertBook } from '../interfaces/Book';
+import { UpsertBook } from '../interfaces/Book';
 import useInputHook from '../hooks/useInputHook';
 import { useState } from 'react';
 import { Author } from '../interfaces/Author';
@@ -67,15 +67,6 @@ const CreateBookForm = ({
   };
 
   const handleCancel = () => {
-    /* title.reset();
-    isbn.reset();
-    publisher.reset();
-    year.reset();
-    description.reset();
-    borrowingPeriod.reset();
-    quantity.reset();
-    setAuthorIds(new Set<string>());
-    setGenreIds(new Set<string>()); */
     navigate('/');
   };
 
@@ -95,9 +86,8 @@ const CreateBookForm = ({
       borrowingPeriod: borrowingPeriod.value as number,
       quantity: quantity.value as number,
     };
-    console.log('createBook input', input);
-    dispatch(postBook(input));
 
+    dispatch(postBook(input));
     navigate('/');
   };
 

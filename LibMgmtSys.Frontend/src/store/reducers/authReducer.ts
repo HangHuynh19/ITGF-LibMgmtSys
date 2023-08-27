@@ -20,7 +20,6 @@ export const authenticate = createAsyncThunk(
       const response: { token: string } = await loggingIn(email, password);
 
       localStorage.setItem('token', response.token);
-      console.log('authReducer', response);
       return response;
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -44,11 +43,11 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(authenticate.pending, (state, action) => {
+      .addCase(authenticate.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(authenticate.fulfilled, (state, action) => {
+      .addCase(authenticate.fulfilled, (state) => {
         state.isLoading = false;
         state.isLoggedIn = true;
         state.error = null;

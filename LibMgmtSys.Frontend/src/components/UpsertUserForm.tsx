@@ -2,10 +2,8 @@ import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 import useAppDispatch from '../hooks/useAppDispatch';
 import { putUser, registerUser } from '../store/reducers/userReducer';
 import useInputHook from '../hooks/useInputHook';
-import useAppSelector from '../hooks/useAppSelector';
 import { useState } from 'react';
 import { User } from '../interfaces/User';
-import { useNavigate } from 'react-router-dom';
 
 const UpsertUserForm = ({
   formTitle,
@@ -50,7 +48,7 @@ const UpsertUserForm = ({
         email: email.value as string,
         password: password.value as string,
       };
-      console.log(updatedUser);
+    
       await dispatch(
         putUser({
           firstName: firstName.value as string,
@@ -60,7 +58,6 @@ const UpsertUserForm = ({
         })
       );
     }
-
     onClose();
     onFormSubmit();
   };

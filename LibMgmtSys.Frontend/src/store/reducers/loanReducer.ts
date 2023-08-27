@@ -41,7 +41,7 @@ const loanSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchCustomerLoans.pending, (state, action) => {
+      .addCase(fetchCustomerLoans.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchCustomerLoans.fulfilled, (state, action) => {

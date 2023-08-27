@@ -1,11 +1,9 @@
-import { Button, IconButton, Typography } from '@mui/material';
+import {IconButton, Typography } from '@mui/material';
 import useAppSelector from '../hooks/useAppSelector';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { useEffect, useState } from 'react';
-import RegisterForm from '../components/UpsertUserForm';
 import UpsertUserForm from '../components/UpsertUserForm';
-import { User } from '../interfaces/User';
 import { fetchCustomerProfile } from '../store/reducers/customerReducer';
 import useAppDispatch from '../hooks/useAppDispatch';
 import { fetchCustomerLoans } from '../store/reducers/loanReducer';
