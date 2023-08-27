@@ -18,14 +18,11 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Change to frontend directory
-        run: cd .. && ls && cd ./LibMgmtSys.Frontend
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build React app
-        run: npm run build
+      - name: Install dependencies and build React app
+        run: |
+          cd LibMgmtSys.Frontend
+          npm install
+          npm run build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
