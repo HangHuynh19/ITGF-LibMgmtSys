@@ -16,17 +16,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Create appsetting file
+        run: |
+          cd LibMgmtSys.Backend/Api
+          echo '{"ConnectionStrings": ${{ secrets.CONNECTION_STRING }}},"Logging": {"LogLevel": {"Default": "Information","Microsoft.AspNetCore": "Warning"}},"JwtSettings": {"Secret": ${{ secrets.JWT_SECRET }},"ExpirationTimeInMinutes": 60,"Issuer": "LibMgmtSys","Audience": "LibMgmtSys"},"Urls": "http://0.0.0.0:80"}' > appsettings.Development.json
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image to registry
         run: |
           cd LibMgmtSys.Backend
           docker buildx build -t hanghuynh/backend-image-2:latest -f ./Dockerfile . --load
           echo ${{ secrets.DOCKERHUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
           docker push hanghuynh/backend-image-2:latest
 
-      - name: SSH into EC2 instance
+      - name: SSH into EC2 & pull and run latest backend Docker image
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
