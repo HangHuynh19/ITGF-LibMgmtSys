@@ -1,9 +1,11 @@
-name: Build and Deploy Library Management System Application
+name: Build and Deploy Library Management System Application client code
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'LibMgmtSys.Frontend/**'
 
 jobs:
   build-and-deploy-frontend:
