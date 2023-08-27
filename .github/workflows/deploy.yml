@@ -19,9 +19,7 @@ jobs:
           node-version: '18'
 
       - name: Change to frontend directory
-        run: |
-          pwd
-          cd ./LibMgmtSys.Frontend
+        run: cd .. && cd ./LibMgmtSys.Frontend
 
       - name: Install dependencies
         run: npm install
