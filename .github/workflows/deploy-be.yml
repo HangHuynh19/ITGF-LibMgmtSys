@@ -1,4 +1,4 @@
-name: Build and Deploy Library Management System Application server code
+name: Build and Deploy LibMgmtSys server code
 
 on:
   push:
