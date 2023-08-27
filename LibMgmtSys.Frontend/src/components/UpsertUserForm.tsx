@@ -41,14 +41,6 @@ const UpsertUserForm = ({
     }
 
     if (formTitle === 'Edit Profile') {
-      const updatedUser = {
-        id: user?.id,
-        firstName: firstName.value as string,
-        lastName: lastName.value as string,
-        email: email.value as string,
-        password: password.value as string,
-      };
-    
       await dispatch(
         putUser({
           firstName: firstName.value as string,
