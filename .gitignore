@@ -80,8 +80,7 @@ LibMgmtSys.Frontend/.env
 LibMgmtSys.Frontend/npm-debug.log*
 LibMgmtSys.Frontend/yarn-debug.log*
 LibMgmtSys.Frontendd/yarn-error.log*
-LibMgmtSys.Frontend/yarn.lock
-LibMgmtSys.Frontend/package-*.json
+LibMgmtSys.Frontend/yarn.locks
 
 # VS Code files for those working on multiple tools
 .vscode/*
