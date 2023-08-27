@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'LibMgmtSys.Backend/**'
+  workflow_dispatch:
 
 jobs:
   build-and-deploy-backend:
