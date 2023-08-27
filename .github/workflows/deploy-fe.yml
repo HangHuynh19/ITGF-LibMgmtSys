@@ -39,5 +39,4 @@ jobs:
       - name: Upload build to S3 bucket
         run: |
           cd LibMgmtSys.Frontend/build  # Navigate to the build directory
-          aws ec2 describe-instances --instance-id i-04c3864e15990a4f1 --query 'Reservations[0].Instances[0].PublicIpAddress'
           aws s3 sync . s3://${{ secrets.FE_BUCKET_NAME }}/
