@@ -1,4 +1,4 @@
-# Fullstack Project
+# Library Management System Fullstack Project
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-v.4-green)
 ![SASS](https://img.shields.io/badge/SASS-v.4-hotpink)

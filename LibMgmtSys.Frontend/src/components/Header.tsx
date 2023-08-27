@@ -3,7 +3,8 @@ import {
   Box,
   Button,
   IconButton,
-  Toolbar
+  Toolbar,
+  Typography,
 } from '@mui/material';
 import LoginForm from './LoginForm';
 import { useState } from 'react';
@@ -51,6 +52,7 @@ const Header = () => {
       <AppBar position='static' color='secondary'>
         <Toolbar>
           <div style={{ flexGrow: 1 }}>
+            <Typography variant='h4'>Story Vault Library</Typography>
             <img
               src={require('../assets/logo.png')}
               alt='logo'
