@@ -34,7 +34,5 @@ jobs:
           key: ${{ secrets.EC2_PRIVATE_KEY }}
           port: 22
           script: |
-            ls
-            docker ps -a
             docker pull hanghuynh/backend-image-2:latest
             docker run -d -p 80:80 --name backend-container hanghuynh/backend-image-2:latest
