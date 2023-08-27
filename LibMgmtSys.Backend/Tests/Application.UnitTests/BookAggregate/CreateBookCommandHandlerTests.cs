@@ -3,7 +3,6 @@ using LibMgmtSys.Backend.Application.Common.Interfaces.Persistence;
 using LibMgmtSys.Backend.Domain.AuthorAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.AuthorAggregate;
 using Moq;
-using LibMgmtSys.Backend.Domain.BookAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.Common.DomainErrors;
 using LibMgmtSys.Backend.Domain.GenreAggregate;
 using LibMgmtSys.Backend.Domain.GenreAggregate.ValueObjects;
@@ -13,28 +12,43 @@ namespace Tests.Application.UnitTests.BookAggregate
     public class CreateBookCommandHandlerTests
     {
         private readonly CreateBookCommandHandler _handler;
-        private readonly Mock<IBookRepository> _bookRepositoryMock;
-        private readonly Mock<IAuthorRepository> _authorRepositoryMock;
-        private readonly Mock<IGenreRepository> _genreRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
 
         public CreateBookCommandHandlerTests()
         {
-            _bookRepositoryMock = new Mock<IBookRepository>();
-            _authorRepositoryMock = new Mock<IAuthorRepository>();
-            _genreRepositoryMock = new Mock<IGenreRepository>();
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
             _handler = new CreateBookCommandHandler(
-                _bookRepositoryMock.Object, 
-                _authorRepositoryMock.Object, 
-                _genreRepositoryMock.Object);
+                _unitOfWorkMock.Object);
         }
 
         [Fact]
         public async Task Handle_EverythingIsValid_ShouldReturnBook()
         {
             // Arrange
-            var authorIds = new List<AuthorId> { AuthorId.CreateUnique(), AuthorId.CreateUnique() };
-            var genreIds = new List<GenreId> { GenreId.CreateUnique(), GenreId.CreateUnique() };
-            var request = new CreateBookCommand("Title", "Description", "Publisher", authorIds, 1998, genreIds,"Description", new Uri("https://www.google.com/"), 14, 1);
+            var mockBookRepository = new Mock<IBookRepository>();
+            _unitOfWorkMock.Setup(uow => uow.Book).Returns(mockBookRepository.Object);
+            
+            var authorIds = new List<AuthorId>
+            {
+                AuthorId.CreateUnique(), 
+                AuthorId.CreateUnique()
+            };
+            var genreIds = new List<GenreId>
+            {
+                GenreId.CreateUnique(), 
+                GenreId.CreateUnique()
+            };
+            var request = new CreateBookCommand(
+                "Title", 
+                "Description", 
+                "Publisher", 
+                authorIds, 
+                1998, 
+                genreIds,
+                "Description", 
+                new Uri("https://www.google.com/"), 
+                14, 
+                1);
             var authors = new List<Author>
             {
                 Author.Create("Test Name1", "Test Biography1"),
@@ -42,9 +56,9 @@ namespace Tests.Application.UnitTests.BookAggregate
             };
             var genres = new List<Genre> { Genre.Create("Test Genre1"), Genre.Create("Test Genre2") };
             
-            _authorRepositoryMock.Setup(r => r.GetAuthorsByIdsAsync(authorIds))
+            _unitOfWorkMock.Setup(r => r.Author.GetAuthorsByIdsAsync(authorIds))
                 .ReturnsAsync(authors);
-            _genreRepositoryMock.Setup(r => r.GetGenresByIdsAsync(genreIds))
+            _unitOfWorkMock.Setup(r => r.Genre.GetGenresByIdsAsync(genreIds))
                 .ReturnsAsync(genres);
             
             // Act
@@ -82,9 +96,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                 "Test Name",
                 "Test Biography");
             
-            _authorRepositoryMock.Setup(r => r.GetAuthorsByIdsAsync(command.AuthorIds))
+            _unitOfWorkMock.Setup(r => r.Author.GetAuthorsByIdsAsync(command.AuthorIds))
                 .ReturnsAsync(new List<Author> { foundAuthor });
-            _genreRepositoryMock.Setup(r => r.GetGenresByIdsAsync(command.GenreIds))
+            _unitOfWorkMock.Setup(r => r.Genre.GetGenresByIdsAsync(command.GenreIds))
                 .ReturnsAsync(new List<Genre> { Genre.Create("Test Genre") });
             
             var result = await _handler.Handle(command, CancellationToken.None);
@@ -109,9 +123,9 @@ namespace Tests.Application.UnitTests.BookAggregate
                 1);
             var foundGenre = Genre.Create("Test Genre");
             
-            _authorRepositoryMock.Setup(r => r.GetAuthorsByIdsAsync(command.AuthorIds))
+            _unitOfWorkMock.Setup(r => r.Author.GetAuthorsByIdsAsync(command.AuthorIds))
                 .ReturnsAsync(new List<Author> { Author.Create("Test Name", "Test Biography") });
-            _genreRepositoryMock.Setup(r => r.GetGenresByIdsAsync(command.GenreIds))
+            _unitOfWorkMock.Setup(r => r.Genre.GetGenresByIdsAsync(command.GenreIds))
                 .ReturnsAsync(new List<Genre> { foundGenre });
             
             var result = await _handler.Handle(command, CancellationToken.None);

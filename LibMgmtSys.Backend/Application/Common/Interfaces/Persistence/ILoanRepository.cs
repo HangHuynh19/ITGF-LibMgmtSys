@@ -10,7 +10,7 @@ namespace LibMgmtSys.Backend.Application.Common.Interfaces.Persistence
         Task<List<Loan>> GetAllLoansWithPaginationAsync(int pageNumber, int pageSize);
         Task<List<Loan>> GetLoansByCustomerIdAsync(CustomerId customerId);
         Task<Loan> AddLoanAsync(Loan loan);
-        Task<Loan> DeleteLoanAsync(Loan loan);
+        Loan DeleteLoan(Loan loan);
     }
 }
 

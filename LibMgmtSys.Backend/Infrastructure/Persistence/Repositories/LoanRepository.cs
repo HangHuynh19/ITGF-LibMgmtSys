@@ -44,15 +44,15 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence.Repositories
 
         public async Task<Loan> AddLoanAsync(Loan loan)
         {
-            _dbContext.Loans.Add(loan);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.Loans.AddAsync(loan);
+            //await _dbContext.SaveChangesAsync();
             return loan;
         }
 
-        public async Task<Loan> DeleteLoanAsync(Loan loan)
+        public Loan DeleteLoan(Loan loan)
         {
             _dbContext.Remove(loan);
-            await _dbContext.SaveChangesAsync();
+            //await _dbContext.SaveChangesAsync();
             return loan;
         }
     }

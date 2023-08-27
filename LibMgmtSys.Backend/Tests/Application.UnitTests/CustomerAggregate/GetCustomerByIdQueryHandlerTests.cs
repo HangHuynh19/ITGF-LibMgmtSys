@@ -10,13 +10,13 @@ namespace Tests.Application.UnitTests.CustomerAggregate
 {
     public class GetCustomerByIdQueryHandlerTests
     {
-        private readonly Mock<ICustomerRepository> _customerRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly GetCustomerByIdQueryHandler _handler;
 
         public GetCustomerByIdQueryHandlerTests()
         {
-            _customerRepositoryMock = new Mock<ICustomerRepository>();
-            _handler = new GetCustomerByIdQueryHandler(_customerRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _handler = new GetCustomerByIdQueryHandler(_unitOfWorkMock.Object);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace Tests.Application.UnitTests.CustomerAggregate
             var expectedCustomerId = CustomerId.CreateUnique();
             var expectedCustomer = Customer.Create("John", "Doe", "john@mail.com", UserId.CreateUnique());
 
-            _customerRepositoryMock.Setup(r => r.GetCustomerByIdAsync(expectedCustomerId))
+            _unitOfWorkMock.Setup(r => r.Customer.GetCustomerByIdAsync(expectedCustomerId))
                 .ReturnsAsync(expectedCustomer);
 
             var getCustomerByIdQuery = new GetCustomerByIdQuery(expectedCustomerId);
@@ -41,7 +41,7 @@ namespace Tests.Application.UnitTests.CustomerAggregate
             var invalidCustomerId = Guid.Parse("00000000-0000-0000-0000-000000000000");
             var getCustomerByIdQuery = new GetCustomerByIdQuery(CustomerId.Create(invalidCustomerId));
 
-            _customerRepositoryMock.Setup(r => r.GetCustomerByIdAsync(getCustomerByIdQuery.CustomerId))
+            _unitOfWorkMock.Setup(r => r.Customer.GetCustomerByIdAsync(getCustomerByIdQuery.CustomerId))
                 .ReturnsAsync((Customer)null);
 
             var result = await _handler.Handle(getCustomerByIdQuery, CancellationToken.None);

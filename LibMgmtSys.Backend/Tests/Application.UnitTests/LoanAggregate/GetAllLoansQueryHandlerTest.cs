@@ -13,7 +13,7 @@ namespace Tests.Application.UnitTests.LoanAggregate
         public async Task GetAllLoansQueryHandler_ShouldReturnAllLoans()
         {
             // Arrange
-            var loanRepositoryMock = new Mock<ILoanRepository>();
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
             var loan1 = Loan.Create(
                 BookId.CreateUnique(), 
                 CustomerId.CreateUnique(), 
@@ -35,13 +35,13 @@ namespace Tests.Application.UnitTests.LoanAggregate
             );
             var loans = new List<Loan> { loan1, loan2, loan3 };
             
-            loanRepositoryMock.Setup(loanRepository => loanRepository.GetAllLoansWithPaginationAsync(It.IsAny<int>(), It.IsAny<int>()))
+            unitOfWorkMock
+                .Setup(loanRepository => 
+                    loanRepository.Loan.GetAllLoansWithPaginationAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(loans);
             
             var getAllLoansQuery = new GetAllLoansWithPaginationQuery(PageNumber: 1, PageSize: 3);
-            var getAllLoansQueryHandler = new GetAllLoansWithPaginationQueryHandler(
-                loanRepositoryMock.Object
-            );
+            var getAllLoansQueryHandler = new GetAllLoansWithPaginationQueryHandler(unitOfWorkMock.Object);
 
             // Act
             var result = await getAllLoansQueryHandler.Handle(getAllLoansQuery, CancellationToken.None);

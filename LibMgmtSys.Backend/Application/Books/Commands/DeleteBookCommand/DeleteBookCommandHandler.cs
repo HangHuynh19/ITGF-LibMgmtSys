@@ -8,31 +8,24 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.DeleteBookCommand
 {
     public class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, ErrorOr<Book>>
     {
-        private readonly IBookRepository _bookRepository;
-        //private readonly IAuthorRepository _authorRepository;
-        //private readonly IGenreRepository _genreRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public DeleteBookCommandHandler(
-            IBookRepository bookRepository
-            //IAuthorRepository authorRepository,
-            //IGenreRepository genreRepository
-        )
+        public DeleteBookCommandHandler(IUnitOfWork unitOfWork)
         {
-            _bookRepository = bookRepository;
-            //_authorRepository = authorRepository;
-            //_genreRepository = genreRepository;
+            _unitOfWork = unitOfWork;
         }
         
         public async Task<ErrorOr<Book>> Handle(DeleteBookCommand request, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.GetBookByIdAsync(request.BookId);
+            var book = await _unitOfWork.Book.GetBookByIdAsync(request.BookId);
             
             if (book is null)
             {
                 return Errors.Book.BookNotFound;
             }
             
-            await _bookRepository.DeleteBookAsync(book);
+            _unitOfWork.Book.DeleteBook(book);
+            await _unitOfWork.CommitAsync();
             
             return book;
         }

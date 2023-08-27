@@ -11,7 +11,7 @@ namespace Tests.Application.UnitTests.BookAggregate
         public async Task GetAllBooksQueryHandler_ShouldReturnAllBooks()
         {
             // Arrange
-            var bookRepositoryMock = new Mock<IBookRepository>();
+            var unitOfWorkMock = new Mock<IUnitOfWork>();
             var book1 = Book.Create(
                 "Title1",
                 "Isbn1",
@@ -44,7 +44,7 @@ namespace Tests.Application.UnitTests.BookAggregate
             );
             var books = new List<Book> { book1, book2, book3 };
             
-            bookRepositoryMock.Setup(bookRepository => bookRepository
+            unitOfWorkMock.Setup(unitOfWork => unitOfWork.Book
                 .GetAllBooksWithPaginationAsync(
                     It.IsAny<int>(), 
                     It.IsAny<int>(), 
@@ -53,9 +53,7 @@ namespace Tests.Application.UnitTests.BookAggregate
             ).ReturnsAsync(books);
             
             var getAllBooksQuery = new GetAllBooksWithPaginationQuery(PageNumber: 1, PageSize: 3, SortOrder: "desc", SearchTerm: "abc");
-            var getAllBooksQueryHandler = new GetAllBooksWithPaginationQueryHandler(
-                bookRepositoryMock.Object
-            );
+            var getAllBooksQueryHandler = new GetAllBooksWithPaginationQueryHandler(unitOfWorkMock.Object);
 
             // Act
             var result = await getAllBooksQueryHandler.Handle(getAllBooksQuery, CancellationToken.None);

@@ -7,13 +7,13 @@ namespace Tests.Application.UnitTests.AuthorAggregate
 {
     public class GetAllAuthorsQueryHandlerTests
     {
-        private readonly Mock<IAuthorRepository> _authorRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly GetAllAuthorsQueryHandler _getAllAuthorsQueryHandler;
         
         public GetAllAuthorsQueryHandlerTests()
         {
-            _authorRepositoryMock = new Mock<IAuthorRepository>();
-            _getAllAuthorsQueryHandler = new GetAllAuthorsQueryHandler(_authorRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _getAllAuthorsQueryHandler = new GetAllAuthorsQueryHandler(_unitOfWorkMock.Object);
         }
         
         [Fact]
@@ -27,8 +27,9 @@ namespace Tests.Application.UnitTests.AuthorAggregate
                 Author.Create("Author 2", "Biography 2"),
                 Author.Create("Author 3", "Biography 3"),
             };
-            _authorRepositoryMock
-                .Setup(authorRepository => authorRepository.GetAllAuthorsAsync())
+            
+            _unitOfWorkMock
+                .Setup(unitOfWork => unitOfWork.Author.GetAllAuthorsAsync())
                 .ReturnsAsync(expectedAuthors);
             
             // Act

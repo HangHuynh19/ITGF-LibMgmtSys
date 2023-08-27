@@ -9,13 +9,13 @@ namespace Tests.Application.UnitTests.BookAggregate
 {
     public class GetBookByIdQueryHandlerTests
     {
-        private readonly Mock<IBookRepository> _mockBookRepository;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly GetBookByIdQueryHandler _handler;
         
         public GetBookByIdQueryHandlerTests()
         {
-            _mockBookRepository = new Mock<IBookRepository>();
-            _handler = new GetBookByIdQueryHandler(_mockBookRepository.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _handler = new GetBookByIdQueryHandler(_unitOfWorkMock.Object);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace Tests.Application.UnitTests.BookAggregate
             );
             var getBookByIdQuery = new GetBookByIdQuery(expectedBookId);
             
-            _mockBookRepository.Setup(bookRepository => bookRepository.GetBookByIdAsync(expectedBookId))
+            _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Book.GetBookByIdAsync(expectedBookId))
                 .ReturnsAsync(expectedBook);
             
             // Act
@@ -53,7 +53,7 @@ namespace Tests.Application.UnitTests.BookAggregate
             var invalidBookId = Guid.Parse("00000000-0000-0000-0000-000000000000");
             var getBookByIdQuery = new GetBookByIdQuery(BookId.Create(invalidBookId));
             
-            _mockBookRepository.Setup(bookRepository => bookRepository.GetBookByIdAsync(getBookByIdQuery.Id))
+            _unitOfWorkMock.Setup(unitOfWork => unitOfWork.Book.GetBookByIdAsync(getBookByIdQuery.Id))
                 .ReturnsAsync((Book)null);
             
             // Act

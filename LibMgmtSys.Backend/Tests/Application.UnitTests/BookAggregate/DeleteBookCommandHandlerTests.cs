@@ -9,13 +9,13 @@ namespace Tests.Application.UnitTests.BookAggregate;
 
 public class DeleteBookCommandHandlerTests
 {
-    private readonly Mock<IBookRepository> _bookRepositoryMock;
+    private readonly Mock<IUnitOfWork> _unitOfWorkMock;
     private readonly DeleteBookCommandHandler _deleteBookCommandHandler;
     
     public DeleteBookCommandHandlerTests()
     {
-        _bookRepositoryMock = new Mock<IBookRepository>();
-        _deleteBookCommandHandler = new DeleteBookCommandHandler(_bookRepositoryMock.Object);
+        _unitOfWorkMock = new Mock<IUnitOfWork>();
+        _deleteBookCommandHandler = new DeleteBookCommandHandler(_unitOfWorkMock.Object);
     }
 
     [Fact]
@@ -31,13 +31,12 @@ public class DeleteBookCommandHandlerTests
             10,
             new Uri("https://www.google.com"));
         
-        _bookRepositoryMock.Setup(x => x.GetBookByIdAsync(book.Id)).ReturnsAsync(book);
-        
+        _unitOfWorkMock.Setup(x => x.Book.GetBookByIdAsync(book.Id)).ReturnsAsync(book);
         var result = await _deleteBookCommandHandler.Handle(new DeleteBookCommand(book.Id), CancellationToken.None);
         
         Assert.False(result.IsError);
         Assert.Equal(book, result.Value);
-        _bookRepositoryMock.Verify(r => r.DeleteBookAsync(book), Times.Once);
+        _unitOfWorkMock.Verify(r => r.Book.DeleteBook(book), Times.Once);
     }
 
     [Fact]
@@ -45,7 +44,7 @@ public class DeleteBookCommandHandlerTests
     {
         var bookId = BookId.CreateUnique();
         
-        _bookRepositoryMock.Setup(x => x.GetBookByIdAsync(bookId)).ReturnsAsync((Book)null);
+        _unitOfWorkMock.Setup(x => x.Book.GetBookByIdAsync(bookId)).ReturnsAsync((Book)null);
         
         var result = await _deleteBookCommandHandler.Handle(new DeleteBookCommand(bookId), CancellationToken.None);
         

@@ -8,17 +8,17 @@ namespace LibMgmtSys.Backend.Application.Loans.Queries.GetAllLoansQuery
     public class GetAllLoansWithPaginationQueryHandler 
         : IRequestHandler<GetAllLoansWithPaginationQuery, ErrorOr<List<Loan>>>
     {
-        private readonly ILoanRepository _loanRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public GetAllLoansWithPaginationQueryHandler(ILoanRepository loanRepository)
+        public GetAllLoansWithPaginationQueryHandler(IUnitOfWork unitOfWork)
         {
-            _loanRepository = loanRepository;
+            _unitOfWork = unitOfWork;
         }
-
+        
         public async Task<ErrorOr<List<Loan>>> Handle(GetAllLoansWithPaginationQuery request,
             CancellationToken cancellationToken)
         {
-            return await _loanRepository.GetAllLoansWithPaginationAsync(request.PageNumber, request.PageSize);
+            return await _unitOfWork.Loan.GetAllLoansWithPaginationAsync(request.PageNumber, request.PageSize);
         }
     }
 }

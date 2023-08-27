@@ -8,16 +8,16 @@ namespace LibMgmtSys.Backend.Application.Books.Queries.GetBookByIdQuery
 {
     public class GetBookByIdQueryHandler : IRequestHandler<GetBookByIdQuery, ErrorOr<Book>>
     {
-        private readonly IBookRepository _bookRepository;
-    
-        public GetBookByIdQueryHandler(IBookRepository bookRepository)
+        private readonly IUnitOfWork _unitOfWork;
+        
+        public GetBookByIdQueryHandler(IUnitOfWork unitOfWork)
         {
-            _bookRepository = bookRepository;
+            _unitOfWork = unitOfWork;
         }
         
         public async Task<ErrorOr<Book>> Handle(GetBookByIdQuery request, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.GetBookByIdAsync(request.Id);
+            var book = await _unitOfWork.Book.GetBookByIdAsync(request.Id);
             
             if (book is null)
             {

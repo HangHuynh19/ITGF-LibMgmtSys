@@ -8,13 +8,13 @@ namespace Tests.Application.UnitTests.BookAggregate
 {
     public class GetBooksByIdsQueryHandlerTests
     {
-        private readonly Mock<IBookRepository> _bookRepositoryMock;
+        private readonly Mock<IUnitOfWork> _unitOfWorkMock;
         private readonly GetBooksByIdsQueryHandler _handler;
         
         public GetBooksByIdsQueryHandlerTests()
         {
-            _bookRepositoryMock = new Mock<IBookRepository>();
-            _handler = new GetBooksByIdsQueryHandler(_bookRepositoryMock.Object);
+            _unitOfWorkMock = new Mock<IUnitOfWork>();
+            _handler = new GetBooksByIdsQueryHandler(_unitOfWorkMock.Object);
         }
         
         [Fact]
@@ -62,7 +62,7 @@ namespace Tests.Application.UnitTests.BookAggregate
             };
             var getBooksByIdsQuery = new GetBooksByIdsQuery(bookIds);
             
-            _bookRepositoryMock.Setup(r => r.GetBooksByIdsAsync(bookIds))
+            _unitOfWorkMock.Setup(r => r.Book.GetBooksByIdsAsync(bookIds))
                 .ReturnsAsync(expectedBooks);
             
             // Act

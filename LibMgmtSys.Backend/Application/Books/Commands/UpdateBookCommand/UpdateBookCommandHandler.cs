@@ -9,24 +9,16 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
 {
     public class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, ErrorOr<Book>>
     {
-        private readonly IBookRepository _bookRepository;
-        private readonly IAuthorRepository _authorRepository;
-        private readonly IGenreRepository _genreRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
-        public UpdateBookCommandHandler(
-            IBookRepository bookRepository,
-            IAuthorRepository authorRepository,
-            IGenreRepository genreRepository
-        )
+        public UpdateBookCommandHandler(IUnitOfWork unitOfWork)
         {
-            _bookRepository = bookRepository;
-            _authorRepository = authorRepository;
-            _genreRepository = genreRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ErrorOr<Book>> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
         {
-            var book = await _bookRepository.GetBookByIdAsync(BookId.Create(Guid.Parse(command.Id)));
+            var book = await _unitOfWork.Book.GetBookByIdAsync(BookId.Create(Guid.Parse(command.Id)));
             
             if (book is null)
             {
@@ -65,8 +57,9 @@ namespace LibMgmtSys.Backend.Application.Books.Commands.UpdateBookCommand
                 command.BorrowingPeriod,
                 command.Quantity
             );
-
-            await _bookRepository.UpdateBookAsync(book);
+            
+            await _unitOfWork.Book.UpdateBookAsync(book);
+            await _unitOfWork.CommitAsync();
             
             return book;
         }

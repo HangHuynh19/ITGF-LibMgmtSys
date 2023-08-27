@@ -8,25 +8,26 @@ namespace LibMgmtSys.Backend.Application.Users.Commands.DeleteUserCommand
 {
     public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, ErrorOr<User>>
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUnitOfWork _unitOfWork;
         
         public DeleteUserCommandHandler(
-            IUserRepository userRepository
+            IUnitOfWork unitOfWork
         )
         {
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
         
         public async Task<ErrorOr<User>> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetUserByIdAsync(request.UserId);
+            var user = await _unitOfWork.User.GetUserByIdAsync(request.UserId);
             
             if (user is null)
             {
                 return Errors.User.UserNotFound;
             }
             
-            await _userRepository.DeleteUserAsync(user);
+            _unitOfWork.User.DeleteUser(user);
+            await _unitOfWork.CommitAsync();
             
             return user;
         }
