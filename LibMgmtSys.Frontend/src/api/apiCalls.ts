@@ -2,7 +2,7 @@ import axios from 'axios';
 import { User } from '../interfaces/User';
 import { UpsertBook } from '../interfaces/Book';
 
-const url = 'http://3.249.217.176/api/v1';
+const url = `http://${process.env.REACT_APP_BASE_URL}/api/v1`;
 
 const getAllBooks = async <T>(
   sortingOrder: string,

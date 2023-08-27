@@ -22,6 +22,8 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies and build React app
+        env:
+          REACT_APP_BASE_URL: ${{ secrets.REACT_APP_BASE_URL }}
         run: |
           cd LibMgmtSys.Frontend
           npm install
