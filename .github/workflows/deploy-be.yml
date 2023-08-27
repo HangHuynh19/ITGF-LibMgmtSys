@@ -21,11 +21,11 @@ jobs:
           cd LibMgmtSys.Backend/Api
           echo '{"ConnectionStrings": {"DefaultConnection": ${{ secrets.CONNECTION_STRING }}},"Logging": {"LogLevel": {"Default": "Information","Microsoft.AspNetCore": "Warning"}},"JwtSettings": {"Secret": ${{ secrets.JWT_SECRET }},"ExpirationTimeInMinutes": 60,"Issuer": "LibMgmtSys","Audience": "LibMgmtSys"},"Urls": "http://0.0.0.0:80"}' > appsettings.Development.json
 
-      -name: Test backend code
+      - name: Test backend code
         run: |
           cd LibMgmtSys.Backend
           dotnet test
-          
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
