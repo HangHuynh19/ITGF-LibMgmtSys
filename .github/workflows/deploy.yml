@@ -33,4 +33,5 @@ jobs:
 
       - name: Upload build to S3 bucket
         run: |
-          aws s3 sync build/ s3://${{ secrets.FE_BUCKET_NAME }}/
+          cd LibMgmtSys.Frontend/build  # Navigate to the build directory
+          aws s3 sync . s3://${{ secrets.FE_BUCKET_NAME }}/
