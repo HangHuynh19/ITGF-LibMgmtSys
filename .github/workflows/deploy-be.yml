@@ -19,7 +19,7 @@ jobs:
       - name: Create appsetting file
         run: |
           cd LibMgmtSys.Backend/Api
-          echo '{"ConnectionStrings": ${{ secrets.CONNECTION_STRING }}},"Logging": {"LogLevel": {"Default": "Information","Microsoft.AspNetCore": "Warning"}},"JwtSettings": {"Secret": ${{ secrets.JWT_SECRET }},"ExpirationTimeInMinutes": 60,"Issuer": "LibMgmtSys","Audience": "LibMgmtSys"},"Urls": "http://0.0.0.0:80"}' > appsettings.Development.json
+          echo '{"ConnectionStrings": ${{ secrets.CONNECTION_STRING }},"Logging": {"LogLevel": {"Default": "Information","Microsoft.AspNetCore": "Warning"}},"JwtSettings": {"Secret": ${{ secrets.JWT_SECRET }},"ExpirationTimeInMinutes": 60,"Issuer": "LibMgmtSys","Audience": "LibMgmtSys"},"Urls": "http://0.0.0.0:80"}' > appsettings.Development.json
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
