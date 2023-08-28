@@ -43,7 +43,7 @@
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.Author.CreateAuthorCommandHandlerTests.Handle_WhenBookIdsAreInvalid_ShouldReturnBookNotFound&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3a61ddad_002D0306_002D42d5_002Db58c_002D9abc43ce45b8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Handle_ValidRequest_ReturnsBook #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3a61ddad_002D0306_002D42d5_002Db58c_002D9abc43ce45b8/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_ValidRequest_ReturnsBook #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.LoanAggregate.CreateLoanCommandHandlerTests.Handle_ValidRequest_ReturnsBook&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.GenreAggregate.GetAllGenresQueryHandlerTests.Handle_ShouldReturnListOfGenres_WhenRequestIsValid&lt;/TestId&gt;
@@ -54,6 +54,7 @@
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.GenreAggregate.CreateGenreCommandTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.DeleteBookCommandHandlerTests.Handle_ValidBookId_ReturnsBook&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.LoanAggregate.DeleteLoanCommandHandlerTests.Handle_WhenLoanFound_ReturnsLoan&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.IntegrationTests.AuthenticationIntegrationTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=67f91a92_002Dbf51_002D4840_002D8001_002Dbfc0ff8cb26a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_WhenBookIdsAreInvalid_ShouldReturnBookNotFound #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
@@ -71,6 +72,11 @@
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.DeleteBookCommandHandlerTests.Handle_ValidBookId_ReturnsBookNotFound&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=858c58ae_002D0004_002D483d_002Da0d6_002D8c727c349c14/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Can_Register_User" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.IntegrationTests.AuthenticationIntegrationTests.Can_Register_User&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f9a298b9_002D7627_002D4258_002D8a15_002Dde7bba18ee71/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Handle_ValidRequest_ReturnsBook" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.LoanAggregate.CreateLoanCommandHandlerTests.Handle_ValidRequest_ReturnsBook&lt;/TestId&gt;
@@ -78,5 +84,7 @@
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.AuthorAggregate.GetAllAuthorsQueryHandlerTests.Handle_ShouldReturnListOfAuthors_WhenRequestIsValid&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.BookAggregate.CreateBookCommandHandlerTests.Handle_EverythingIsValid_ShouldReturnBook&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.UserAggregate.UpdateUserCommandHandlerTests.Handle_UserFound_ReturnsUser&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.UnitTests.UserAggregate.UpdateUserCommandHandlerTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::222603FF-4AC4-4CCF-ACBD-1212698BFA9E::net7.0::Tests.Application.IntegrationTests.AuthenticationIntegrationTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
