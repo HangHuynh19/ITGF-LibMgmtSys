@@ -19,7 +19,7 @@ jobs:
       - name: Create appsetting file
         run: |
           cd LibMgmtSys.Backend/Api
-          echo '{"ConnectionStrings": {"DefaultConnection": ${{ secrets.CONNECTION_STRING }}},"Logging": {"LogLevel": {"Default": "Information","Microsoft.AspNetCore": "Warning"}},"JwtSettings": {"Secret": ${{ secrets.JWT_SECRET }},"ExpirationTimeInMinutes": 60,"Issuer": "LibMgmtSys","Audience": "LibMgmtSys"},"Urls": "http://0.0.0.0:80", "BackendUrl": "http://3.249.217.176", "FrontendUrl": "http://piu-lib-website.s3-website-eu-west-1.amazonaws.com"}' > appsettings.Development.json
+          echo '{"ConnectionStrings": {"DefaultConnection": ${{ secrets.CONNECTION_STRING }}},"Logging": {"LogLevel": {"Default": "Information","Microsoft.AspNetCore": "Warning"}},"JwtSettings": {"Secret": ${{ secrets.JWT_SECRET }},"ExpirationTimeInMinutes": 60,"Issuer": "LibMgmtSys","Audience": "LibMgmtSys"},"Urls": "http://0.0.0.0:80", "BackendUrl": "http://3.249.217.176"}' > appsettings.Development.json
 
       - name: Test backend code
         run: |
