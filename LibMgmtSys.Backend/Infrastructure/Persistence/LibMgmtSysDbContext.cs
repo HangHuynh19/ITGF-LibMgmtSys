@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 using LibMgmtSys.Backend.Domain.AuthorAggregate;
 using LibMgmtSys.Backend.Domain.BillAggregate;
@@ -21,7 +22,6 @@ using LibMgmtSys.Backend.Domain.LoanAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.UserAggregate.ValueObjects;
 using LibMgmtSys.Backend.Domain.Common.ValueObjects;
 using LibMgmtSys.Backend.Domain.UserAggregate.Enum;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace LibMgmtSys.Backend.Infrastructure.Persistence
 {
@@ -84,17 +84,6 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.Id).ValueGeneratedNever().HasConversion(e => e.Value, e => AuthorId.Create(e));
                 entity.Property(e => e.Name).IsRequired();
                 entity.Property(e => e.Biography).IsRequired();
-                /*entity.HasMany(e => e.Books).WithMany(e => e.Authors).UsingEntity<Dictionary<string, object>>(
-                    "book_author",
-                    e => e.HasOne<Book>().WithMany().HasForeignKey("bookId").OnDelete(DeleteBehavior.Cascade),
-                    e => e.HasOne<Author>().WithMany().HasForeignKey("authorId").OnDelete(DeleteBehavior.Cascade),
-                    e =>
-                    {
-                        e.HasKey("bookId", "authorId");
-                        e.HasIndex("authorId");
-                    }
-                );*/
-                //entity.HasMany(e => e.Books).WithMany(e => e.Authors);
             });
 
             modelBuilder.Entity<Genre>(entity =>
@@ -117,8 +106,6 @@ namespace LibMgmtSys.Backend.Infrastructure.Persistence
                 entity.Property(e => e.CustomerId).HasConversion(e => e.Value, e => CustomerId.Create(e));
                 entity.HasOne(e => e.Book).WithMany(e => e.BookReviews);
             });
-
-            //modelBuilder.HasPostgresEnum<Role>();
 
             modelBuilder.Entity<User>(entity =>
             {
