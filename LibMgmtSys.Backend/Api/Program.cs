@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
                     corsPolicyBuilder =>
                     {
                         corsPolicyBuilder
-                            .WithOrigins(Environment.GetEnvironmentVariable("FrontendUrl") ?? "http://localhost:3000")
+                            .AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
