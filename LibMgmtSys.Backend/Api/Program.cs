@@ -11,10 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
             {
                 options.AddPolicy(
                     "AllowSpecialAccess",
-                    builder =>
+                    corsPolicyBuilder =>
                     {
-                        builder
-                            .WithOrigins(Environment.GetEnvironmentVariable("FRONTEND_URL") ?? "http://localhost:3000")
+                        corsPolicyBuilder
+                            .WithOrigins(Environment.GetEnvironmentVariable("FrontendUrl") ?? "http://localhost:3000")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
