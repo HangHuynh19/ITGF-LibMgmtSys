@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
                     corsPolicyBuilder =>
                     {
                         corsPolicyBuilder
-                            .WithOrigins(Environment.GetEnvironmentVariable("FrontendUrl") ?? "http://localhost:3000")
+                            .WithOrigins("http://piu-lib-website.s3-website-eu-west-1.amazonaws.com")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
