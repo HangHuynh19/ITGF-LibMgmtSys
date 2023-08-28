@@ -1,14 +1,11 @@
 using LibMgmtSys.Backend.Api;
 using LibMgmtSys.Backend.Infrastructure;
-using LibMgmtSys.Backend.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 using LibMgmtSys.Backend.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 {
     builder.Configuration.AddJsonFile("appsettings.Development.json");
     builder.Services
-        //.AddEndpointsApiExplorer()
         .AddSwaggerGen()
         .AddCors(options =>
             {
@@ -16,13 +13,13 @@ var builder = WebApplication.CreateBuilder(args);
                     "AllowSpecialAccess",
                     builder =>
                     {
-                        builder.WithOrigins("http://piu-lib-website.s3-website-eu-west-1.amazonaws.com")
+                        builder
+                            .WithOrigins(Environment.GetEnvironmentVariable("FRONTEND_URL") ?? "http://localhost:3000")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
             }
         )
-        //.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly))
         .AddPresentation()
         .AddApplication()
         .AddInfrastructure(builder.Configuration);
@@ -43,16 +40,14 @@ var app = builder.Build();
         app.Run(async context =>
         {
             context.Response.ContentType = "application/json";
-            await context.Response.WriteAsync("{\"message\": \"Hello, this is a custom message!\"}");
+            await context.Response.WriteAsync("{\"message\": \"Welcome to Story Vault Library Management System!\"}");
         });
     });
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
     app.MapControllers();
-
-    var urls = builder.Configuration["Urls"];
-    app.Run(urls);
+    app.Run();
 }
 
 public partial class Program { }
