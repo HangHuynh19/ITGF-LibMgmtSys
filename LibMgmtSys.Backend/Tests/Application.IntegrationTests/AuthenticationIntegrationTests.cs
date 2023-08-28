@@ -25,7 +25,7 @@ namespace Tests.Application.IntegrationTests
                 Encoding.UTF8,
                 "application/json"
             );
-            var response = await client.PostAsync("/api/v1/auth/register", content);
+            var response = await client.PostAsync("http://3.249.217.176/api/v1/auth/register", content);
 
             response.EnsureSuccessStatusCode();
         }
@@ -34,13 +34,13 @@ namespace Tests.Application.IntegrationTests
         public async Task Can_Login_User()
         {
             var client = _factory.CreateClient();
-            var loginRequest = new LoginRequest("thanh@mail.com", "12345678");
+            var loginRequest = new LoginRequest("ble@mail.com", "12345678");
             var content = new StringContent(
                 JsonConvert.SerializeObject(loginRequest),
                 Encoding.UTF8,
                 "application/json"
             );
-            var response = await client.PostAsync("/api/v1/auth/login", content);
+            var response = await client.PostAsync("http://3.249.217.176/api/v1/auth/login", content);
             
             response.EnsureSuccessStatusCode();
         }
